@@ -188,7 +188,7 @@ endpoint('/cases/{case_id}/treatment-options','get','listTreatmentOptions','Lire
 endpoint('/configuration','get','getConfiguration','Lire profil sans secrets','Configuration',permission='configuration:read')
 endpoint('/configuration/changes','post','changeConfiguration','Changer profil avec contrôle de capacités','Configuration','Configuration','configuration:admin',match=True)
 extend_api(globals())
-api={'openapi':'3.1.0','info':{'title':'MediKristal API — cible documentaire','version':'0.2.0','description':'Contrat étendu des opérations centrales ; non implémenté dans ce dossier. Les contrôles sémantiques restent obligatoires.'},'servers':[{'url':'http://localhost:8000/api/v1','description':'Développement local uniquement ; déploiement distant sous TLS.'}],'paths':paths,'components':{'schemas':components,'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer','description':'Jeton local ou OIDC vérifié côté serveur.'}}}}
+api={'openapi':'3.1.0','info':{'title':'MediKristal API — cible documentaire','version':'0.2.0','description':'Contrat étendu des opérations centrales, implémenté par le runtime de référence synthétique. Les contrôles sémantiques restent obligatoires.'},'servers':[{'url':'http://localhost:8000/api/v1','description':'Développement local uniquement ; déploiement distant sous TLS.'}],'paths':paths,'components':{'schemas':components,'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer','description':'Jeton local ou OIDC vérifié côté serveur.'}}}}
 (ROOT/'contracts/openapi.json').write_text(json.dumps(api,ensure_ascii=False,indent=2)+'\n')
 
 # Exemples cohérents et explicitement synthétiques.

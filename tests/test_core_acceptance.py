@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from medikristal import synthetic as syn
+
 from .helpers import assert_schema, evaluate_binary, new_case, observation_body, post
 
 
@@ -51,7 +53,7 @@ def test_at006_score_is_not_probability(client, all_headers):
     case=new_case(client,all_headers)
     models=client.get('/api/v1/knowledge/models',headers=all_headers).json()['items']
     score=next(m for m in models if m['id']=='synthetic-score')
-    body={"case_revision":case['revision'],"knowledge_release":{"id":"synthetic-release","version":"0.1.0","digest":"sha256:"+'a'*64},"model_refs":[{"id":score['id'],"version":score['version'],"digest":score['digest']}],"evaluation_time":"2026-09-22T12:00:00Z","intended_use":"engineering"}
+    body={"case_revision":case['revision'],"knowledge_release":dict(syn.SYN_RELEASE),"model_refs":[{"id":score['id'],"version":score['version'],"digest":score['digest']}],"evaluation_time":"2026-09-22T12:00:00Z","intended_use":"engineering"}
     r=post(client,f"/cases/{case['id']}/evaluations",all_headers,body,"score-eval",case['revision'])
     assert r.status_code==202
     ev=client.get('/api/v1/evaluations/'+r.json()['result_ref'],headers=all_headers).json()

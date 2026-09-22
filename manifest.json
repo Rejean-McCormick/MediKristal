@@ -1,26 +1,202 @@
 {
-  "format": "medikristal.documentation-manifest/1",
+  "format": "medikristal.delivery-manifest/2",
   "document_version": "1.1",
+  "api_version": "0.2.0",
   "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 103,
+      "sha256": "666107a6a2c5ce2d48687009b8a932ecfa394f01762d31ca4949e81e7b99641e"
+    },
     {
       "path": "AGENTS.md",
       "bytes": 4288,
       "sha256": "827b29e25dfd053b28e2d31230db164b0375bdfab5cff17222df532778f18260"
     },
     {
+      "path": "APP_VALIDATION.md",
+      "bytes": 3892,
+      "sha256": "fe56b378e9b2ca718317d8e4b29b5ea251627891258e3ba930390a7f5c8cec28"
+    },
+    {
       "path": "CHANGELOG.md",
-      "bytes": 1509,
-      "sha256": "c858d55eb12914dd00f4802dbcf8578aa68751f5889874f548f744de89c17480"
+      "bytes": 2528,
+      "sha256": "01fb33e46271139e02ab751bdd5aed04a5e39dbae94b5c954be8866c983d1dbb"
+    },
+    {
+      "path": "IMPLEMENTATION.md",
+      "bytes": 5181,
+      "sha256": "4182387d0565cc6d30a0ecad156597c62a93217f087c1fd85148b2abcc60f240"
+    },
+    {
+      "path": "Makefile",
+      "bytes": 746,
+      "sha256": "c845a5d829bbb7d2cf564e2cd607a9e508a3ab6e31e489ca238018f535fca7a5"
     },
     {
       "path": "README.md",
-      "bytes": 4064,
-      "sha256": "adfedbea57870ebe254577b5e9dae97a30c7bd5a2605e97e5b4c5f824ab30041"
+      "bytes": 5305,
+      "sha256": "8f3991c61e30ca278d81c67ecca1a1c8b99168d84ef702e2026250e40a51ab9d"
     },
     {
       "path": "VALIDATION.md",
-      "bytes": 9149,
-      "sha256": "7ad01ade61511e82b75b19e02ae93520df8b6f899ccb7425b99c185ce1a39e16"
+      "bytes": 9710,
+      "sha256": "f8ad0c13c7df7ea60adeeac95902ed79bf975d95d00277be6a7c7f3503ec962d"
+    },
+    {
+      "path": "backend/Dockerfile",
+      "bytes": 604,
+      "sha256": "a1bd485309e6bc12f43c77bdc7be24a8686bcdfc2fdca1adcd8f15a29c28b204"
+    },
+    {
+      "path": "backend/alembic/env.py",
+      "bytes": 1128,
+      "sha256": "ab8e2dd8e8c2b59bf487357ea945aec524b193dbe81fe00dc039e7940928ac52"
+    },
+    {
+      "path": "backend/alembic/script.py.mako",
+      "bytes": 495,
+      "sha256": "926f43dd685a865a48f0af9c8c233e5445c7dd144dacc6ae773d9b63259044e8"
+    },
+    {
+      "path": "backend/alembic/versions/0001_initial.py",
+      "bytes": 4585,
+      "sha256": "2dccf5acef1bd96ff8ce8c932173da7b03646ac667f643e54ff80b6c45cab3a1"
+    },
+    {
+      "path": "backend/alembic/versions/0002_integrity.py",
+      "bytes": 3006,
+      "sha256": "bc4b5ec52530cb709394fb94e0e0125a3679c794c22c57afb23bb088473129eb"
+    },
+    {
+      "path": "backend/alembic.ini",
+      "bytes": 610,
+      "sha256": "84a733f4dffd5b8db41df0f5bf9ddde7df70d1aead509e208d481f63d71965d6"
+    },
+    {
+      "path": "backend/medikristal/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "backend/medikristal/_assets/contracts/domain.schema.json",
+      "bytes": 108102,
+      "sha256": "60d64bcc2de17cf2b2b67968b11cc806500140a2da69e010c93aa78ad341a005"
+    },
+    {
+      "path": "backend/medikristal/_assets/contracts/openapi.json",
+      "bytes": 171458,
+      "sha256": "5b3b9e29cce3888e3e92eae0e78f1567a2a35fff7d9c96e7473c7b1ad8fbf2ff"
+    },
+    {
+      "path": "backend/medikristal/_assets/contracts/traceability.json",
+      "bytes": 20107,
+      "sha256": "b1fac8403edca878993d19b0897e1a3df74454f6fe14bfc05446c56c9b896431"
+    },
+    {
+      "path": "backend/medikristal/_assets/frontend/app.js",
+      "bytes": 17903,
+      "sha256": "47b2b959271071aacbc5e4dc5d17b0f6130e3b658060e439a9de1568b14908a7"
+    },
+    {
+      "path": "backend/medikristal/_assets/frontend/index.html",
+      "bytes": 8949,
+      "sha256": "bd49ad5d54441dd0572a51dadfa06d0c961d2eaec250e1cbc00d6b33a545d6b9"
+    },
+    {
+      "path": "backend/medikristal/_assets/frontend/styles.css",
+      "bytes": 3511,
+      "sha256": "ac09eca3f5a1c15ae2697babfa553be7f4ef6438fb4444ba622f44bdc029aec4"
+    },
+    {
+      "path": "backend/medikristal/adapters.py",
+      "bytes": 4384,
+      "sha256": "3423e59fa66b0e4d81bd5fdc6a88155dc23fff39cd873a87d7e536e58100a417"
+    },
+    {
+      "path": "backend/medikristal/api.py",
+      "bytes": 108903,
+      "sha256": "cdb50092a2c4a7d1f74c0bfc2ef8d33741227940f7b46d14c21d28c2deb635b1"
+    },
+    {
+      "path": "backend/medikristal/app.py",
+      "bytes": 3618,
+      "sha256": "7b18c3ba99382d246f0eb6927d783c0ceda9042eefa87a37c53c321d4933e28d"
+    },
+    {
+      "path": "backend/medikristal/config.py",
+      "bytes": 2291,
+      "sha256": "92e70d9c5bf558e72468db8ac0bdc3fbcf215c93ea38c238d91d2c13c05816bb"
+    },
+    {
+      "path": "backend/medikristal/contracts.py",
+      "bytes": 1756,
+      "sha256": "50b34b516a9768508cd9be00ce0e778b75df12f60dcef87f3531fcbc1ba48195"
+    },
+    {
+      "path": "backend/medikristal/db.py",
+      "bytes": 9226,
+      "sha256": "6bdbd39626b8996b6929c7e40f33af900223d84681f2e3d00d7dfb3b9f4f20e5"
+    },
+    {
+      "path": "backend/medikristal/errors.py",
+      "bytes": 1004,
+      "sha256": "1c48cbf916978dc02753dda52065aa5c5f796d0ace226a4121a0018deb9230d3"
+    },
+    {
+      "path": "backend/medikristal/importers.py",
+      "bytes": 7361,
+      "sha256": "4db818b5276d26dc22a2e53ac9381ecbe94c2cbd59b0c606bd72d6cdfcb9034d"
+    },
+    {
+      "path": "backend/medikristal/planning.py",
+      "bytes": 2100,
+      "sha256": "98cc36591dcd004caf892649269033d35e2e6c95386da9998af5adaad9f51388"
+    },
+    {
+      "path": "backend/medikristal/provider_budget.py",
+      "bytes": 4867,
+      "sha256": "97ab57b1620355ebe6846519ad5714ad72ee70b46f585043bbb75eadc3145c7a"
+    },
+    {
+      "path": "backend/medikristal/security.py",
+      "bytes": 2922,
+      "sha256": "576bcf55f6876fb500bf083b6e18fe87022820fed583e68cbd9ccf25a94d1ec1"
+    },
+    {
+      "path": "backend/medikristal/store.py",
+      "bytes": 14766,
+      "sha256": "e2a15c10ecac206a603bc06ce4e70a26c0124fd04a363895461dbe8e132e82b4"
+    },
+    {
+      "path": "backend/medikristal/synthetic.py",
+      "bytes": 12302,
+      "sha256": "2f8950efab1860731338bebf3571a1ef6d052b262b18d0e99264c31fff0b84b0"
+    },
+    {
+      "path": "backend/medikristal/token_cli.py",
+      "bytes": 1157,
+      "sha256": "4704059f92b6c9de81dac7010d8e885f62c9df93ad102890a7c3efa35c65353f"
+    },
+    {
+      "path": "backend/medikristal/util.py",
+      "bytes": 698,
+      "sha256": "9fdbbd0464210244786b6cdf10463c007e50663981af04d5858d14679f7278ff"
+    },
+    {
+      "path": "backend/medikristal/worker.py",
+      "bytes": 5164,
+      "sha256": "53a0fab36deda95e1c290b14d18f46bb9869de95e8e332c214c3c0ad11ee178c"
+    },
+    {
+      "path": "backend/pyproject.toml",
+      "bytes": 591,
+      "sha256": "e5181171de8e7114e48c5248f1cbbe8b9f93aac4d04dac27653a4dbb4de511a6"
+    },
+    {
+      "path": "backend/requirements.lock",
+      "bytes": 142,
+      "sha256": "56d068e00244920e327ef271eb378cc51e92269d18f85e84f4fc9578405ff30e"
     },
     {
       "path": "contracts/README.md",
@@ -34,13 +210,23 @@
     },
     {
       "path": "contracts/openapi.json",
-      "bytes": 171436,
-      "sha256": "3be4b8c089a95f680605b82f25717c4b1de804aec298b59141ee0ff6b3693855"
+      "bytes": 171458,
+      "sha256": "5b3b9e29cce3888e3e92eae0e78f1567a2a35fff7d9c96e7473c7b1ad8fbf2ff"
     },
     {
       "path": "contracts/traceability.json",
       "bytes": 20107,
       "sha256": "b1fac8403edca878993d19b0897e1a3df74454f6fe14bfc05446c56c9b896431"
+    },
+    {
+      "path": "deploy/.env.example",
+      "bytes": 288,
+      "sha256": "b7df79105900d50a1dd3026de71b3f8e2911b568177aed393eba12e1ba66a9ae"
+    },
+    {
+      "path": "deploy/docker-compose.yml",
+      "bytes": 1836,
+      "sha256": "783a3595a20483a43a5dbf1d9edac16031239520fc2e7da7ff72f2d5af6240fd"
     },
     {
       "path": "docs/01-vision.md",
@@ -129,8 +315,8 @@
     },
     {
       "path": "docs/18-tests.md",
-      "bytes": 6010,
-      "sha256": "fe16397e9cefe66bdf73442642c3228b3b4dbf713109cfc096da7d8e921b905b"
+      "bytes": 6392,
+      "sha256": "85409b2b11d3057f725489049c079fa20337a50b024d579532bd83a4dee674dd"
     },
     {
       "path": "docs/19-delivery.md",
@@ -169,8 +355,8 @@
     },
     {
       "path": "docs/26-coverage.md",
-      "bytes": 4096,
-      "sha256": "fc472713c36046525e7fbf1f6d5dcbbecb009bb0b961fa2a9a895dc238ddb0cf"
+      "bytes": 4241,
+      "sha256": "17d5ff3f99e49625ce8cef81d3613d02440ca9b497c556ea05be4760d871d58d"
     },
     {
       "path": "docs/27-connectors.md",
@@ -283,14 +469,129 @@
       "sha256": "befb9d7c84ab1e23429942973345073f8dafe46fbe8534aab51688032391467c"
     },
     {
+      "path": "frontend/app.js",
+      "bytes": 17903,
+      "sha256": "47b2b959271071aacbc5e4dc5d17b0f6130e3b658060e439a9de1568b14908a7"
+    },
+    {
+      "path": "frontend/index.html",
+      "bytes": 8949,
+      "sha256": "bd49ad5d54441dd0572a51dadfa06d0c961d2eaec250e1cbc00d6b33a545d6b9"
+    },
+    {
+      "path": "frontend/styles.css",
+      "bytes": 3511,
+      "sha256": "ac09eca3f5a1c15ae2697babfa553be7f4ef6438fb4444ba622f44bdc029aec4"
+    },
+    {
+      "path": "sbom.cdx.json",
+      "bytes": 3762,
+      "sha256": "9e765de13189f87775dc2bec5506e6b15d69fd72905227660127b0ae40811075"
+    },
+    {
+      "path": "scripts/import_local_catalog.py",
+      "bytes": 3134,
+      "sha256": "8cf6f65355d871be71bf676ad8a6238aa6c517c54efa542b2d3fb8b0228f75ce"
+    },
+    {
+      "path": "scripts/stage_blob.py",
+      "bytes": 1232,
+      "sha256": "c425855c005ced10e3697415501d5b3f6ad3d18ae0c14f6b73b898d149670cda"
+    },
+    {
       "path": "source-snapshots.json",
       "bytes": 1149,
       "sha256": "be4ed4dec2841ba1e61a2897b54d80498793dc5463b87460cc47927b7b73dd06"
     },
     {
+      "path": "tests/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/conftest.py",
+      "bytes": 1865,
+      "sha256": "e45123d8c0e17f4f34cafe121143b5faa69be04a1d55878d684316534891765a"
+    },
+    {
+      "path": "tests/helpers.py",
+      "bytes": 2602,
+      "sha256": "f376f15b93d39025298e8c3ba97211f3bd99ac6e6ee4b46c3e7e4a8c76a1bee0"
+    },
+    {
+      "path": "tests/test_acceptance_matrix_explicit.py",
+      "bytes": 2723,
+      "sha256": "a7b6c93f0fa7c09fa19b86db0bc776bc3d0eb80f7306a7e330a9b6424886cef4"
+    },
+    {
+      "path": "tests/test_completion_depth.py",
+      "bytes": 8303,
+      "sha256": "4758d85ab8a5387bd568d47037e7880d5342f387415d4483519638974a00d650"
+    },
+    {
+      "path": "tests/test_consolidated_regressions.py",
+      "bytes": 14923,
+      "sha256": "84aabfbbfe166ddfbe5afb00de9a636a9c63a7af43d0c204b3ac71830f373b7f"
+    },
+    {
+      "path": "tests/test_contract_runtime_parity.py",
+      "bytes": 2175,
+      "sha256": "009c663503f04d4889b5c8ed09ece37d37920ad061028807f45c3f96c85f6cd3"
+    },
+    {
+      "path": "tests/test_core_acceptance.py",
+      "bytes": 4647,
+      "sha256": "536920dda696b92d1217a2472a0fd887cf52b3fc77ead4d31af8dbd97b392d3a"
+    },
+    {
+      "path": "tests/test_integrity_expanded.py",
+      "bytes": 19625,
+      "sha256": "fbef7383fb00765d03ed7773424d79e6089b139930e4253e301db23f2b067acf"
+    },
+    {
+      "path": "tests/test_operational_depth.py",
+      "bytes": 10896,
+      "sha256": "db6862d795bbfaa9c7e45b41d54efe7deea69e4f4cd85000b512a975e891b7ed"
+    },
+    {
+      "path": "tests/test_provider_budget.py",
+      "bytes": 1761,
+      "sha256": "768992d09460a88e0fafc53e17e66f3af0826a2d3e9e97a30027336fa72520c3"
+    },
+    {
+      "path": "tests/test_resources_and_followup.py",
+      "bytes": 5426,
+      "sha256": "6f8230888aaa71e24b2c64447544fb08732edd535141c8bed3a3c66c6c9f0af4"
+    },
+    {
+      "path": "tests/test_security_and_modes.py",
+      "bytes": 3926,
+      "sha256": "a3f3812a90229137de551c938d096d48d03d2d59b9b2ae9fbe687fd7e22e4906"
+    },
+    {
+      "path": "tests/test_treatment_contributions_workflow.py",
+      "bytes": 3459,
+      "sha256": "9d87774194324cb15c98ad1f161715379e78e3c3ea559a8364ced817bb4000b1"
+    },
+    {
+      "path": "tests/test_ui_and_runtime_hardening.py",
+      "bytes": 12141,
+      "sha256": "38f4dbe388db12eed8494c49fadf18d9a4e01838968db125a0003f1bd9d9eb30"
+    },
+    {
       "path": "tools/build_contracts.py",
-      "bytes": 31847,
-      "sha256": "7a10ca7935c8539bb8c8d15db5b91c99b452d7f2e28fd20bdf67854d56b2eb5c"
+      "bytes": 31869,
+      "sha256": "1ff67862d016f70a87adb83b5ab98b2c02f9507f249152e1efd73e415d76dfd7"
+    },
+    {
+      "path": "tools/build_manifest.py",
+      "bytes": 1606,
+      "sha256": "06f83b8d9acc0a41849f2c20c4eb3520a9369058d9143b80ef37f6edb4150386"
+    },
+    {
+      "path": "tools/build_sbom.py",
+      "bytes": 4782,
+      "sha256": "544200a9bf8755bc91dbfa968a78c0985f90f18383df1357851dbe38fe293f31"
     },
     {
       "path": "tools/contract_extensions.py",
@@ -298,15 +599,19 @@
       "sha256": "e8f31321a49361739a3b3f749586732c0bb40d0ac172644d5e3907f20f1434d1"
     },
     {
+      "path": "tools/sync_runtime_assets.py",
+      "bytes": 813,
+      "sha256": "6596861341bbc96230ad8ccef91cfa35fb276241567ad54799019683b15377fb"
+    },
+    {
       "path": "tools/validate_reference.py",
-      "bytes": 11584,
-      "sha256": "db31a8f23cc87fa5f1cdfc960fc8bfb5360597c978086f08fb9aaf1d6ed9c2d2"
+      "bytes": 11640,
+      "sha256": "6703927e65937cafc4ca3d3a074b7ceb9e0a19502868622c43349acc844f0187"
     },
     {
       "path": "validation-report.json",
-      "bytes": 20911,
-      "sha256": "3a393f0cb37160548d40dc91720af155937ebebb1be8cb3edcedb840f5c7807b"
+      "bytes": 21829,
+      "sha256": "83f6023b799c3996e7021a884906d96d004cb261cf3ab0a18ca0b84c75da0f34"
     }
-  ],
-  "note": "Manifeste exclu de sa liste ; empreintes documentaires uniquement."
+  ]
 }

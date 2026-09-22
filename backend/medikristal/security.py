@@ -22,6 +22,7 @@ class AuthContext:
     tenant_id: str
     principal_id: str
     permissions: frozenset[str]
+    case_grants: frozenset[str] = frozenset()
 
     def permits(self, permission: str | None) -> bool:
         if permission is None:
@@ -46,6 +47,7 @@ def decode_token(token: str) -> AuthContext:
             tenant_id="00000000-0000-4000-8000-000000000001",
             principal_id="test-principal",
             permissions=frozenset({"*"}),
+            case_grants=frozenset({"*"}),
         )
     try:
         payload_b64, signature_b64 = token.split(".", 1)
@@ -60,6 +62,7 @@ def decode_token(token: str) -> AuthContext:
             tenant_id=str(payload["tenant_id"]),
             principal_id=str(payload["principal_id"]),
             permissions=frozenset(str(x) for x in payload.get("permissions", [])),
+            case_grants=frozenset(str(x) for x in payload.get("case_grants", [])),
         )
     except Exception as exc:
         raise DomainError("authentication_required", 401, "Jeton d'accès invalide ou expiré.") from exc

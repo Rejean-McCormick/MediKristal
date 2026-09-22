@@ -1,0 +1,150 @@
+{
+  "bomFormat": "CycloneDX",
+  "components": [
+    {
+      "bom-ref": "pkg:pypi/fastapi@0.128.2",
+      "name": "fastapi",
+      "properties": [
+        {
+          "name": "medikristal:source",
+          "value": "backend/requirements.lock"
+        }
+      ],
+      "purl": "pkg:pypi/fastapi@0.128.2",
+      "type": "library",
+      "version": "0.128.2"
+    },
+    {
+      "bom-ref": "pkg:pypi/pydantic@2.13.4",
+      "name": "pydantic",
+      "properties": [
+        {
+          "name": "medikristal:source",
+          "value": "backend/requirements.lock"
+        }
+      ],
+      "purl": "pkg:pypi/pydantic@2.13.4",
+      "type": "library",
+      "version": "2.13.4"
+    },
+    {
+      "bom-ref": "pkg:pypi/sqlalchemy@2.0.50",
+      "name": "SQLAlchemy",
+      "properties": [
+        {
+          "name": "medikristal:source",
+          "value": "backend/requirements.lock"
+        }
+      ],
+      "purl": "pkg:pypi/sqlalchemy@2.0.50",
+      "type": "library",
+      "version": "2.0.50"
+    },
+    {
+      "bom-ref": "pkg:pypi/alembic@1.18.4",
+      "name": "alembic",
+      "properties": [
+        {
+          "name": "medikristal:source",
+          "value": "backend/requirements.lock"
+        }
+      ],
+      "purl": "pkg:pypi/alembic@1.18.4",
+      "type": "library",
+      "version": "1.18.4"
+    },
+    {
+      "bom-ref": "pkg:pypi/uvicorn@0.48.0",
+      "name": "uvicorn",
+      "properties": [
+        {
+          "name": "medikristal:source",
+          "value": "backend/requirements.lock"
+        }
+      ],
+      "purl": "pkg:pypi/uvicorn@0.48.0",
+      "type": "library",
+      "version": "0.48.0"
+    },
+    {
+      "bom-ref": "pkg:pypi/orjson@3.11.9",
+      "name": "orjson",
+      "properties": [
+        {
+          "name": "medikristal:source",
+          "value": "backend/requirements.lock"
+        }
+      ],
+      "purl": "pkg:pypi/orjson@3.11.9",
+      "type": "library",
+      "version": "3.11.9"
+    },
+    {
+      "bom-ref": "pkg:pypi/jsonschema@4.26.0",
+      "name": "jsonschema",
+      "properties": [
+        {
+          "name": "medikristal:source",
+          "value": "backend/requirements.lock"
+        }
+      ],
+      "purl": "pkg:pypi/jsonschema@4.26.0",
+      "type": "library",
+      "version": "4.26.0"
+    },
+    {
+      "bom-ref": "pkg:pypi/psycopg@3.3.6",
+      "name": "psycopg",
+      "properties": [
+        {
+          "name": "medikristal:source",
+          "value": "backend/requirements.lock"
+        },
+        {
+          "name": "medikristal:extras",
+          "value": "binary"
+        }
+      ],
+      "purl": "pkg:pypi/psycopg@3.3.6",
+      "type": "library",
+      "version": "3.3.6"
+    }
+  ],
+  "dependencies": [
+    {
+      "dependsOn": [
+        "pkg:pypi/fastapi@0.128.2",
+        "pkg:pypi/pydantic@2.13.4",
+        "pkg:pypi/sqlalchemy@2.0.50",
+        "pkg:pypi/alembic@1.18.4",
+        "pkg:pypi/uvicorn@0.48.0",
+        "pkg:pypi/orjson@3.11.9",
+        "pkg:pypi/jsonschema@4.26.0",
+        "pkg:pypi/psycopg@3.3.6"
+      ],
+      "ref": "pkg:pypi/medikristal@0.2.0"
+    }
+  ],
+  "metadata": {
+    "component": {
+      "bom-ref": "pkg:pypi/medikristal@0.2.0",
+      "name": "medikristal",
+      "purl": "pkg:pypi/medikristal@0.2.0",
+      "type": "application",
+      "version": "0.2.0"
+    },
+    "properties": [
+      {
+        "name": "medikristal:requirements-lock-sha256",
+        "value": "56d068e00244920e327ef271eb378cc51e92269d18f85e84f4fc9578405ff30e"
+      },
+      {
+        "name": "medikristal:scope-note",
+        "value": "Declared direct dependencies only; artifact hashes and licenses must come from the deployment wheelhouse/image attestation."
+      }
+    ]
+  },
+  "serialNumber": "urn:uuid:f40faa6e-e18b-53c9-8afb-ead9a7201b00",
+  "specVersion": "1.5",
+  "version": 1
+}

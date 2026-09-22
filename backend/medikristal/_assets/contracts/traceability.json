@@ -1,0 +1,714 @@
+{
+  "format": "medikristal.traceability/1",
+  "document_version": "1.1",
+  "entries": [
+    {
+      "requirement": "MK-001",
+      "status": "specified",
+      "chapters": [
+        "docs/02-architecture.md",
+        "docs/12-modes.md"
+      ],
+      "schemas": [
+        "ClinicalCase",
+        "Configuration"
+      ],
+      "operations": [
+        "createCase",
+        "getConfiguration"
+      ],
+      "interface": "Cas local",
+      "event": "configuration.changed",
+      "acceptance_tests": [
+        "AT-001"
+      ],
+      "delivery_lot": "L0",
+      "acceptance": "Installer le corpus synthétique et bloquer le WAN ; exécuter cas→évaluation→proposition. Le parcours aboutit sans appel externe ni kOA."
+    },
+    {
+      "requirement": "MK-002",
+      "status": "specified",
+      "chapters": [
+        "docs/12-modes.md",
+        "docs/17-operations.md"
+      ],
+      "schemas": [
+        "Configuration",
+        "ProviderPolicy"
+      ],
+      "operations": [
+        "changeConfiguration",
+        "getCapabilities"
+      ],
+      "interface": "Administration / modes",
+      "event": "configuration.changed",
+      "acceptance_tests": [
+        "AT-002"
+      ],
+      "delivery_lot": "L10",
+      "acceptance": "Changer de profil offline à gratuit connecté puis étendu ; le fournisseur payant reste interdit tant que sa politique et son budget ne l’autorisent pas."
+    },
+    {
+      "requirement": "MK-003",
+      "status": "specified",
+      "chapters": [
+        "docs/15-interfaces.md",
+        "docs/31-ui-acceptance.md"
+      ],
+      "schemas": [
+        "Capabilities",
+        "ClinicalCase"
+      ],
+      "operations": [
+        "getCapabilities",
+        "getCase"
+      ],
+      "interface": "Quatre parcours et API",
+      "event": "none_read_only",
+      "acceptance_tests": [
+        "AT-003"
+      ],
+      "delivery_lot": "L9",
+      "acceptance": "Ouvrir le même cas sous patient, professionnel habilité, chercheur sans grant et admin ressources. Seuls les accès explicitement autorisés sont accordés."
+    },
+    {
+      "requirement": "MK-004",
+      "status": "specified",
+      "chapters": [
+        "docs/05-sources.md",
+        "docs/27-connectors.md"
+      ],
+      "schemas": [
+        "Source",
+        "ImportReport"
+      ],
+      "operations": [
+        "registerSource",
+        "getImportReport"
+      ],
+      "interface": "Import / provenance",
+      "event": "import.completed",
+      "acceptance_tests": [
+        "AT-004"
+      ],
+      "delivery_lot": "L2",
+      "acceptance": "Importer deux versions d’une source ; l’ancienne observation retrouve toujours sa version et son brut, même après activation de la nouvelle release."
+    },
+    {
+      "requirement": "MK-005",
+      "status": "specified",
+      "chapters": [
+        "docs/06-knowledge.md",
+        "docs/27-connectors.md"
+      ],
+      "schemas": [
+        "Concept",
+        "Assertion"
+      ],
+      "operations": [
+        "searchConcepts",
+        "searchAssertions"
+      ],
+      "interface": "Connaissances / mappings",
+      "event": "knowledge.published",
+      "acceptance_tests": [
+        "AT-005"
+      ],
+      "delivery_lot": "L2",
+      "acceptance": "Soumettre un mapping plus large ; il reste qualifié comme tel et ne satisfait pas une recherche exigeant une équivalence exacte."
+    },
+    {
+      "requirement": "MK-006",
+      "status": "specified",
+      "chapters": [
+        "docs/07-inference.md"
+      ],
+      "schemas": [
+        "HypothesisResult",
+        "Evaluation"
+      ],
+      "operations": [
+        "evaluateCase",
+        "getEvaluation"
+      ],
+      "interface": "Hypothèses",
+      "event": "evaluation.completed",
+      "acceptance_tests": [
+        "AT-006"
+      ],
+      "delivery_lot": "L3",
+      "acceptance": "Fournir un score de similarité sans modèle probabiliste ; aucun pourcentage clinique ne sort. Le modèle synthétique binaire donne son oracle documenté."
+    },
+    {
+      "requirement": "MK-007",
+      "status": "specified",
+      "chapters": [
+        "docs/04-case.md",
+        "docs/30-operational-contracts.md"
+      ],
+      "schemas": [
+        "Observation",
+        "ResultReceipt"
+      ],
+      "operations": [
+        "amendObservation",
+        "receiveResultBatch"
+      ],
+      "interface": "Résultats / chronologie",
+      "event": "observation.amended",
+      "acceptance_tests": [
+        "AT-007"
+      ],
+      "delivery_lot": "L1",
+      "acceptance": "Corriger un résultat utilisé par un plan ; ancienne version conservée, dépendances périmées et réévaluation créée sans double comptage."
+    },
+    {
+      "requirement": "MK-008",
+      "status": "specified",
+      "chapters": [
+        "docs/08-pathways.md",
+        "docs/28-optimization.md"
+      ],
+      "schemas": [
+        "ActionProposal",
+        "Plan"
+      ],
+      "operations": [
+        "listProposals",
+        "comparePlans"
+      ],
+      "interface": "Prochaines actions",
+      "event": "proposal.superseded",
+      "acceptance_tests": [
+        "AT-008"
+      ],
+      "delivery_lot": "L6",
+      "acceptance": "Comparer une question, une surveillance et un test sous un protocole synthétique. L’action n’utilisant pas de machine reste sélectionnable."
+    },
+    {
+      "requirement": "MK-009",
+      "status": "specified",
+      "chapters": [
+        "docs/09-resources.md",
+        "docs/28-optimization.md"
+      ],
+      "schemas": [
+        "CostQuote",
+        "Plan"
+      ],
+      "operations": [
+        "createCostQuote",
+        "listCostQuotes"
+      ],
+      "interface": "Coûts / comparaison",
+      "event": "cost_quote.created",
+      "acceptance_tests": [
+        "AT-009"
+      ],
+      "delivery_lot": "L6",
+      "acceptance": "Comparer coût nul déclaré et coût absent ; seul le premier vaut zéro. Deux perspectives distinctes ne sont pas additionnées."
+    },
+    {
+      "requirement": "MK-010",
+      "status": "specified",
+      "chapters": [
+        "docs/09-resources.md"
+      ],
+      "schemas": [
+        "Booking",
+        "ResourceCapability"
+      ],
+      "operations": [
+        "requestBooking",
+        "getBooking"
+      ],
+      "interface": "Réservations",
+      "event": "booking.updated",
+      "acceptance_tests": [
+        "AT-010"
+      ],
+      "delivery_lot": "L7",
+      "acceptance": "Deux demandes tentent le dernier créneau. Une seule confirmation est admise ; timeout après création distante déclenche recherche du reçu, sans double réservation."
+    },
+    {
+      "requirement": "MK-011",
+      "status": "specified",
+      "chapters": [
+        "docs/10-treatment.md",
+        "docs/30-operational-contracts.md"
+      ],
+      "schemas": [
+        "TreatmentOption",
+        "CarePlan"
+      ],
+      "operations": [
+        "evaluateTreatments",
+        "createCarePlan"
+      ],
+      "interface": "Traitements",
+      "event": "care_plan.changed",
+      "acceptance_tests": [
+        "AT-011"
+      ],
+      "delivery_lot": "L5",
+      "acceptance": "Allergie requise inconnue : option needs_information. Créer un plan ne produit aucune prescription ou administration implicite."
+    },
+    {
+      "requirement": "MK-012",
+      "status": "specified",
+      "chapters": [
+        "docs/11-contributions.md"
+      ],
+      "schemas": [
+        "Contribution"
+      ],
+      "operations": [
+        "submitContribution",
+        "reviewContribution"
+      ],
+      "interface": "Atelier scientifique",
+      "event": "contribution.updated",
+      "acceptance_tests": [
+        "AT-012"
+      ],
+      "delivery_lot": "L8",
+      "acceptance": "Déposer une correction de modèle puis la réviser ; le modèle actif ne change pas avant construction, admission et activation séparées."
+    },
+    {
+      "requirement": "MK-013",
+      "status": "specified",
+      "chapters": [
+        "docs/13-api.md",
+        "docs/14-integrations.md"
+      ],
+      "schemas": [
+        "Observation",
+        "ForeignRef"
+      ],
+      "operations": [
+        "recordObservation",
+        "getEvaluation"
+      ],
+      "interface": "API / intégrations",
+      "event": "observation.recorded",
+      "acceptance_tests": [
+        "AT-013"
+      ],
+      "delivery_lot": "L11",
+      "acceptance": "Importer puis exporter une fixture du profil partenaire ; l’unité, la date et la version sont conservées ou la perte est déclarée et bloque le profil concerné."
+    },
+    {
+      "requirement": "MK-014",
+      "status": "specified",
+      "chapters": [
+        "docs/14-integrations.md"
+      ],
+      "schemas": [
+        "KnowledgeRelease",
+        "ExportRequest"
+      ],
+      "operations": [
+        "exportKnowledge"
+      ],
+      "interface": "Publication",
+      "event": "knowledge.exported",
+      "acceptance_tests": [
+        "AT-014"
+      ],
+      "delivery_lot": "L11",
+      "acceptance": "Exporter une connaissance synthétique vers le schéma Kristal épinglé ; vérifier la conformance et l’absence de contenu patient."
+    },
+    {
+      "requirement": "MK-015",
+      "status": "specified",
+      "chapters": [
+        "docs/16-security.md"
+      ],
+      "schemas": [
+        "ClinicalCase"
+      ],
+      "operations": [
+        "getCase"
+      ],
+      "interface": "Tous écrans",
+      "event": "audit.accessed",
+      "acceptance_tests": [
+        "AT-015"
+      ],
+      "delivery_lot": "L1",
+      "acceptance": "Rejouer un UUID connu depuis un autre tenant ; aucun contenu ni existence sensible ne fuit, y compris via listes et messages d’erreur."
+    },
+    {
+      "requirement": "MK-016",
+      "status": "specified",
+      "chapters": [
+        "docs/07-inference.md",
+        "docs/25-implementation-details.md"
+      ],
+      "schemas": [
+        "Evaluation"
+      ],
+      "operations": [
+        "evaluateCase"
+      ],
+      "interface": "Explication / rejeu",
+      "event": "evaluation.completed",
+      "acceptance_tests": [
+        "AT-016"
+      ],
+      "delivery_lot": "L3",
+      "acceptance": "Rejouer mêmes entrées, modèles, horloge et seed ; obtenir le même résultat selon la tolérance documentée. Modifier un artefact change son digest."
+    },
+    {
+      "requirement": "MK-017",
+      "status": "specified",
+      "chapters": [
+        "docs/12-modes.md"
+      ],
+      "schemas": [
+        "ProviderPolicy",
+        "ProviderUsage"
+      ],
+      "operations": [
+        "setProviderPolicy",
+        "getProviderUsage"
+      ],
+      "interface": "Fournisseurs / budget",
+      "event": "provider.usage_changed",
+      "acceptance_tests": [
+        "AT-017"
+      ],
+      "delivery_lot": "L10",
+      "acceptance": "Deux appels concurrents réservent le dernier budget ; un seul passe. Facturation incertaine conserve la réserve jusqu’à réconciliation."
+    },
+    {
+      "requirement": "MK-018",
+      "status": "specified",
+      "chapters": [
+        "docs/07-inference.md",
+        "docs/24-errors.md"
+      ],
+      "schemas": [
+        "Evaluation",
+        "Error"
+      ],
+      "operations": [
+        "getEvaluation"
+      ],
+      "interface": "Hypothèses / erreurs",
+      "event": "evaluation.completed",
+      "acceptance_tests": [
+        "AT-018"
+      ],
+      "delivery_lot": "L3",
+      "acceptance": "Retirer le modèle applicable ; afficher non couvert ou insufficient_data, sans probabilité zéro ni affirmation de sécurité."
+    },
+    {
+      "requirement": "MK-019",
+      "status": "specified",
+      "chapters": [
+        "docs/18-tests.md",
+        "docs/19-delivery.md"
+      ],
+      "schemas": [
+        "Capabilities"
+      ],
+      "operations": [
+        "getCapabilities"
+      ],
+      "interface": "Statut du déploiement",
+      "event": "none_read_only",
+      "acceptance_tests": [
+        "AT-019"
+      ],
+      "delivery_lot": "L12",
+      "acceptance": "Une suite de tests logiciels verte ne change jamais le statut clinique. La capacité expose ses preuves et limites réelles."
+    },
+    {
+      "requirement": "MK-020",
+      "status": "specified",
+      "chapters": [
+        "docs/02-architecture.md",
+        "docs/32-build-order.md"
+      ],
+      "schemas": [
+        "Capabilities"
+      ],
+      "operations": [
+        "getCapabilities"
+      ],
+      "interface": "Administration / capacités",
+      "event": "none_read_only",
+      "acceptance_tests": [
+        "AT-020"
+      ],
+      "delivery_lot": "L0",
+      "acceptance": "Remplacer un adaptateur par un autre conforme au port sur fixtures ; le noyau ne dépend pas de ses types internes et la compatibilité est mesurée."
+    },
+    {
+      "requirement": "MK-021",
+      "status": "specified",
+      "chapters": [
+        "docs/21-diagnostics.md",
+        "docs/27-connectors.md"
+      ],
+      "schemas": [
+        "ProcedureEntry"
+      ],
+      "operations": [
+        "createProcedureEntry",
+        "listProcedureEntry"
+      ],
+      "interface": "Catalogue diagnostique",
+      "event": "catalog.changed",
+      "acceptance_tests": [
+        "AT-021"
+      ],
+      "delivery_lot": "L2",
+      "acceptance": "Créer acte et composants de panel distincts ; empêcher un cycle de composition et une substitution non admise."
+    },
+    {
+      "requirement": "MK-022",
+      "status": "specified",
+      "chapters": [
+        "docs/09-resources.md",
+        "docs/28-optimization.md"
+      ],
+      "schemas": [
+        "Plan"
+      ],
+      "operations": [
+        "comparePlans"
+      ],
+      "interface": "Ordonnancement",
+      "event": "plan.compared",
+      "acceptance_tests": [
+        "AT-022"
+      ],
+      "delivery_lot": "L7",
+      "acceptance": "Changer prix et moyen de paiement en gardant les données cliniques ; probabilité et priorité clinique restent identiques."
+    },
+    {
+      "requirement": "MK-023",
+      "status": "specified",
+      "chapters": [
+        "docs/12-modes.md",
+        "docs/16-security.md"
+      ],
+      "schemas": [
+        "Configuration"
+      ],
+      "operations": [
+        "changeConfiguration"
+      ],
+      "interface": "Modes",
+      "event": "configuration.changed",
+      "acceptance_tests": [
+        "AT-023"
+      ],
+      "delivery_lot": "L10",
+      "acceptance": "Passer en mode payant sous rôle patient ; aucune permission de prescription ou commande institutionnelle supplémentaire."
+    },
+    {
+      "requirement": "MK-024",
+      "status": "specified",
+      "chapters": [
+        "docs/06-knowledge.md",
+        "docs/11-contributions.md"
+      ],
+      "schemas": [
+        "ReleaseDecision"
+      ],
+      "operations": [
+        "decideRelease",
+        "activateRelease"
+      ],
+      "interface": "Publications",
+      "event": "knowledge.revoked",
+      "acceptance_tests": [
+        "AT-024"
+      ],
+      "delivery_lot": "L8",
+      "acceptance": "Révoquer une release en cours d’usage ; bloquer nouvelles exécutions concernées, conserver historique et ouvrir analyse d’impact."
+    },
+    {
+      "requirement": "MK-025",
+      "status": "specified",
+      "chapters": [
+        "docs/13-api.md",
+        "docs/30-operational-contracts.md"
+      ],
+      "schemas": [
+        "Assertion",
+        "Evaluation",
+        "CarePlan"
+      ],
+      "operations": [
+        "searchAssertions",
+        "getEvaluation",
+        "getCarePlan"
+      ],
+      "interface": "API externe",
+      "event": "none_read_only",
+      "acceptance_tests": [
+        "AT-025"
+      ],
+      "delivery_lot": "L11",
+      "acceptance": "Un client sans interface web récupère connaissance sourcée, évaluation expliquée et suivi autorisé ; les permissions restent propres à chaque niveau."
+    },
+    {
+      "requirement": "MK-026",
+      "status": "specified",
+      "chapters": [
+        "docs/28-optimization.md"
+      ],
+      "schemas": [
+        "OptimizationPolicy",
+        "Plan"
+      ],
+      "operations": [
+        "comparePlans",
+        "listOptimizationPolicies"
+      ],
+      "interface": "Comparateur",
+      "event": "plan.compared",
+      "acceptance_tests": [
+        "AT-026"
+      ],
+      "delivery_lot": "L6",
+      "acceptance": "Sur arbre synthétique B=20 puis A=500 dans 30 % des branches, calculer 170. Une contrainte impérative violée exclut B malgré le prix ; timeout ne donne pas optimal."
+    },
+    {
+      "requirement": "MK-027",
+      "status": "specified",
+      "chapters": [
+        "docs/29-automation.md"
+      ],
+      "schemas": [
+        "WorkflowRun"
+      ],
+      "operations": [
+        "createWorkflow",
+        "transitionWorkflow"
+      ],
+      "interface": "Parcours professionnel",
+      "event": "workflow.changed",
+      "acceptance_tests": [
+        "AT-027"
+      ],
+      "delivery_lot": "L4",
+      "acceptance": "Panne après outbox puis reprise : une seule activation d’étape. Révocation de délégation avant envoi empêche la commande."
+    },
+    {
+      "requirement": "MK-028",
+      "status": "specified",
+      "chapters": [
+        "docs/30-operational-contracts.md"
+      ],
+      "schemas": [
+        "FollowUpTask",
+        "CarePlan"
+      ],
+      "operations": [
+        "createFollowUp",
+        "transitionFollowUp"
+      ],
+      "interface": "Traitements / suivi",
+      "event": "followup.changed",
+      "acceptance_tests": [
+        "AT-028"
+      ],
+      "delivery_lot": "L5",
+      "acceptance": "Recevoir un résultat après clôture ; une tâche durable avec responsabilité est créée ou un incident propriétaire manquant est visible. Notification envoyée ne clôt pas la tâche."
+    },
+    {
+      "requirement": "MK-029",
+      "status": "specified",
+      "chapters": [
+        "docs/30-operational-contracts.md"
+      ],
+      "schemas": [
+        "Site",
+        "ManagedResource",
+        "ProcedureEntry"
+      ],
+      "operations": [
+        "reviseSite",
+        "reviseManagedResource",
+        "reviseProcedureEntry"
+      ],
+      "interface": "Administration / catalogues",
+      "event": "catalog.changed",
+      "acceptance_tests": [
+        "AT-029"
+      ],
+      "delivery_lot": "L6",
+      "acceptance": "Retirer une machine réservée ; conserver réservation et historique, signaler impact et déclencher replanification autorisée."
+    },
+    {
+      "requirement": "MK-030",
+      "status": "specified",
+      "chapters": [
+        "docs/27-connectors.md"
+      ],
+      "schemas": [
+        "ImportReport"
+      ],
+      "operations": [
+        "importSource",
+        "getImportReport"
+      ],
+      "interface": "Imports",
+      "event": "import.completed",
+      "acceptance_tests": [
+        "AT-030"
+      ],
+      "delivery_lot": "L2",
+      "acceptance": "Une colonne requise disparaît : import en échec/quarantaine sans modification du corpus actif ; reprendre un fichier valide ne duplique aucune ligne."
+    },
+    {
+      "requirement": "MK-031",
+      "status": "specified",
+      "chapters": [
+        "docs/31-ui-acceptance.md"
+      ],
+      "schemas": [
+        "WorkflowRun",
+        "ResultReceipt"
+      ],
+      "operations": [
+        "getWorkflow",
+        "receiveResultBatch"
+      ],
+      "interface": "Tous parcours",
+      "event": "workflow.changed",
+      "acceptance_tests": [
+        "AT-031"
+      ],
+      "delivery_lot": "L9",
+      "acceptance": "Simuler timeout puis recharger l’écran ; montrer reconciling et la commande durable, jamais succès inventé ni renvoi aveugle."
+    },
+    {
+      "requirement": "MK-032",
+      "status": "specified",
+      "chapters": [
+        "docs/26-coverage.md",
+        "docs/32-build-order.md",
+        "docs/33-acceptance.md"
+      ],
+      "schemas": [
+        "Capabilities"
+      ],
+      "operations": [
+        "getCapabilities"
+      ],
+      "interface": "Statut / documentation",
+      "event": "none_read_only",
+      "acceptance_tests": [
+        "AT-032"
+      ],
+      "delivery_lot": "L12",
+      "acceptance": "Retirer une référence d’opération ou de test dans la matrice : le contrôle documentaire échoue ; aucune gate logicielle n’est inférée du contrôle documentaire."
+    }
+  ]
+}

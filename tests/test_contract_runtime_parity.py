@@ -31,3 +31,24 @@ def test_runtime_route_set_matches_contract_exactly():
 
 def test_served_openapi_is_checked_in_contract(client):
     assert client.get("/openapi.json").json() == openapi_schema()
+
+
+def test_domain_errors_use_problem_json_and_correlation_id(client, all_headers):
+    response = client.get("/api/v1/cases/00000000-0000-4000-8000-000000000404", headers=all_headers)
+    assert response.status_code == 404
+    assert response.headers["content-type"].startswith("application/problem+json")
+    assert response.headers.get("x-correlation-id")
+    body = response.json()
+    assert body["status"] == 404 and body["code"] == "not_found"
+    assert body["correlation_id"] == response.headers["x-correlation-id"]
+
+
+def test_packaged_runtime_assets_match_repository_sources():
+    from pathlib import Path
+    from medikristal.config import PACKAGE_ROOT
+
+    root = Path(__file__).resolve().parents[1]
+    for name in ('domain.schema.json', 'openapi.json', 'traceability.json'):
+        assert (PACKAGE_ROOT / '_assets' / 'contracts' / name).read_bytes() == (root / 'contracts' / name).read_bytes()
+    for name in ('index.html', 'app.js', 'styles.css'):
+        assert (PACKAGE_ROOT / '_assets' / 'frontend' / name).read_bytes() == (root / 'frontend' / name).read_bytes()

@@ -2,7 +2,7 @@
 
 Plateforme autonome de connaissances médicales et d’orchestration du parcours diagnostique : observations, hypothèses, investigations, ressources et options thérapeutiques. Elle expose des contrats utilisables par d’autres logiciels et s’intègre à Kristal et à l’écosystème kOA sans en dépendre pour fonctionner.
 
-**Statut : spécification 1.1 + implémentation logicielle de référence d’ingénierie.** Le contrat d’API porte la version 0.2.0 et ses 80 opérations sont montées dans le runtime. La base clinique n’est pas validée : les exemples, modèles et protocoles exécutables fournis ici restent synthétiques et réservés à l’ingénierie.
+**Statut : spécification 1.1 + implémentation logicielle de référence d’ingénierie.** Le contrat d’API et le package de référence portent la version 0.2.0 ; les 80 opérations contractuelles sont montées dans le runtime. La base clinique n’est pas validée : les exemples, modèles et protocoles exécutables fournis ici restent synthétiques et réservés à l’ingénierie.
 
 ## Documentation
 
@@ -54,7 +54,7 @@ Le chemin le plus direct est Docker Compose :
 
 ```sh
 cp deploy/.env.example deploy/.env
-# Remplacer le secret dans deploy/.env
+# Remplacer le secret applicatif et le mot de passe PostgreSQL dans deploy/.env
 cd deploy
 docker compose up --build
 ```
@@ -72,7 +72,7 @@ python tools/validate_reference.py
 
 Ces commandes ne requièrent aucun service médical ni compte fournisseur. Le validateur vérifie les liens locaux, les exemples et le sous-ensemble de schéma utilisé par le générateur. Il ne remplace ni un validateur standard complet, ni la suite de tests applicative, ni une validation clinique. Voir le [rapport](VALIDATION.md).
 
-Les empreintes du manifeste décrivent la livraison initiale ; elles doivent être régénérées après modification des fichiers.
+Le manifeste est régénéré par `make validate` (ou `make manifest`) après les contrôles documentaires et décrit les fichiers source effectivement livrés.
 
 ## Révision 1.1
 

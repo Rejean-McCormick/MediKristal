@@ -21,6 +21,7 @@ def error_response(request: Request, exc: DomainError) -> ORJSONResponse:
     correlation_id = getattr(request.state, "correlation_id", str(uuid.uuid4()))
     return ORJSONResponse(
         status_code=exc.status,
+        media_type="application/problem+json",
         content={
             "type": f"urn:medikristal:error:{exc.code}",
             "title": exc.title,

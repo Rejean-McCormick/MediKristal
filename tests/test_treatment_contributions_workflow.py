@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from medikristal import synthetic as syn
 from .helpers import evaluate_binary, new_case, observation_body, post
 
 
@@ -8,7 +9,7 @@ def test_at011_unknown_allergy_needs_information_and_care_plan_is_not_order(clie
     post(client,f"/cases/{case['id']}/observations",all_headers,observation_body(),"obs",case['revision'])
     case=client.get(f"/api/v1/cases/{case['id']}",headers=all_headers).json()
     _,ev=evaluate_binary(client,all_headers,case)
-    body={"case_revision":case['revision'],"evaluation_id":ev['id'],"protocol_refs":[{"id":"synthetic-protocol","version":"0.1.0","digest":"sha256:"+'b'*64}]}
+    body={"case_revision":case['revision'],"evaluation_id":ev['id'],"protocol_refs":[dict(syn.PROTOCOL)]}
     o=post(client,f"/cases/{case['id']}/treatment-evaluations",all_headers,body,'tx',case['revision'])
     assert o.status_code==202
     option=client.get(f"/api/v1/cases/{case['id']}/treatment-options",headers=all_headers).json()['items'][0]
@@ -40,7 +41,7 @@ def test_at012_accepted_contribution_does_not_activate_release(client, all_heade
 def test_at027_workflow_rechecks_case_revision(client, all_headers):
     case=new_case(client,all_headers)
     proto=client.get('/api/v1/knowledge/protocols',headers=all_headers).json()['items'][0]
-    body={"case_id":case['id'],"case_revision":case['revision'],"protocol_ref":{"id":proto['id'],"version":proto['version'],"digest":proto['digest']},"authorization_policy_ref":{"id":"engineering-only","version":"0.1.0","digest":"sha256:"+'c'*64},"intended_use":"engineering"}
+    body={"case_id":case['id'],"case_revision":case['revision'],"protocol_ref":{"id":proto['id'],"version":proto['version'],"digest":proto['digest']},"authorization_policy_ref":dict(syn.AUTH_POLICY),"intended_use":"engineering"}
     wf=post(client,'/workflows',all_headers,body,'wf').json()
     # Change the case before the workflow command.
     case2=post(client,f"/cases/{case['id']}/transitions",all_headers,{"target":"waiting","reason":"new input"},'case-change',case['revision']).json()

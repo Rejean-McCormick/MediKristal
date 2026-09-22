@@ -28,11 +28,12 @@ def _b64(value: bytes) -> str:
     return base64.urlsafe_b64encode(value).decode().rstrip("=")
 
 
-def signed_token(tenant_id: str, principal_id: str, permissions: list[str]) -> str:
+def signed_token(tenant_id: str, principal_id: str, permissions: list[str], case_grants: list[str] | None = None) -> str:
     payload = {
         "tenant_id": tenant_id,
         "principal_id": principal_id,
         "permissions": permissions,
+        "case_grants": case_grants or [],
         "exp": int(time.time()) + 3600,
     }
     pb = _b64(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode())

@@ -2,10 +2,11 @@
 
 Validation documentaire et sous-ensemble de schéma généré ; pas validation complète OpenAPI/JSON Schema externe, pas test applicatif ou clinique.
 
-Résultat : 204 PASS ; 0 FAIL.
+Résultat : 211 PASS ; 0 FAIL.
 
 | Vérification | Résultat | Détail |
 |---|---|---|
+| json:sbom.cdx.json | PASS |  |
 | json:source-snapshots.json | PASS |  |
 | json:contracts/openapi.json | PASS |  |
 | json:contracts/domain.schema.json | PASS |  |
@@ -23,6 +24,12 @@ Résultat : 204 PASS ; 0 FAIL.
 | json:examples/index.json | PASS |  |
 | json:examples/contribution.json | PASS |  |
 | json:examples/provider-policy.json | PASS |  |
+| json:backend/build/lib/medikristal/_assets/contracts/openapi.json | PASS |  |
+| json:backend/build/lib/medikristal/_assets/contracts/domain.schema.json | PASS |  |
+| json:backend/build/lib/medikristal/_assets/contracts/traceability.json | PASS |  |
+| json:backend/medikristal/_assets/contracts/openapi.json | PASS |  |
+| json:backend/medikristal/_assets/contracts/domain.schema.json | PASS |  |
+| json:backend/medikristal/_assets/contracts/traceability.json | PASS |  |
 | schema local references | PASS |  |
 | api references | PASS |  |
 | path-parameters:getCapabilities | PASS |  |

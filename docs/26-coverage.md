@@ -33,6 +33,6 @@ Les scénarios techniques doivent tester les erreurs et les reprises, pas seulem
 
 ## Limites explicites de la livraison
 
-Le corpus universel des maladies, procédures, performances et traitements n’est pas livré. Les formats des partenaires hospitaliers ne sont pas connus. Les profils FHIR complets et leurs paquets de conformance, les écrans codés, les migrations SQL et les modèles cliniques restent des livrables d’implémentation. Les contrats initiaux étendus couvrent les commandes centrales ; la matrice n’est pas une preuve que toutes les variantes locales possibles sont connues.
+Le corpus universel des maladies, procédures, performances et traitements n’est pas livré. Les formats des partenaires hospitaliers ne sont pas connus. Les profils FHIR complets et leurs paquets de conformance ainsi que les modèles cliniques réels restent extérieurs à cette livraison. Une interface Web de référence, des migrations Alembic et le runtime synthétique sont désormais fournis, sans revendiquer la qualification des intégrations partenaires. Les contrats initiaux étendus couvrent les commandes centrales ; la matrice n’est pas une preuve que toutes les variantes locales possibles sont connues.
 
 Toute nouvelle fonction doit entrer dans la matrice avant de recevoir le statut `implemented`. L’absence de contenu médical bloque sa capacité clinique, pas la construction et les essais synthétiques du mécanisme.

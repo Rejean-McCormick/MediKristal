@@ -30,3 +30,39 @@ def test_missing_if_match_is_428(client, all_headers):
     case=new_case(client,all_headers)
     r=client.post(f"/api/v1/cases/{case['id']}/transitions",headers={**all_headers,"Idempotency-Key":"no-match"},json={"target":"waiting","reason":"test"})
     assert r.status_code==428
+
+
+def test_token_cli_emits_case_grants(monkeypatch, capsys, tenant_one):
+    from medikristal.security import decode_token
+    from medikristal.token_cli import main
+    case_id = '00000000-0000-4000-8000-000000000123'
+    monkeypatch.setattr('sys.argv', [
+        'medikristal-token', '--tenant', tenant_one, '--principal', 'professional-cli',
+        '--permission', 'cases:read', '--case-grant', case_id, '--ttl', '3600',
+    ])
+    main()
+    token = capsys.readouterr().out.strip()
+    ctx = decode_token(token)
+    assert ctx.tenant_id == tenant_one
+    assert ctx.principal_id == 'professional-cli'
+    assert ctx.permissions == frozenset({'cases:read'})
+    assert ctx.case_grants == frozenset({case_id})
+
+
+def test_case_operation_does_not_leak_to_principal_without_case_grant(client, all_headers, tenant_one):
+    from medikristal import synthetic as syn
+    from .helpers import evaluate_binary, new_case, observation_body, post
+    from .conftest import signed_token
+
+    case = new_case(client, all_headers, 'operation-scope-case')
+    assert post(client, f"/cases/{case['id']}/observations", all_headers, observation_body('operation-scope-obs'), 'operation-scope-obs', case['revision']).status_code == 200
+    case = client.get(f"/api/v1/cases/{case['id']}", headers=all_headers).json()
+    operation, _ = evaluate_binary(client, all_headers, case, 'operation-scope-eval')
+
+    outsider = {'Authorization': 'Bearer ' + signed_token(tenant_one, 'ops-outsider', ['operations:read'])}
+    hidden = client.get(f"/api/v1/operations/{operation['id']}", headers=outsider)
+    assert hidden.status_code == 404 and hidden.json()['code'] == 'not_found'
+
+    granted = {'Authorization': 'Bearer ' + signed_token(tenant_one, 'ops-insider', ['operations:read'], [case['id']])}
+    visible = client.get(f"/api/v1/operations/{operation['id']}", headers=granted)
+    assert visible.status_code == 200 and visible.json()['id'] == operation['id']

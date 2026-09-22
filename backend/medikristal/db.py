@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Iterator
 
-from sqlalchemy import Boolean, DateTime, Integer, JSON, LargeBinary, String, Text, UniqueConstraint, create_engine
+from sqlalchemy import Boolean, DateTime, Integer, JSON, LargeBinary, String, UniqueConstraint, create_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column, sessionmaker
 
 from .config import load_settings
@@ -30,6 +30,77 @@ class Entity(Base):
     data: Mapped[dict] = mapped_column(JSON, nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+
+
+class EntityRevision(Base):
+    """Append-only snapshots for mutable entities.
+
+    The live row remains convenient for reads, while this table preserves every admitted
+    version so corrections/revocations never destroy historical state.
+    """
+
+    __tablename__ = "mk_entity_revisions"
+    __table_args__ = (
+        UniqueConstraint("tenant_id", "kind", "entity_id", "revision", name="uq_entity_revision"),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    tenant_id: Mapped[str] = mapped_column(String(36), index=True)
+    kind: Mapped[str] = mapped_column(String(64), index=True)
+    entity_id: Mapped[str] = mapped_column(String(36), index=True)
+    revision: Mapped[int] = mapped_column(Integer, nullable=False)
+    data: Mapped[dict] = mapped_column(JSON, nullable=False)
+    recorded_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+
+
+class CaseAccess(Base):
+    """Local case grant independent from operation-level permissions."""
+
+    __tablename__ = "mk_case_access"
+    __table_args__ = (
+        UniqueConstraint("tenant_id", "case_id", "principal_id", name="uq_case_access"),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    tenant_id: Mapped[str] = mapped_column(String(36), index=True)
+    case_id: Mapped[str] = mapped_column(String(36), index=True)
+    principal_id: Mapped[str] = mapped_column(String(128), index=True)
+    grant_kind: Mapped[str] = mapped_column(String(32), nullable=False, default="explicit")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+
+
+class ReservationClaim(Base):
+    """Database-enforced claim for a capacity slot.
+
+    A row exists while a booking is active. The unique key turns the last-slot race into
+    a database invariant rather than a check-then-insert convention.
+    """
+
+    __tablename__ = "mk_reservation_claims"
+    __table_args__ = (
+        UniqueConstraint("tenant_id", "capability_id", "slot_id", "unit_index", name="uq_reservation_claim"),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    tenant_id: Mapped[str] = mapped_column(String(36), index=True)
+    capability_id: Mapped[str] = mapped_column(String(36), index=True)
+    slot_id: Mapped[str] = mapped_column(String(256), nullable=False)
+    unit_index: Mapped[int] = mapped_column(Integer, nullable=False)
+    booking_id: Mapped[str] = mapped_column(String(36), index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+
+
+class InboxEvent(Base):
+    __tablename__ = "mk_inbox"
+    __table_args__ = (
+        UniqueConstraint("consumer", "event_id", name="uq_inbox_consumer_event"),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    consumer: Mapped[str] = mapped_column(String(128), index=True)
+    event_id: Mapped[str] = mapped_column(String(36), index=True)
+    payload_digest: Mapped[str] = mapped_column(String(71), nullable=False)
+    processed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
 
 
 class IdempotencyRecord(Base):
@@ -107,6 +178,9 @@ class AuditRecord(Base):
 
 class Blob(Base):
     __tablename__ = "mk_blobs"
+    __table_args__ = (
+        UniqueConstraint("tenant_id", "digest", name="uq_blob_digest"),
+    )
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
     tenant_id: Mapped[str] = mapped_column(String(36), index=True)

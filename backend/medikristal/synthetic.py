@@ -12,6 +12,7 @@ POLICY = artifact_ref("synthetic-pareto", "0.1.0")
 AUTH_POLICY = artifact_ref("engineering-only", "0.1.0")
 RIGHTS = artifact_ref("synthetic-rights", "0.1.0")
 CONSTRAINTS = artifact_ref("synthetic-constraints", "0.1.0")
+SYN_RELEASE = artifact_ref("synthetic-release", "0.1.0")
 
 
 def concept(code: str) -> dict:
@@ -120,10 +121,10 @@ def proposals_for(evaluation: dict) -> list[dict]:
 
 def models() -> list[dict]:
     scope = {"population_id": "synthetic-only", "setting": "engineering", "jurisdiction": "TEST", "language": "fr", "valid_from": "2026-01-01T00:00:00Z", "valid_until": None}
-    common={"scope": scope, "hypothesis_space": [concept("SYN-D1")], "evidence_refs": [], "qualification_refs": [], "missingness_policy": "abstain", "abstention_policy_ref": artifact_ref("synthetic-abstention"), "intended_use": "engineering"}
+    common={"scope": scope, "hypothesis_space": "multi_label", "evidence_refs": [], "qualification_refs": [], "missingness_policy": "abstain", "abstention_policy_ref": artifact_ref("synthetic-abstention"), "intended_use": "engineering"}
     return [
-        {**MODEL, **common, "type": "bayesian_binary", "input_concepts": [concept("SYN-T1")], "parameter_ref": artifact_ref("synthetic-binary-params"), "engine_version": "synthetic-oracle/1"},
-        {**SCORE_MODEL, **common, "type": "similarity_score", "input_concepts": [], "parameter_ref": artifact_ref("synthetic-score-params"), "engine_version": "synthetic-score/1"},
+        {**MODEL, **common, "type": "synthetic", "input_concepts": [concept("SYN-T1")], "parameter_ref": artifact_ref("synthetic-binary-params"), "engine_version": "synthetic-oracle/1"},
+        {**SCORE_MODEL, **common, "type": "synthetic", "input_concepts": [], "parameter_ref": artifact_ref("synthetic-score-params"), "engine_version": "synthetic-score/1"},
     ]
 
 
@@ -138,8 +139,33 @@ def protocols() -> list[dict]:
     }]
 
 
+def assertions() -> list[dict]:
+    scope = {"population_id": "synthetic-only", "setting": "engineering", "jurisdiction": "TEST", "language": "fr", "valid_from": "2026-01-01T00:00:00Z", "valid_until": None}
+    return [
+        {
+            "id": "synthetic-assertion-t1-d1", "subject": concept("SYN-T1"), "predicate": "synthetic_supports",
+            "object": concept("SYN-D1"), "scope": scope,
+            "source_refs": [{"source_id": "synthetic-fixture", "source_version": "1", "record_id": "assertion-1"}],
+            "status": "reviewed", "certainty": "not_applicable", "evidence_refs": [artifact_ref("synthetic-evidence-t1")],
+        },
+        {
+            # Mapping relation fixture for AT-005: a broader relation is deliberately not
+            # interchangeable with an exact-equivalence query.
+            "id": "synthetic-mapping-broader-t1", "subject": concept("SYN-T1-BROAD"), "predicate": "broader_than",
+            "object": concept("SYN-T1"), "scope": scope,
+            "source_refs": [{"source_id": "synthetic-fixture", "source_version": "1", "record_id": "mapping-broader-1"}],
+            "status": "reviewed", "certainty": "not_applicable", "evidence_refs": [],
+        },
+    ]
+
+
 def evidence() -> list[dict]:
-    return []
+    source = [{"source_id": "synthetic-fixture", "source_version": "1", "record_id": "binary-parameters"}]
+    return [
+        {"id": "synthetic-evidence-prevalence", "measure": "prevalence", "value": 0.10, "population_ref": "synthetic-only", "setting": "engineering", "target": concept("SYN-D1"), "test": None, "threshold_description": None, "sample_size": None, "interval_description": None, "source_refs": source, "limitations": ["Valeur fictive réservée aux tests d'ingénierie."], "review_status": "reviewed"},
+        {"id": "synthetic-evidence-sensitivity", "measure": "sensitivity", "value": 0.80, "population_ref": "synthetic-only", "setting": "engineering", "target": concept("SYN-D1"), "test": concept("SYN-T1"), "threshold_description": "Résultat booléen synthétique.", "sample_size": None, "interval_description": None, "source_refs": source, "limitations": ["Valeur fictive réservée aux tests d'ingénierie."], "review_status": "reviewed"},
+        {"id": "synthetic-evidence-specificity", "measure": "specificity", "value": 0.90, "population_ref": "synthetic-only", "setting": "engineering", "target": concept("SYN-D1"), "test": concept("SYN-T1"), "threshold_description": "Résultat booléen synthétique.", "sample_size": None, "interval_description": None, "source_refs": source, "limitations": ["Valeur fictive réservée aux tests d'ingénierie."], "review_status": "reviewed"},
+    ]
 
 
 def optimization_policies() -> list[dict]:

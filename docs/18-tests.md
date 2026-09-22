@@ -10,7 +10,7 @@
 6. Validation clinique : performances et conséquences dans la population et finalité visées.
 7. Admission du déploiement : politiques et exigences applicables satisfaites.
 
-Ce dossier exécute seulement le niveau 1 et un oracle arithmétique synthétique. Les niveaux applicatifs suivants sont spécifiés et doivent être implémentés. Aucun test clinique n'a été effectué.
+La spécification documentaire est complétée dans cette livraison par une implémentation de référence et une suite applicative synthétique couvrant des tests de domaine, de contrat, de persistance, de reprise et de parcours API/UI. Les preuves exécutées sont consignées dans `../APP_VALIDATION.md`. Aucun test clinique n'a été effectué, et les profils partenaires absents restent non qualifiés.
 
 ## Matrice d'acceptation
 
@@ -71,4 +71,4 @@ Chaque rapport nomme commande, environnement, versions, temps, tests exécutés,
 
 ## Extension v1.1
 
-Les exigences MK-025,026,027,028,029,030,031,032 ont leurs scénarios détaillés AT-025 à AT-032 dans le [chapitre 33](33-acceptance.md). La [matrice](../contracts/traceability.json) relie aussi les 24 exigences initiales à un scénario AT explicite. Aucun de ces scénarios n’est déclaré exécuté sur l’application par cette livraison documentaire.
+Les exigences MK-025,026,027,028,029,030,031,032 ont leurs scénarios détaillés AT-025 à AT-032 dans le [chapitre 33](33-acceptance.md). La [matrice](../contracts/traceability.json) relie aussi les 24 exigences initiales à un scénario AT explicite. Les scénarios effectivement automatisés par l’implémentation sont consignés dans `../APP_VALIDATION.md` et dans `../tests/`. Un scénario non couvert par ces preuves reste spécifié mais non exécuté ; les intégrations partenaires absentes restent explicitement indisponibles.

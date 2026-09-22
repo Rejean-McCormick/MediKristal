@@ -2,6 +2,11 @@
   "scope": "Validation documentaire et sous-ensemble de schéma généré ; pas validation complète OpenAPI/JSON Schema externe, pas test applicatif ou clinique.",
   "checks": [
     {
+      "name": "json:sbom.cdx.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
       "name": "json:source-snapshots.json",
       "status": "PASS",
       "detail": ""
@@ -83,6 +88,36 @@
     },
     {
       "name": "json:examples/provider-policy.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:backend/build/lib/medikristal/_assets/contracts/openapi.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:backend/build/lib/medikristal/_assets/contracts/domain.schema.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:backend/build/lib/medikristal/_assets/contracts/traceability.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:backend/medikristal/_assets/contracts/openapi.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:backend/medikristal/_assets/contracts/domain.schema.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:backend/medikristal/_assets/contracts/traceability.json",
       "status": "PASS",
       "detail": ""
     },
@@ -1023,7 +1058,7 @@
     }
   ],
   "counts": {
-    "pass": 204,
+    "pass": 211,
     "fail": 0,
     "schemas": 107,
     "operations": 80,

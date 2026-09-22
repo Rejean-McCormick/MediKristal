@@ -15,3 +15,15 @@ Le contrat API reste sous `/api/v1`; la version 0.2.0 désigne le contrat de dé
 ## Documentation 1.0 — Contrats 0.1.0
 
 Première référence modulaire : 25 chapitres, 24 exigences, 80 définitions, 47 opérations et 8 exemples. Aucun logiciel clinique implémenté dans le dossier.
+
+## Implémentation de référence 0.2.0 — 2026-09-22
+
+- Runtime FastAPI aligné sur les 80 opérations du contrat.
+- Historique de révisions append-only, grants par cas, claims de réservation atomiques et inbox/outbox dédupliquée.
+- Import CSV local en quarantaine, releases synthétiques versionnées, révocation avec analyse d’impact et politiques fournisseur/budget.
+- Interface Web corrigée pour utiliser les digests d’artefacts réels au lieu de références factices.
+- Migration Alembic rendue rejouable en mode batch SQLite pour le harnais de test.
+- Suite applicative portée à 73 tests avec 91 % de couverture globale mesurée ; intégrations Kristal/FHIR externes restent explicitement non configurées.
+
+- Durcissement du worker par claim inbox transactionnel, rejeu exact des résultats, grants par cas, claims de réservation et erreurs HTTP au format Problem JSON.
+- Compose sans mot de passe PostgreSQL codé en dur et processus applicatifs Docker exécutés sous un utilisateur non-root.

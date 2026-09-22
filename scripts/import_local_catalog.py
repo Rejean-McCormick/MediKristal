@@ -28,7 +28,7 @@ def read_csv(path: Path, required: list[str]) -> dict:
                 normalized={k:row.get(k,"") for k in required}
                 if "duration_minutes" in normalized:
                     normalized["duration_minutes"]=int(normalized["duration_minutes"]); normalized["capacity"]=int(normalized["capacity"])
-                    if normalized["duration_minutes"]<=0 or normalized["capacity"]<0: raise ValueError("invalid capacity")
+                    if normalized["duration_minutes"]<=0 or normalized["capacity"]<=0: raise ValueError("invalid capacity")
                 if "amount_minor" in normalized:
                     normalized["amount_minor"]=int(normalized["amount_minor"])
                     if normalized["amount_minor"]<0 or len(normalized["currency"])!=3: raise ValueError("invalid money")

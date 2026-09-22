@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from medikristal.contracts import validator
+from medikristal import synthetic as syn
 
 
 def post(client, path, headers, body, key, match=None):
@@ -51,7 +52,7 @@ def evaluate_binary(client, headers, case, key="eval-1"):
     model = next(m for m in models if m["id"] == "synthetic-binary")
     body = {
         "case_revision": case["revision"],
-        "knowledge_release": {"id": "synthetic-release", "version": "0.1.0", "digest": "sha256:" + "a" * 64},
+        "knowledge_release": dict(syn.SYN_RELEASE),
         "model_refs": [{"id": model["id"], "version": model["version"], "digest": model["digest"]}],
         "evaluation_time": "2026-09-22T12:00:00Z",
         "intended_use": "engineering",

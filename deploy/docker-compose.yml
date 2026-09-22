@@ -4,7 +4,7 @@ services:
     environment:
       POSTGRES_DB: medikristal
       POSTGRES_USER: medikristal
-      POSTGRES_PASSWORD: medikristal-local
+      POSTGRES_PASSWORD: ${MEDIKRISTAL_DB_PASSWORD:?set MEDIKRISTAL_DB_PASSWORD}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U medikristal -d medikristal"]
       interval: 2s
@@ -19,7 +19,7 @@ services:
     working_dir: /app/backend
     command: ["alembic","upgrade","head"]
     environment:
-      MEDIKRISTAL_DATABASE_URL: postgresql+psycopg://medikristal:medikristal-local@db:5432/medikristal
+      MEDIKRISTAL_DATABASE_URL: postgresql+psycopg://medikristal:${MEDIKRISTAL_DB_PASSWORD:?set MEDIKRISTAL_DB_PASSWORD}@db:5432/medikristal
       MEDIKRISTAL_AUTH_SECRET: ${MEDIKRISTAL_AUTH_SECRET:?set MEDIKRISTAL_AUTH_SECRET}
     depends_on:
       db:
@@ -29,7 +29,7 @@ services:
       context: ..
       dockerfile: backend/Dockerfile
     environment:
-      MEDIKRISTAL_DATABASE_URL: postgresql+psycopg://medikristal:medikristal-local@db:5432/medikristal
+      MEDIKRISTAL_DATABASE_URL: postgresql+psycopg://medikristal:${MEDIKRISTAL_DB_PASSWORD:?set MEDIKRISTAL_DB_PASSWORD}@db:5432/medikristal
       MEDIKRISTAL_AUTH_SECRET: ${MEDIKRISTAL_AUTH_SECRET:?set MEDIKRISTAL_AUTH_SECRET}
       MEDIKRISTAL_ENV: production
     ports: ["8000:8000"]
@@ -42,7 +42,7 @@ services:
       dockerfile: backend/Dockerfile
     command: ["python","-m","medikristal.worker"]
     environment:
-      MEDIKRISTAL_DATABASE_URL: postgresql+psycopg://medikristal:medikristal-local@db:5432/medikristal
+      MEDIKRISTAL_DATABASE_URL: postgresql+psycopg://medikristal:${MEDIKRISTAL_DB_PASSWORD:?set MEDIKRISTAL_DB_PASSWORD}@db:5432/medikristal
       MEDIKRISTAL_AUTH_SECRET: ${MEDIKRISTAL_AUTH_SECRET:?set MEDIKRISTAL_AUTH_SECRET}
       MEDIKRISTAL_ENV: production
     depends_on:

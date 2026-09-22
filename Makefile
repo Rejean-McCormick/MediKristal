@@ -1,10 +1,16 @@
-.PHONY: test validate run worker migrate token
+.PHONY: test validate manifest run worker migrate token
 
 PYTHON ?= python
 
 validate:
 	$(PYTHON) tools/build_contracts.py
 	$(PYTHON) tools/validate_reference.py
+	$(PYTHON) tools/sync_runtime_assets.py
+	$(PYTHON) tools/build_sbom.py
+	$(PYTHON) tools/build_manifest.py
+
+manifest:
+	$(PYTHON) tools/build_manifest.py
 
 test:
 	PYTHONPATH="$(CURDIR)/backend:$(CURDIR)" pytest -q

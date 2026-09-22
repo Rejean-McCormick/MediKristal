@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import base64
 import hashlib
 import json
 import uuid
@@ -26,18 +25,3 @@ def uuid4() -> str:
 
 def artifact_ref(name: str, version: str = "0.1.0") -> dict:
     return {"id": name, "version": version, "digest": digest({"id": name, "version": version})}
-
-
-def encode_cursor(offset: int) -> str:
-    raw = json.dumps({"offset": offset}, separators=(",", ":")).encode()
-    return base64.urlsafe_b64encode(raw).decode().rstrip("=")
-
-
-def decode_cursor(value: str | None) -> int:
-    if not value:
-        return 0
-    try:
-        raw = base64.urlsafe_b64decode(value + "=" * (-len(value) % 4))
-        return int(json.loads(raw)["offset"])
-    except Exception:
-        return 0

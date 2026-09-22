@@ -10,18 +10,18 @@ Elle **n'est pas une base clinique validée**, n'est pas un dispositif médical 
 
 - API FastAPI sous `/api/v1`, avec les **80 couples méthode/route du contrat OpenAPI** montés dans le runtime.
 - Contrat OpenAPI livré par `contracts/openapi.json` comme source d'autorité.
-- Authentification bearer HMAC, permissions par opération et isolation de tenant.
-- Révisions, `ETag`, garde `If-Match`, idempotence persistante et détection des requêtes conflictuelles.
+- Authentification bearer HMAC, permissions par opération, grants par cas et isolation de tenant.
+- Révisions, historique append-only, `ETag`, garde `If-Match`, idempotence persistante et détection des requêtes conflictuelles.
 - Cas, observations, corrections, évaluations, propositions, plans et ordres gardés.
 - Moteur d'inférence synthétique reproductible et distinction stricte score/probabilité.
-- Ressources, coûts, disponibilité, réservations et calcul de coût conditionnel.
+- Ressources, coûts, disponibilité, claims de capacité atomiques, réservations et calcul de coût conditionnel.
 - Sources, artefacts, releases, activation/révocation, modèles, protocoles et politiques d'optimisation synthétiques.
 - Contributions, workflows, résultats, suivis et plans de soins.
-- Budget fournisseur avec réservation/reconciliation et verrouillage transactionnel.
-- Outbox transactionnelle et worker.
+- Budget fournisseur et tenant avec réservation/reconciliation et verrouillage transactionnel sur les bases qui supportent `FOR UPDATE`.
+- Outbox transactionnelle, inbox dédupliquée et worker à reprise idempotente.
 - PostgreSQL + Alembic pour le déploiement de référence.
 - Interface Web légère accessible couvrant les surfaces patient, professionnel, administration, scientifique et exploitation.
-- Import local CSV avec prévisualisation/diff/confirmation pour les profils documentés.
+- Import local CSV en quarantaine avec digest/version immuables ; le CLI de prévisualisation/confirmation valide un diff mais ne publie pas implicitement le catalogue actif.
 - Docker Compose pour PostgreSQL, migrations, API et worker.
 
 ## Limites intentionnelles
@@ -40,7 +40,7 @@ Depuis la racine :
 
 ```sh
 cp deploy/.env.example deploy/.env
-# Modifier la valeur de MEDIKRISTAL_AUTH_SECRET dans deploy/.env.
+# Modifier MEDIKRISTAL_AUTH_SECRET et MEDIKRISTAL_DB_PASSWORD dans deploy/.env.
 cd deploy
 docker compose up --build
 ```
@@ -84,8 +84,8 @@ make validate
 
 Lors de la finalisation de cette livraison :
 
-- tests applicatifs : **18/18 réussis** ;
-- contrôles documentaires/contractuels du dépôt : **204/204 réussis** ;
+- tests applicatifs : **73/73 réussis** ;
+- contrôles documentaires/contractuels du dépôt : **211/211 réussis** ;
 - parité de routage vérifiée : **80/80 opérations contractuelles présentes, 0 route contractuelle manquante**.
 
 Les tests utilisent SQLite uniquement comme harnais isolé et rapide. Le stockage de déploiement de référence reste PostgreSQL.
