@@ -1,0 +1,1033 @@
+{
+  "scope": "Validation documentaire et sous-ensemble de schéma généré ; pas validation complète OpenAPI/JSON Schema externe, pas test applicatif ou clinique.",
+  "checks": [
+    {
+      "name": "json:source-snapshots.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:contracts/openapi.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:contracts/domain.schema.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:contracts/traceability.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/cost.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/procedure.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/workflow.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/followup.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/evaluation.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/capability.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/booking.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/case.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/result-batch.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/observation.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/index.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/contribution.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/provider-policy.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "schema local references",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "api references",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:getCapabilities",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:createCase",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:createCase",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:listCases",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:getCase",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:transitionCase",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:transitionCase",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:recordObservation",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:recordObservation",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:listObservations",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:amendObservation",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:amendObservation",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:evaluateCase",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:evaluateCase",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:getEvaluation",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:listProposals",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:decideProposal",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:decideProposal",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:comparePlans",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:comparePlans",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:getPlan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:requestOrder",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:requestOrder",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:getOrder",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:createResourceCapability",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:createResourceCapability",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:listResourceCapabilities",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:getAvailability",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:recordAvailability",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:recordAvailability",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:createCostQuote",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:createCostQuote",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:listCostQuotes",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:requestBooking",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:requestBooking",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:getBooking",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:confirmBooking",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:confirmBooking",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:cancelBooking",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:cancelBooking",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:registerSource",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:registerSource",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:listSources",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:importSource",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:importSource",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:searchConcepts",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:searchAssertions",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:listModels",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:buildRelease",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:buildRelease",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:getRelease",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:activateRelease",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:activateRelease",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:exportKnowledge",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:exportKnowledge",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:submitContribution",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:submitContribution",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:listContributions",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:getContribution",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:reviewContribution",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:reviewContribution",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:setProviderPolicy",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:setProviderPolicy",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:getProviderUsage",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:getOperation",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:listProtocols",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:listEvidence",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:decideRelease",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:decideRelease",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:evaluateTreatments",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:evaluateTreatments",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:listTreatmentOptions",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:getConfiguration",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:changeConfiguration",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:changeConfiguration",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:listSite",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:createSite",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:createSite",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:getSite",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:reviseSite",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:reviseSite",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:listManagedResource",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:createManagedResource",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:createManagedResource",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:getManagedResource",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:reviseManagedResource",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:reviseManagedResource",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:listProcedureEntry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:createProcedureEntry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:createProcedureEntry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:getProcedureEntry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:reviseProcedureEntry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:reviseProcedureEntry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:getResourceCapability",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:reviseResourceCapability",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:reviseResourceCapability",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:createWorkflow",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:createWorkflow",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:getWorkflow",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:transitionWorkflow",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:transitionWorkflow",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:listCaseWorkflows",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:receiveResultBatch",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:receiveResultBatch",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:createFollowUp",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:createFollowUp",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:getFollowUp",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:transitionFollowUp",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:transitionFollowUp",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:listCaseFollowUps",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:createCarePlan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:createCarePlan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:listCaseCarePlans",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:getCarePlan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:reviseCarePlan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "idempotency:reviseCarePlan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:getImportReport",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:getSource",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "path-parameters:listOptimizationPolicies",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "unique operation IDs",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "OpenAPI version",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "example:case.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "example:observation.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "example:evaluation.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "example:capability.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "example:cost.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "example:booking.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "example:provider-policy.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "example:contribution.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "example:workflow.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "example:followup.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "example:procedure.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "example:result-batch.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "negative:probability-range",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "negative:score-not-probability",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "negative:unknown-no-value",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "negative:unexpected-field",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "negative:negative-cost",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "negative:invalid-uuid",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "synthetic posterior positive",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "synthetic posterior negative",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "synthetic namespace",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "local Markdown links",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "requirements test mapping",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "33 chapters",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability exact requirement coverage",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-001",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-002",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-003",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-004",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-005",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-006",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-007",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-008",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-009",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-010",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-011",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-012",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-013",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-014",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-015",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-016",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-017",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-018",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-019",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-020",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-021",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-022",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-023",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-024",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-025",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-026",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-027",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-028",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-029",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-030",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-031",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "traceability:MK-032",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "API version consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "permissions all operations",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "revision mutation guards",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "negative:assigned-owner-required",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "negative:completed-proof-required",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "negative:unknown-criterion-not-zero",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "synthetic conditional strategy cost",
+      "status": "PASS",
+      "detail": ""
+    }
+  ],
+  "counts": {
+    "pass": 204,
+    "fail": 0,
+    "schemas": 107,
+    "operations": 80,
+    "examples": 12,
+    "chapters": 33
+  }
+}

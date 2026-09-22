@@ -1,0 +1,70 @@
+{
+  "id": "00000000-0000-4000-8000-000000000005",
+  "tenant_id": "00000000-0000-4000-8000-000000000001",
+  "revision": 1,
+  "created_at": "2026-09-22T12:00:00Z",
+  "updated_at": "2026-09-22T12:00:00Z",
+  "case_id": "00000000-0000-4000-8000-000000000002",
+  "case_revision": 1,
+  "knowledge_release": {
+    "id": "synthetic-release",
+    "version": "0.1.0",
+    "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "evaluation_time": "2026-09-22T12:00:00Z",
+  "intended_use": "engineering",
+  "status": "complete",
+  "stale": false,
+  "synthetic": true,
+  "hypotheses": [
+    {
+      "concept": {
+        "system": "urn:medikristal:synthetic",
+        "code": "SYN-D1",
+        "version": "1"
+      },
+      "kind": "probability",
+      "probability": 0.47058823529411764,
+      "score": null,
+      "qualitative": null,
+      "interval": null,
+      "target_event": "Maladie fictive SYN-D1 présente",
+      "horizon": "instant synthétique",
+      "model_ref": {
+        "id": "synthetic-binary",
+        "version": "0.1.0",
+        "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "scope_status": "applicable",
+      "calibration_ref": null,
+      "evidence_refs": [],
+      "reason_codes": [
+        "synthetic_only"
+      ]
+    }
+  ],
+  "missing_inputs": [],
+  "limitations": [
+    "Aucune calibration clinique ; nombres fictifs."
+  ],
+  "trace": [
+    {
+      "node_id": "n1",
+      "kind": "observation",
+      "reference": "00000000-0000-4000-8000-000000000004",
+      "parent_ids": [],
+      "summary": "Test fictif positif"
+    },
+    {
+      "node_id": "n2",
+      "kind": "model",
+      "reference": "synthetic-binary@0.1.0",
+      "parent_ids": [
+        "n1"
+      ],
+      "summary": "Prior 0.10, sensibilité 0.80, spécificité 0.90, données fictives."
+    }
+  ],
+  "engine_version": "synthetic-oracle/1",
+  "replay_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

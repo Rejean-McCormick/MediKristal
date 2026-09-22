@@ -1,0 +1,6167 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "MediKristal API — cible documentaire",
+    "version": "0.2.0",
+    "description": "Contrat étendu des opérations centrales ; non implémenté dans ce dossier. Les contrôles sémantiques restent obligatoires."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000/api/v1",
+      "description": "Développement local uniquement ; déploiement distant sous TLS."
+    }
+  ],
+  "paths": {
+    "/capabilities": {
+      "get": {
+        "operationId": "getCapabilities",
+        "summary": "Capacités effectivement disponibles",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "capabilities:read",
+        "x-status": "specified",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Capabilities"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/cases": {
+      "post": {
+        "operationId": "createCase",
+        "summary": "Créer un cas",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "cases:create",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClinicalCase"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCase"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "listCases",
+        "summary": "Lister les cas autorisés",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "cases:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClinicalCasePage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/cases/{case_id}": {
+      "get": {
+        "operationId": "getCase",
+        "summary": "Lire un cas",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "cases:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClinicalCase"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/cases/{case_id}/transitions": {
+      "post": {
+        "operationId": "transitionCase",
+        "summary": "Changer le cycle du cas",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "cases:update",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "ETag de la révision attendue."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClinicalCase"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CaseTransition"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cases/{case_id}/observations": {
+      "post": {
+        "operationId": "recordObservation",
+        "summary": "Ajouter une observation",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "observations:write",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "ETag de la révision attendue."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Observation"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecordObservation"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "listObservations",
+        "summary": "Lire les observations",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "cases:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObservationPage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/observations/{observation_id}/amendments": {
+      "post": {
+        "operationId": "amendObservation",
+        "summary": "Amender sans effacer la version originale",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "observations:amend",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "observation_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "ETag de la révision attendue."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Observation"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AmendObservation"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cases/{case_id}/evaluations": {
+      "post": {
+        "operationId": "evaluateCase",
+        "summary": "Évaluer un snapshot",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "evaluations:create",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "ETag de la révision attendue."
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepté pour traitement ; suivre Operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EvaluationRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/evaluations/{evaluation_id}": {
+      "get": {
+        "operationId": "getEvaluation",
+        "summary": "Lire résultat, limites et trace",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "cases:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "evaluation_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Evaluation"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/cases/{case_id}/proposals": {
+      "get": {
+        "operationId": "listProposals",
+        "summary": "Lire propositions",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "cases:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActionProposalPage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/proposals/{proposal_id}/decisions": {
+      "post": {
+        "operationId": "decideProposal",
+        "summary": "Accepter ou refuser sans exécution implicite",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "proposals:decide",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "proposal_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "ETag de la révision attendue."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActionProposal"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProposalDecision"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/plans": {
+      "post": {
+        "operationId": "comparePlans",
+        "summary": "Comparer stratégies admissibles",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "plans:create",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepté pour traitement ; suivre Operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/plans/{plan_id}": {
+      "get": {
+        "operationId": "getPlan",
+        "summary": "Lire faisabilité et explication",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "cases:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Plan"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/orders": {
+      "post": {
+        "operationId": "requestOrder",
+        "summary": "Demander acte autorisé",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "orders:execute",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepté pour traitement ; suivre Operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/{order_id}": {
+      "get": {
+        "operationId": "getOrder",
+        "summary": "Lire état d’ordre",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "orders:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceOrder"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/resource-capabilities": {
+      "post": {
+        "operationId": "createResourceCapability",
+        "summary": "Créer capacité locale",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "resources:admin",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceCapability"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CapabilityInput"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "listResourceCapabilities",
+        "summary": "Lister capacités",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "resources:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceCapabilityPage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/resource-capabilities/{capability_id}/availability": {
+      "get": {
+        "operationId": "getAvailability",
+        "summary": "Disponibilité datée",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "resources:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "capability_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AvailabilitySnapshot"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "recordAvailability",
+        "summary": "Enregistrer un snapshot sans simuler une réservation",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "resources:admin",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "capability_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AvailabilitySnapshot"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AvailabilityInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cost-quotes": {
+      "post": {
+        "operationId": "createCostQuote",
+        "summary": "Enregistrer devis contextualisé",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "resources:admin",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CostQuote"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CostInput"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "listCostQuotes",
+        "summary": "Lister prix contextualisés",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "resources:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          },
+          {
+            "name": "capability_id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Filtre exact sauf q (recherche textuelle) ; codes qualifiés system|code."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CostQuotePage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/bookings": {
+      "post": {
+        "operationId": "requestBooking",
+        "summary": "Demander réservation",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "bookings:execute",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepté pour traitement ; suivre Operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bookings/{booking_id}": {
+      "get": {
+        "operationId": "getBooking",
+        "summary": "Lire état propriétaire",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "bookings:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "booking_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Booking"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/bookings/{booking_id}/confirmations": {
+      "post": {
+        "operationId": "confirmBooking",
+        "summary": "Confirmer un hold admissible",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "bookings:execute",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "booking_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "ETag de la révision attendue."
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepté pour traitement ; suivre Operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReasonCommand"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bookings/{booking_id}/cancellations": {
+      "post": {
+        "operationId": "cancelBooking",
+        "summary": "Demander annulation",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "bookings:execute",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "booking_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "ETag de la révision attendue."
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepté pour traitement ; suivre Operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReasonCommand"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sources": {
+      "post": {
+        "operationId": "registerSource",
+        "summary": "Enregistrer source et droits",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "knowledge:author",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Source"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SourceRegistration"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "listSources",
+        "summary": "Lister sources et droits",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "knowledge:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SourcePage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/sources/{source_id}/imports": {
+      "post": {
+        "operationId": "importSource",
+        "summary": "Importer fichier déjà téléversé et vérifié",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "knowledge:author",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "source_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepté pour traitement ; suivre Operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImportRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/knowledge/concepts": {
+      "get": {
+        "operationId": "searchConcepts",
+        "summary": "Rechercher concepts versionnés",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "knowledge:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConceptPage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/knowledge/assertions": {
+      "get": {
+        "operationId": "searchAssertions",
+        "summary": "Rechercher assertions",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "knowledge:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          },
+          {
+            "name": "subject_code",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Filtre exact sauf q (recherche textuelle) ; codes qualifiés system|code."
+          },
+          {
+            "name": "predicate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Filtre exact sauf q (recherche textuelle) ; codes qualifiés system|code."
+          },
+          {
+            "name": "object_code",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Filtre exact sauf q (recherche textuelle) ; codes qualifiés system|code."
+          },
+          {
+            "name": "release_id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Filtre exact sauf q (recherche textuelle) ; codes qualifiés system|code."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssertionPage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/knowledge/models": {
+      "get": {
+        "operationId": "listModels",
+        "summary": "Lister manifestes admissibles",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "knowledge:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          },
+          {
+            "name": "release_id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Filtre exact sauf q (recherche textuelle) ; codes qualifiés system|code."
+          },
+          {
+            "name": "population_id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Filtre exact sauf q (recherche textuelle) ; codes qualifiés system|code."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelManifestPage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/knowledge/releases": {
+      "post": {
+        "operationId": "buildRelease",
+        "summary": "Construire une release candidate",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "knowledge:build",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepté pour traitement ; suivre Operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReleaseBuildRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/knowledge/releases/{release_id}": {
+      "get": {
+        "operationId": "getRelease",
+        "summary": "Lire manifeste de release",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "knowledge:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "release_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeRelease"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/knowledge/activations": {
+      "post": {
+        "operationId": "activateRelease",
+        "summary": "Vérifier puis activer localement",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "knowledge:activate",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepté pour traitement ; suivre Operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReleaseActivation"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/knowledge/exports": {
+      "post": {
+        "operationId": "exportKnowledge",
+        "summary": "Exporter uniquement savoir autorisé",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "knowledge:export",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepté pour traitement ; suivre Operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExportRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contributions": {
+      "post": {
+        "operationId": "submitContribution",
+        "summary": "Soumettre proposition scientifique",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "contributions:submit",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contribution"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContributionInput"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "listContributions",
+        "summary": "Lister propositions accessibles",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "contributions:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContributionPage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contributions/{contribution_id}": {
+      "get": {
+        "operationId": "getContribution",
+        "summary": "Lire proposition et état",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "contributions:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "contribution_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contribution"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contributions/{contribution_id}/reviews": {
+      "post": {
+        "operationId": "reviewContribution",
+        "summary": "Décision de révision sans activation",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "contributions:review",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "contribution_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "ETag de la révision attendue."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contribution"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewDecision"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/providers/policies": {
+      "post": {
+        "operationId": "setProviderPolicy",
+        "summary": "Créer politique fournisseur sans secret",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "providers:admin",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProviderPolicy"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProviderPolicyInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/providers/{provider_id}/usage": {
+      "get": {
+        "operationId": "getProviderUsage",
+        "summary": "Consommation réservée et réelle",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "providers:admin",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "provider_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProviderUsage"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/operations/{operation_id}": {
+      "get": {
+        "operationId": "getOperation",
+        "summary": "État d’opération asynchrone",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "operations:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "operation_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/knowledge/protocols": {
+      "get": {
+        "operationId": "listProtocols",
+        "summary": "Lister protocoles versionnés",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "knowledge:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          },
+          {
+            "name": "release_id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Filtre exact sauf q (recherche textuelle) ; codes qualifiés system|code."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProtocolManifestPage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/knowledge/evidence": {
+      "get": {
+        "operationId": "listEvidence",
+        "summary": "Lire preuves quantitatives contextualisées",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "knowledge:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          },
+          {
+            "name": "subject_code",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Filtre exact sauf q (recherche textuelle) ; codes qualifiés system|code."
+          },
+          {
+            "name": "release_id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Filtre exact sauf q (recherche textuelle) ; codes qualifiés system|code."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvidenceEstimatePage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/knowledge/releases/{release_id}/decisions": {
+      "post": {
+        "operationId": "decideRelease",
+        "summary": "Publier ou révoquer selon politique",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "knowledge:publish",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "release_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepté pour traitement ; suivre Operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReleaseDecision"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cases/{case_id}/treatment-evaluations": {
+      "post": {
+        "operationId": "evaluateTreatments",
+        "summary": "Évaluer options sans prescrire",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "evaluations:create",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "ETag de la révision attendue."
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepté pour traitement ; suivre Operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TreatmentRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cases/{case_id}/treatment-options": {
+      "get": {
+        "operationId": "listTreatmentOptions",
+        "summary": "Lire options et contrôles incomplets",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "cases:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TreatmentOptionPage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/configuration": {
+      "get": {
+        "operationId": "getConfiguration",
+        "summary": "Lire profil sans secrets",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "configuration:read",
+        "x-status": "specified",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Configuration"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/configuration/changes": {
+      "post": {
+        "operationId": "changeConfiguration",
+        "summary": "Changer profil avec contrôle de capacités",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "configuration:admin",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "ETag de la révision attendue."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Configuration"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Configuration"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sites": {
+      "get": {
+        "operationId": "listSite",
+        "summary": "Lister le catalogue versionné",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "resources:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SitePage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "createSite",
+        "summary": "Créer entrée de catalogue",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "resources:admin",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Site"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SiteInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sites/{item_id}": {
+      "get": {
+        "operationId": "getSite",
+        "summary": "Lire entrée de catalogue",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "resources:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "item_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Site"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/sites/{item_id}/revisions": {
+      "post": {
+        "operationId": "reviseSite",
+        "summary": "Réviser avec analyse d’impact",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "resources:admin",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "item_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "ETag de la révision attendue."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Site"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SiteRevision"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/managed-resources": {
+      "get": {
+        "operationId": "listManagedResource",
+        "summary": "Lister le catalogue versionné",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "resources:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          },
+          {
+            "name": "site_id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Filtre exact sauf q (recherche textuelle) ; codes qualifiés system|code."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedResourcePage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "createManagedResource",
+        "summary": "Créer entrée de catalogue",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "resources:admin",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedResource"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManagedResourceInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/managed-resources/{item_id}": {
+      "get": {
+        "operationId": "getManagedResource",
+        "summary": "Lire entrée de catalogue",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "resources:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "item_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedResource"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/managed-resources/{item_id}/revisions": {
+      "post": {
+        "operationId": "reviseManagedResource",
+        "summary": "Réviser avec analyse d’impact",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "resources:admin",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "item_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "ETag de la révision attendue."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedResource"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManagedResourceRevision"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/procedure-catalog": {
+      "get": {
+        "operationId": "listProcedureEntry",
+        "summary": "Lister le catalogue versionné",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "knowledge:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Filtre exact sauf q (recherche textuelle) ; codes qualifiés system|code."
+          },
+          {
+            "name": "family",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Filtre exact sauf q (recherche textuelle) ; codes qualifiés system|code."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcedureEntryPage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "createProcedureEntry",
+        "summary": "Créer entrée de catalogue",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "knowledge:author",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcedureEntry"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProcedureEntryInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/procedure-catalog/{item_id}": {
+      "get": {
+        "operationId": "getProcedureEntry",
+        "summary": "Lire entrée de catalogue",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "knowledge:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "item_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcedureEntry"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/procedure-catalog/{item_id}/revisions": {
+      "post": {
+        "operationId": "reviseProcedureEntry",
+        "summary": "Réviser avec analyse d’impact",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "knowledge:author",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "item_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "ETag de la révision attendue."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcedureEntry"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProcedureEntryRevision"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/resource-capabilities/{capability_id}": {
+      "get": {
+        "operationId": "getResourceCapability",
+        "summary": "Lire une capacité",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "resources:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "capability_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceCapability"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/resource-capabilities/{capability_id}/revisions": {
+      "post": {
+        "operationId": "reviseResourceCapability",
+        "summary": "Réviser sans effacer les réservations",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "resources:admin",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "capability_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "ETag de la révision attendue."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceCapability"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CapabilityRevision"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workflows": {
+      "post": {
+        "operationId": "createWorkflow",
+        "summary": "Créer parcours durable",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "workflows:create",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowRun"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkflowInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workflows/{workflow_id}": {
+      "get": {
+        "operationId": "getWorkflow",
+        "summary": "Lire progression et blocages",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "cases:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "workflow_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowRun"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/workflows/{workflow_id}/transitions": {
+      "post": {
+        "operationId": "transitionWorkflow",
+        "summary": "Commander une transition gardée",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "workflows:control",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "workflow_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "ETag de la révision attendue."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowRun"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkflowTransition"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cases/{case_id}/workflows": {
+      "get": {
+        "operationId": "listCaseWorkflows",
+        "summary": "Lister parcours du cas",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "cases:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowRunPage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/cases/{case_id}/result-batches": {
+      "post": {
+        "operationId": "receiveResultBatch",
+        "summary": "Recevoir atomiquement un rapport",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "results:ingest",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "ETag de la révision attendue."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultReceipt"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResultBatchInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/followups": {
+      "post": {
+        "operationId": "createFollowUp",
+        "summary": "Créer tâche de suivi",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "followups:create",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FollowUpTask"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FollowUpInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/followups/{task_id}": {
+      "get": {
+        "operationId": "getFollowUp",
+        "summary": "Lire tâche et propriétaire",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "cases:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FollowUpTask"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/followups/{task_id}/transitions": {
+      "post": {
+        "operationId": "transitionFollowUp",
+        "summary": "Attribuer ou clôturer suivi",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "followups:manage",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "ETag de la révision attendue."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FollowUpTask"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FollowUpTransition"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cases/{case_id}/followups": {
+      "get": {
+        "operationId": "listCaseFollowUps",
+        "summary": "Lister tâches du cas",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "cases:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FollowUpTaskPage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/cases/{case_id}/care-plans": {
+      "post": {
+        "operationId": "createCarePlan",
+        "summary": "Créer plan sans prescrire",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "careplans:write",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "ETag de la révision attendue."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CarePlan"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CarePlanInput"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "listCaseCarePlans",
+        "summary": "Lister plans de soins",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "cases:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CarePlanPage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/care-plans/{plan_id}": {
+      "get": {
+        "operationId": "getCarePlan",
+        "summary": "Lire plan de soins",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "cases:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CarePlan"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/care-plans/{plan_id}/revisions": {
+      "post": {
+        "operationId": "reviseCarePlan",
+        "summary": "Réviser plan et suivi",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "careplans:write",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "ETag de la révision attendue."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CarePlan"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CarePlanRevision"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/imports/{operation_id}/report": {
+      "get": {
+        "operationId": "getImportReport",
+        "summary": "Lire rapport de normalisation",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "knowledge:author",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "operation_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportReport"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/sources/{source_id}": {
+      "get": {
+        "operationId": "getSource",
+        "summary": "Lire source et droits",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "knowledge:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "source_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant opaque autorisé dans le tenant courant."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Source"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Révision opaque de la ressource lorsque mutable.",
+                "schema": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/knowledge/optimization-policies": {
+      "get": {
+        "operationId": "listOptimizationPolicies",
+        "summary": "Lister politiques admissibles",
+        "description": "Appliquer les invariants du chapitre propriétaire et les contrôles serveur.",
+        "x-permission": "knowledge:read",
+        "x-status": "specified",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultat de la commande ou lecture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptimizationPolicyPage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erreur typée ; aucun succès fictif.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UUID": {
+        "$ref": "./domain.schema.json#/$defs/UUID"
+      },
+      "Timestamp": {
+        "$ref": "./domain.schema.json#/$defs/Timestamp"
+      },
+      "Revision": {
+        "$ref": "./domain.schema.json#/$defs/Revision"
+      },
+      "Digest": {
+        "$ref": "./domain.schema.json#/$defs/Digest"
+      },
+      "Probability": {
+        "$ref": "./domain.schema.json#/$defs/Probability"
+      },
+      "UseLevel": {
+        "$ref": "./domain.schema.json#/$defs/UseLevel"
+      },
+      "Mode": {
+        "$ref": "./domain.schema.json#/$defs/Mode"
+      },
+      "Concept": {
+        "$ref": "./domain.schema.json#/$defs/Concept"
+      },
+      "ArtifactRef": {
+        "$ref": "./domain.schema.json#/$defs/ArtifactRef"
+      },
+      "ForeignRef": {
+        "$ref": "./domain.schema.json#/$defs/ForeignRef"
+      },
+      "Quantity": {
+        "$ref": "./domain.schema.json#/$defs/Quantity"
+      },
+      "CodedValue": {
+        "$ref": "./domain.schema.json#/$defs/CodedValue"
+      },
+      "BooleanValue": {
+        "$ref": "./domain.schema.json#/$defs/BooleanValue"
+      },
+      "TextValue": {
+        "$ref": "./domain.schema.json#/$defs/TextValue"
+      },
+      "IntervalValue": {
+        "$ref": "./domain.schema.json#/$defs/IntervalValue"
+      },
+      "RatioValue": {
+        "$ref": "./domain.schema.json#/$defs/RatioValue"
+      },
+      "ObservationValue": {
+        "$ref": "./domain.schema.json#/$defs/ObservationValue"
+      },
+      "SourceRef": {
+        "$ref": "./domain.schema.json#/$defs/SourceRef"
+      },
+      "Scope": {
+        "$ref": "./domain.schema.json#/$defs/Scope"
+      },
+      "CreateCase": {
+        "$ref": "./domain.schema.json#/$defs/CreateCase"
+      },
+      "ClinicalCase": {
+        "$ref": "./domain.schema.json#/$defs/ClinicalCase"
+      },
+      "RecordObservation": {
+        "$ref": "./domain.schema.json#/$defs/RecordObservation"
+      },
+      "Observation": {
+        "$ref": "./domain.schema.json#/$defs/Observation"
+      },
+      "AmendObservation": {
+        "$ref": "./domain.schema.json#/$defs/AmendObservation"
+      },
+      "CaseTransition": {
+        "$ref": "./domain.schema.json#/$defs/CaseTransition"
+      },
+      "EvaluationRequest": {
+        "$ref": "./domain.schema.json#/$defs/EvaluationRequest"
+      },
+      "MissingInput": {
+        "$ref": "./domain.schema.json#/$defs/MissingInput"
+      },
+      "IntervalEstimate": {
+        "$ref": "./domain.schema.json#/$defs/IntervalEstimate"
+      },
+      "HypothesisResult": {
+        "$ref": "./domain.schema.json#/$defs/HypothesisResult"
+      },
+      "TraceNode": {
+        "$ref": "./domain.schema.json#/$defs/TraceNode"
+      },
+      "Evaluation": {
+        "$ref": "./domain.schema.json#/$defs/Evaluation"
+      },
+      "ActionProposal": {
+        "$ref": "./domain.schema.json#/$defs/ActionProposal"
+      },
+      "ProposalDecision": {
+        "$ref": "./domain.schema.json#/$defs/ProposalDecision"
+      },
+      "OrderRequest": {
+        "$ref": "./domain.schema.json#/$defs/OrderRequest"
+      },
+      "ServiceOrder": {
+        "$ref": "./domain.schema.json#/$defs/ServiceOrder"
+      },
+      "CapabilityInput": {
+        "$ref": "./domain.schema.json#/$defs/CapabilityInput"
+      },
+      "ResourceCapability": {
+        "$ref": "./domain.schema.json#/$defs/ResourceCapability"
+      },
+      "Slot": {
+        "$ref": "./domain.schema.json#/$defs/Slot"
+      },
+      "AvailabilitySnapshot": {
+        "$ref": "./domain.schema.json#/$defs/AvailabilitySnapshot"
+      },
+      "CostInput": {
+        "$ref": "./domain.schema.json#/$defs/CostInput"
+      },
+      "CostQuote": {
+        "$ref": "./domain.schema.json#/$defs/CostQuote"
+      },
+      "PlanRequest": {
+        "$ref": "./domain.schema.json#/$defs/PlanRequest"
+      },
+      "Plan": {
+        "$ref": "./domain.schema.json#/$defs/Plan"
+      },
+      "BookingRequest": {
+        "$ref": "./domain.schema.json#/$defs/BookingRequest"
+      },
+      "Booking": {
+        "$ref": "./domain.schema.json#/$defs/Booking"
+      },
+      "ReasonCommand": {
+        "$ref": "./domain.schema.json#/$defs/ReasonCommand"
+      },
+      "SourceRegistration": {
+        "$ref": "./domain.schema.json#/$defs/SourceRegistration"
+      },
+      "Source": {
+        "$ref": "./domain.schema.json#/$defs/Source"
+      },
+      "ImportRequest": {
+        "$ref": "./domain.schema.json#/$defs/ImportRequest"
+      },
+      "ReleaseFile": {
+        "$ref": "./domain.schema.json#/$defs/ReleaseFile"
+      },
+      "KnowledgeRelease": {
+        "$ref": "./domain.schema.json#/$defs/KnowledgeRelease"
+      },
+      "ReleaseBuildRequest": {
+        "$ref": "./domain.schema.json#/$defs/ReleaseBuildRequest"
+      },
+      "ReleaseActivation": {
+        "$ref": "./domain.schema.json#/$defs/ReleaseActivation"
+      },
+      "Assertion": {
+        "$ref": "./domain.schema.json#/$defs/Assertion"
+      },
+      "EvidenceEstimate": {
+        "$ref": "./domain.schema.json#/$defs/EvidenceEstimate"
+      },
+      "ModelManifest": {
+        "$ref": "./domain.schema.json#/$defs/ModelManifest"
+      },
+      "ContributionInput": {
+        "$ref": "./domain.schema.json#/$defs/ContributionInput"
+      },
+      "Contribution": {
+        "$ref": "./domain.schema.json#/$defs/Contribution"
+      },
+      "ReviewDecision": {
+        "$ref": "./domain.schema.json#/$defs/ReviewDecision"
+      },
+      "ProviderPolicyInput": {
+        "$ref": "./domain.schema.json#/$defs/ProviderPolicyInput"
+      },
+      "ProviderPolicy": {
+        "$ref": "./domain.schema.json#/$defs/ProviderPolicy"
+      },
+      "ProviderUsage": {
+        "$ref": "./domain.schema.json#/$defs/ProviderUsage"
+      },
+      "Capability": {
+        "$ref": "./domain.schema.json#/$defs/Capability"
+      },
+      "Capabilities": {
+        "$ref": "./domain.schema.json#/$defs/Capabilities"
+      },
+      "Operation": {
+        "$ref": "./domain.schema.json#/$defs/Operation"
+      },
+      "FieldError": {
+        "$ref": "./domain.schema.json#/$defs/FieldError"
+      },
+      "Error": {
+        "$ref": "./domain.schema.json#/$defs/Error"
+      },
+      "Event": {
+        "$ref": "./domain.schema.json#/$defs/Event"
+      },
+      "ExportRequest": {
+        "$ref": "./domain.schema.json#/$defs/ExportRequest"
+      },
+      "ExpressionRef": {
+        "$ref": "./domain.schema.json#/$defs/ExpressionRef"
+      },
+      "ProtocolTransition": {
+        "$ref": "./domain.schema.json#/$defs/ProtocolTransition"
+      },
+      "ProtocolStep": {
+        "$ref": "./domain.schema.json#/$defs/ProtocolStep"
+      },
+      "ProtocolManifest": {
+        "$ref": "./domain.schema.json#/$defs/ProtocolManifest"
+      },
+      "TreatmentCheck": {
+        "$ref": "./domain.schema.json#/$defs/TreatmentCheck"
+      },
+      "TreatmentOption": {
+        "$ref": "./domain.schema.json#/$defs/TreatmentOption"
+      },
+      "TreatmentRequest": {
+        "$ref": "./domain.schema.json#/$defs/TreatmentRequest"
+      },
+      "ReleaseDecision": {
+        "$ref": "./domain.schema.json#/$defs/ReleaseDecision"
+      },
+      "AvailabilityInput": {
+        "$ref": "./domain.schema.json#/$defs/AvailabilityInput"
+      },
+      "Configuration": {
+        "$ref": "./domain.schema.json#/$defs/Configuration"
+      },
+      "Page": {
+        "$ref": "./domain.schema.json#/$defs/Page"
+      },
+      "SiteInput": {
+        "$ref": "./domain.schema.json#/$defs/SiteInput"
+      },
+      "SiteRevision": {
+        "$ref": "./domain.schema.json#/$defs/SiteRevision"
+      },
+      "Site": {
+        "$ref": "./domain.schema.json#/$defs/Site"
+      },
+      "ManagedResourceInput": {
+        "$ref": "./domain.schema.json#/$defs/ManagedResourceInput"
+      },
+      "ManagedResourceRevision": {
+        "$ref": "./domain.schema.json#/$defs/ManagedResourceRevision"
+      },
+      "ManagedResource": {
+        "$ref": "./domain.schema.json#/$defs/ManagedResource"
+      },
+      "ProcedureEntryInput": {
+        "$ref": "./domain.schema.json#/$defs/ProcedureEntryInput"
+      },
+      "ProcedureEntryRevision": {
+        "$ref": "./domain.schema.json#/$defs/ProcedureEntryRevision"
+      },
+      "ProcedureEntry": {
+        "$ref": "./domain.schema.json#/$defs/ProcedureEntry"
+      },
+      "CapabilityRevision": {
+        "$ref": "./domain.schema.json#/$defs/CapabilityRevision"
+      },
+      "WorkflowInput": {
+        "$ref": "./domain.schema.json#/$defs/WorkflowInput"
+      },
+      "WorkflowRun": {
+        "$ref": "./domain.schema.json#/$defs/WorkflowRun"
+      },
+      "WorkflowTransition": {
+        "$ref": "./domain.schema.json#/$defs/WorkflowTransition"
+      },
+      "FollowUpInput": {
+        "$ref": "./domain.schema.json#/$defs/FollowUpInput"
+      },
+      "FollowUpTask": {
+        "$ref": "./domain.schema.json#/$defs/FollowUpTask"
+      },
+      "FollowUpTransition": {
+        "$ref": "./domain.schema.json#/$defs/FollowUpTransition"
+      },
+      "CarePlanInput": {
+        "$ref": "./domain.schema.json#/$defs/CarePlanInput"
+      },
+      "CarePlan": {
+        "$ref": "./domain.schema.json#/$defs/CarePlan"
+      },
+      "CarePlanRevision": {
+        "$ref": "./domain.schema.json#/$defs/CarePlanRevision"
+      },
+      "ResultItem": {
+        "$ref": "./domain.schema.json#/$defs/ResultItem"
+      },
+      "ResultBatchInput": {
+        "$ref": "./domain.schema.json#/$defs/ResultBatchInput"
+      },
+      "ResultReceipt": {
+        "$ref": "./domain.schema.json#/$defs/ResultReceipt"
+      },
+      "ImportIssue": {
+        "$ref": "./domain.schema.json#/$defs/ImportIssue"
+      },
+      "ImportReport": {
+        "$ref": "./domain.schema.json#/$defs/ImportReport"
+      },
+      "OptimizationPolicy": {
+        "$ref": "./domain.schema.json#/$defs/OptimizationPolicy"
+      },
+      "CriterionEstimate": {
+        "$ref": "./domain.schema.json#/$defs/CriterionEstimate"
+      },
+      "StrategyEstimate": {
+        "$ref": "./domain.schema.json#/$defs/StrategyEstimate"
+      },
+      "ClinicalCasePage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClinicalCase"
+            }
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "next_cursor"
+        ]
+      },
+      "ObservationPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Observation"
+            }
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "next_cursor"
+        ]
+      },
+      "ActionProposalPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ActionProposal"
+            }
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "next_cursor"
+        ]
+      },
+      "ResourceCapabilityPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResourceCapability"
+            }
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "next_cursor"
+        ]
+      },
+      "ConceptPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Concept"
+            }
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "next_cursor"
+        ]
+      },
+      "AssertionPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Assertion"
+            }
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "next_cursor"
+        ]
+      },
+      "ModelManifestPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ModelManifest"
+            }
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "next_cursor"
+        ]
+      },
+      "ProtocolManifestPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProtocolManifest"
+            }
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "next_cursor"
+        ]
+      },
+      "EvidenceEstimatePage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EvidenceEstimate"
+            }
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "next_cursor"
+        ]
+      },
+      "TreatmentOptionPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TreatmentOption"
+            }
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "next_cursor"
+        ]
+      },
+      "SitePage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Site"
+            }
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "next_cursor"
+        ]
+      },
+      "ManagedResourcePage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedResource"
+            }
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "next_cursor"
+        ]
+      },
+      "ProcedureEntryPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProcedureEntry"
+            }
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "next_cursor"
+        ]
+      },
+      "CostQuotePage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CostQuote"
+            }
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "next_cursor"
+        ]
+      },
+      "WorkflowRunPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorkflowRun"
+            }
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "next_cursor"
+        ]
+      },
+      "FollowUpTaskPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FollowUpTask"
+            }
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "next_cursor"
+        ]
+      },
+      "CarePlanPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CarePlan"
+            }
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "next_cursor"
+        ]
+      },
+      "SourcePage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Source"
+            }
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "next_cursor"
+        ]
+      },
+      "ContributionPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Contribution"
+            }
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "next_cursor"
+        ]
+      },
+      "OptimizationPolicyPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OptimizationPolicy"
+            }
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "next_cursor"
+        ]
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Jeton local ou OIDC vérifié côté serveur."
+      }
+    }
+  }
+}

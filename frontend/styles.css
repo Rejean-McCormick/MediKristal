@@ -1,0 +1,18 @@
+:root { font-family: system-ui, sans-serif; color-scheme: light dark; }
+body { margin: 0; background: Canvas; color: CanvasText; }
+header { display:flex; gap:1rem; justify-content:space-between; align-items:center; padding:1rem 1.25rem; border-bottom:1px solid GrayText; position:sticky; top:0; background:Canvas; z-index:3; }
+.session { display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; }
+nav { display:flex; gap:.5rem; padding:.75rem 1.25rem; overflow:auto; border-bottom:1px solid GrayText; }
+button,input,select { font:inherit; padding:.55rem .7rem; }
+button { cursor:pointer; }
+main { padding:1.25rem; max-width:1200px; margin:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1rem; }
+article { border:1px solid GrayText; border-radius:.6rem; padding:1rem; }
+label { display:grid; gap:.35rem; margin:.7rem 0; }
+pre { white-space:pre-wrap; word-break:break-word; background:color-mix(in srgb, CanvasText 7%, Canvas); padding:.75rem; min-height:2rem; border-radius:.4rem; }
+.badge { border:1px solid GrayText; padding:.2rem .5rem; border-radius:999px; font-size:.85rem; }
+.muted { opacity:.75; }
+.notice { border-left:4px solid currentColor; padding:.7rem 1rem; margin:.5rem 0; }
+.skip { position:absolute; left:-999px; }
+.skip:focus { left:1rem; top:1rem; z-index:10; background:Canvas; padding:.5rem; }
+button[aria-pressed="true"] { outline:2px solid currentColor; outline-offset:2px; }

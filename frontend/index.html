@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MediKristal — engineering</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Aller au contenu</a>
+  <header>
+    <div>
+      <strong>MediKristal</strong>
+      <span id="mode-badge" class="badge">non connecté</span>
+    </div>
+    <div class="session">
+      <label for="token">Jeton local</label>
+      <input id="token" type="password" autocomplete="off" placeholder="Bearer token">
+      <button id="connect">Connecter</button>
+    </div>
+  </header>
+  <nav aria-label="Parcours">
+    <button data-view="patient" aria-pressed="true">Patient</button>
+    <button data-view="professional">Professionnel</button>
+    <button data-view="admin">Administration</button>
+    <button data-view="science">Scientifique</button>
+    <button data-view="ops">Exploitation</button>
+  </nav>
+  <main id="main">
+    <section id="alerts" aria-live="polite"></section>
+
+    <section data-panel="patient">
+      <h1>Parcours patient synthétique</h1>
+      <p class="muted">Cette interface affiche les états réels du serveur. Elle ne transforme jamais « inconnu » en « absent ».</p>
+      <div class="grid">
+        <article>
+          <h2>1. Créer un cas</h2>
+          <label>Subject UUID <input id="subject" value="00000000-0000-4000-8000-000000000003"></label>
+          <button id="create-case">Créer</button>
+          <pre id="case-out"></pre>
+        </article>
+        <article>
+          <h2>2. Observation SYN-T1</h2>
+          <label>État
+            <select id="obs-presence"><option>present</option><option>absent</option><option>unknown</option><option>not_assessed</option></select>
+          </label>
+          <label>Valeur booléenne <select id="obs-value"><option value="true">true</option><option value="false">false</option></select></label>
+          <button id="add-observation">Ajouter</button>
+          <pre id="obs-out"></pre>
+        </article>
+        <article>
+          <h2>3. Évaluer</h2>
+          <button id="evaluate">Demander une évaluation synthétique</button>
+          <pre id="evaluation-out"></pre>
+        </article>
+        <article>
+          <h2>4. Propositions</h2>
+          <button id="load-proposals">Rafraîchir</button>
+          <pre id="proposal-out"></pre>
+        </article>
+      </div>
+    </section>
+
+    <section data-panel="professional" hidden>
+      <h1>Parcours professionnel</h1>
+      <div class="grid">
+        <article><h2>Cas courant</h2><button id="refresh-case">Relire</button><pre id="professional-case"></pre></article>
+        <article><h2>Workflow</h2><button id="create-workflow">Créer workflow engineering</button><pre id="workflow-out"></pre></article>
+        <article><h2>Options thérapeutiques</h2><button id="treatments">Évaluer les options</button><pre id="treatment-out"></pre></article>
+        <article><h2>Suivi</h2><button id="load-followups">Afficher</button><pre id="followup-out"></pre></article>
+      </div>
+    </section>
+
+    <section data-panel="admin" hidden>
+      <h1>Catalogue administratif</h1>
+      <div class="grid">
+        <article>
+          <h2>Site synthétique</h2>
+          <button id="create-site">Créer site</button>
+          <button id="list-sites">Lister</button>
+          <pre id="site-out"></pre>
+        </article>
+        <article>
+          <h2>Configuration</h2>
+          <button id="load-config">Lire</button>
+          <pre id="config-out"></pre>
+        </article>
+        <article>
+          <h2>Capacités serveur</h2>
+          <button id="load-capabilities">Lire</button>
+          <pre id="capabilities-out"></pre>
+        </article>
+      </div>
+    </section>
+
+    <section data-panel="science" hidden>
+      <h1>Atelier scientifique</h1>
+      <div class="grid">
+        <article><h2>Modèles</h2><button id="load-models">Lister</button><pre id="models-out"></pre></article>
+        <article><h2>Protocoles</h2><button id="load-protocols">Lister</button><pre id="protocols-out"></pre></article>
+        <article><h2>Contributions</h2><button id="load-contributions">Lister</button><pre id="contrib-out"></pre></article>
+      </div>
+    </section>
+
+    <section data-panel="ops" hidden>
+      <h1>Exploitation</h1>
+      <p>Les opérations asynchrones restent persistées; une réponse ambiguë conserve <code>reconciling</code>.</p>
+      <label>Operation UUID <input id="operation-id"></label>
+      <button id="load-operation">Lire</button>
+      <pre id="operation-out"></pre>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+[
+  {
+    "file": "case.json",
+    "schema": "ClinicalCase",
+    "synthetic": true
+  },
+  {
+    "file": "observation.json",
+    "schema": "Observation",
+    "synthetic": true
+  },
+  {
+    "file": "evaluation.json",
+    "schema": "Evaluation",
+    "synthetic": true
+  },
+  {
+    "file": "capability.json",
+    "schema": "ResourceCapability",
+    "synthetic": true
+  },
+  {
+    "file": "cost.json",
+    "schema": "CostQuote",
+    "synthetic": true
+  },
+  {
+    "file": "booking.json",
+    "schema": "Booking",
+    "synthetic": true
+  },
+  {
+    "file": "provider-policy.json",
+    "schema": "ProviderPolicy",
+    "synthetic": true
+  },
+  {
+    "file": "contribution.json",
+    "schema": "Contribution",
+    "synthetic": true
+  },
+  {
+    "file": "workflow.json",
+    "schema": "WorkflowRun",
+    "synthetic": true
+  },
+  {
+    "file": "followup.json",
+    "schema": "FollowUpTask",
+    "synthetic": true
+  },
+  {
+    "file": "procedure.json",
+    "schema": "ProcedureEntry",
+    "synthetic": true
+  },
+  {
+    "file": "result-batch.json",
+    "schema": "ResultBatchInput",
+    "synthetic": true
+  }
+]

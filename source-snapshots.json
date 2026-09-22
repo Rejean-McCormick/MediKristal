@@ -1,0 +1,35 @@
+{
+  "snapshots": [
+    {
+      "filename": "Code_snapshot_Konnaxion(20260922-111642).zip",
+      "sha256": "6957cb3e40c05097222f049e0be2c29b4977340f38afc82e0c0a693daa64bc65",
+      "size_bytes": 2191826,
+      "entries": 1046
+    },
+    {
+      "filename": "Code_snapshot_Kristal.zip",
+      "sha256": "af70f42a7f181c409bfe88b6b552f7a6f3519258f6878a63c3e21786ebc21a7d",
+      "size_bytes": 682766,
+      "entries": 262
+    },
+    {
+      "filename": "Code_snapshot_MediKristal.zip",
+      "sha256": "19e9067d3edaca4bf4cba8255b01cf4e60d08715fbea226b7a051e16de2cbbb1",
+      "size_bytes": 13465,
+      "entries": 5
+    },
+    {
+      "filename": "Code_snapshot_kOA_Digital_Ecosystem(5).zip",
+      "sha256": "99bebdab8e65bb38a58e792d4d343db44fe920b4fd259e49e70b686f27d1cd3b",
+      "size_bytes": 292498,
+      "entries": 154
+    },
+    {
+      "filename": "Code_snapshot_kristal-framework(7).zip",
+      "sha256": "78a3bbbe4b92750c01045eff669ab8acb6fd58fa738b1cbcfb5f793cb6cc423c",
+      "size_bytes": 520016,
+      "entries": 114
+    }
+  ],
+  "note": "Identifiants de fichiers fournis dans cette conversation ; archives originales non modifiées."
+}

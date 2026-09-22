@@ -1,1 +1,11 @@
-GitSink.bat
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.db
+*.sqlite*
+.env
+.venv/
+venv/
+coverage.xml
+htmlcov/
+.DS_Store

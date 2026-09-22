@@ -1,0 +1,36 @@
+{
+  "case_revision": 1,
+  "owner": "synthetic-lab",
+  "report_id": "synthetic-report",
+  "report_version": "1",
+  "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "items": [
+    {
+      "external_item_id": "result-1",
+      "replaces_id": null,
+      "observation": {
+        "concept": {
+          "system": "urn:medikristal:synthetic",
+          "code": "SYN-T1",
+          "version": "1"
+        },
+        "kind": "test_result",
+        "presence": "present",
+        "value": {
+          "kind": "boolean",
+          "value": true
+        },
+        "effective_at": "2026-09-22T12:00:00Z",
+        "status": "final",
+        "source": {
+          "source_id": "synthetic-fixture",
+          "source_version": "1",
+          "record_id": "result-1"
+        },
+        "quality": "usable",
+        "method_ref": null,
+        "dependency_refs": []
+      }
+    }
+  ]
+}
