@@ -1,0 +1,113 @@
+{
+  "schema": "levelupdiag.report.v2",
+  "standard": "LevelUpDiag",
+  "standard_version": "1.1.0",
+  "run_id": "20260922T234819Z-ca135963",
+  "level_id": "N02",
+  "level_name": "Repository Inventory",
+  "purpose": "Collect bounded evidence about repository shape and capabilities.",
+  "target_repo_root": "C:\\mycode\\MediKristal\\MediKristal",
+  "started_at": "2026-09-22T23:48:22+00:00",
+  "ended_at": "2026-09-22T23:48:22+00:00",
+  "verdict": "PASS",
+  "findings": [
+    {
+      "id": "repository.inventory.completed",
+      "verdict": "PASS",
+      "category": "inventory",
+      "message": "Bounded repository inventory completed.",
+      "evidence": {
+        "files": 124,
+        "manifests": 2,
+        "docs": 5
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "kind": "inventory",
+      "path": "C:\\mycode\\MediKristal\\MediKristal\\.levelupdiag\\inventory\\20260922T234819Z-ca135963.json",
+      "description": "Bounded repository inventory"
+    }
+  ],
+  "metrics": {
+    "file_count": 124,
+    "bounded_bytes": 1294201,
+    "top_extensions": [
+      [
+        ".py",
+        43
+      ],
+      [
+        ".md",
+        42
+      ],
+      [
+        ".json",
+        23
+      ],
+      [
+        "<none>",
+        3
+      ],
+      [
+        ".js",
+        2
+      ],
+      [
+        ".html",
+        2
+      ],
+      [
+        ".css",
+        2
+      ],
+      [
+        ".bat",
+        1
+      ],
+      [
+        ".ini",
+        1
+      ],
+      [
+        ".toml",
+        1
+      ],
+      [
+        ".lock",
+        1
+      ],
+      [
+        ".mako",
+        1
+      ],
+      [
+        ".example",
+        1
+      ],
+      [
+        ".yml",
+        1
+      ]
+    ],
+    "manifests": [
+      {
+        "path": "Makefile",
+        "kind": "make"
+      },
+      {
+        "path": "backend/pyproject.toml",
+        "kind": "python-project"
+      }
+    ],
+    "documentation": [
+      "CHANGELOG.md",
+      "README.md",
+      "contracts/README.md",
+      "docs/README.md",
+      "examples/README.md"
+    ],
+    "worker_duration_seconds": 0.214
+  }
+}

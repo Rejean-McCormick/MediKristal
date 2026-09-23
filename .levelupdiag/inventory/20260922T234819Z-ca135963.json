@@ -1,0 +1,79 @@
+{
+  "file_count": 124,
+  "bounded_bytes": 1294201,
+  "top_extensions": [
+    [
+      ".py",
+      43
+    ],
+    [
+      ".md",
+      42
+    ],
+    [
+      ".json",
+      23
+    ],
+    [
+      "<none>",
+      3
+    ],
+    [
+      ".js",
+      2
+    ],
+    [
+      ".html",
+      2
+    ],
+    [
+      ".css",
+      2
+    ],
+    [
+      ".bat",
+      1
+    ],
+    [
+      ".ini",
+      1
+    ],
+    [
+      ".toml",
+      1
+    ],
+    [
+      ".lock",
+      1
+    ],
+    [
+      ".mako",
+      1
+    ],
+    [
+      ".example",
+      1
+    ],
+    [
+      ".yml",
+      1
+    ]
+  ],
+  "manifests": [
+    {
+      "path": "Makefile",
+      "kind": "make"
+    },
+    {
+      "path": "backend/pyproject.toml",
+      "kind": "python-project"
+    }
+  ],
+  "documentation": [
+    "CHANGELOG.md",
+    "README.md",
+    "contracts/README.md",
+    "docs/README.md",
+    "examples/README.md"
+  ]
+}

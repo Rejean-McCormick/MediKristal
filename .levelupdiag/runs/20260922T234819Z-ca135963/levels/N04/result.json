@@ -1,0 +1,63 @@
+{
+  "schema": "levelupdiag.report.v2",
+  "standard": "LevelUpDiag",
+  "standard_version": "1.1.0",
+  "run_id": "20260922T234819Z-ca135963",
+  "level_id": "N04",
+  "level_name": "Tooling Discovery",
+  "purpose": "Discover project manifests, automation surfaces and candidate tools.",
+  "target_repo_root": "C:\\mycode\\MediKristal\\MediKristal",
+  "started_at": "2026-09-22T23:48:22+00:00",
+  "ended_at": "2026-09-22T23:48:22+00:00",
+  "verdict": "WARN",
+  "findings": [
+    {
+      "id": "tooling.surfaces.discovered",
+      "verdict": "PASS",
+      "category": "tooling",
+      "message": "Project tooling surfaces were discovered without executing them.",
+      "evidence": {
+        "manifests": [
+          "Makefile",
+          "backend/pyproject.toml"
+        ],
+        "lock_files": [],
+        "automation_sample": []
+      }
+    },
+    {
+      "id": "tooling.candidates.available",
+      "verdict": "WARN",
+      "category": "tooling",
+      "message": "Some tools suggested by repository manifests are not available on PATH; they are not assumed to be required.",
+      "evidence": {
+        "availability": {
+          "make": false,
+          "python": true
+        }
+      }
+    },
+    {
+      "id": "tooling.required.available",
+      "verdict": "PASS",
+      "category": "tooling",
+      "message": "Configured required tools are available.",
+      "evidence": [
+        "python"
+      ]
+    }
+  ],
+  "artifacts": [],
+  "metrics": {
+    "candidate_tools": {
+      "make": false,
+      "python": true
+    },
+    "manifests": [
+      "Makefile",
+      "backend/pyproject.toml"
+    ],
+    "lock_files": [],
+    "worker_duration_seconds": 0.249
+  }
+}

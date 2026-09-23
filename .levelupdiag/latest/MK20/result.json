@@ -1,0 +1,99 @@
+{
+  "schema": "levelupdiag.report.v2",
+  "standard": "LevelUpDiag",
+  "standard_version": "1.1.0",
+  "run_id": "20260922T234819Z-ca135963",
+  "level_id": "MK20",
+  "level_name": "Contract and Traceability Integrity",
+  "purpose": "Independently validate OpenAPI/domain/traceability invariants, runtime asset parity and acceptance-matrix completeness.",
+  "target_repo_root": "C:\\mycode\\MediKristal\\MediKristal",
+  "started_at": "2026-09-22T23:49:39+00:00",
+  "ended_at": "2026-09-22T23:49:39+00:00",
+  "verdict": "PASS",
+  "findings": [
+    {
+      "id": "medikristal.contracts.parse",
+      "verdict": "PASS",
+      "category": "contracts",
+      "message": "Core JSON contracts parse successfully."
+    },
+    {
+      "id": "medikristal.openapi.operation_set",
+      "verdict": "PASS",
+      "category": "contracts",
+      "message": "OpenAPI declares the expected unique operation set.",
+      "evidence": {
+        "expected": 80,
+        "actual": 80,
+        "unique": 80,
+        "duplicates": []
+      }
+    },
+    {
+      "id": "medikristal.schema.definition_count",
+      "verdict": "PASS",
+      "category": "contracts",
+      "message": "Domain schema definition count matches the declared contract.",
+      "evidence": {
+        "expected": 107,
+        "actual": 107
+      }
+    },
+    {
+      "id": "medikristal.contracts.version_alignment",
+      "verdict": "PASS",
+      "category": "contracts",
+      "message": "API and package versions are aligned.",
+      "evidence": {
+        "openapi": "0.2.0",
+        "package": "0.2.0",
+        "expected": "0.2.0"
+      }
+    },
+    {
+      "id": "medikristal.openapi.permission_metadata",
+      "verdict": "PASS",
+      "category": "contracts",
+      "message": "Every API operation declares permission and security metadata.",
+      "evidence": {
+        "operations": 80
+      }
+    },
+    {
+      "id": "medikristal.traceability.matrix",
+      "verdict": "PASS",
+      "category": "traceability",
+      "message": "Traceability covers every MK requirement with resolvable chapters, schemas, operations and acceptance tests.",
+      "evidence": {
+        "requirements": 32
+      }
+    },
+    {
+      "id": "medikristal.examples.count",
+      "verdict": "PASS",
+      "category": "contracts",
+      "message": "Example inventory count matches the contract.",
+      "evidence": {
+        "expected": 12,
+        "actual": 12
+      }
+    },
+    {
+      "id": "medikristal.runtime_assets.parity",
+      "verdict": "PASS",
+      "category": "contracts",
+      "message": "Packaged runtime source assets match repository contracts and frontend.",
+      "evidence": {
+        "files": 6
+      }
+    }
+  ],
+  "artifacts": [],
+  "metrics": {
+    "operations": 80,
+    "schemas": 107,
+    "requirements": 32,
+    "examples": 12,
+    "worker_duration_seconds": 0.292
+  }
+}

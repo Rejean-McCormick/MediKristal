@@ -1,0 +1,34 @@
+{
+  "schema": "levelupdiag.report.v2",
+  "standard": "LevelUpDiag",
+  "standard_version": "1.1.0",
+  "run_id": "20260922T234819Z-ca135963",
+  "level_id": "N06",
+  "level_name": "Security Hygiene",
+  "purpose": "Perform bounded conservative secret and sensitive-file hygiene checks.",
+  "target_repo_root": "C:\\mycode\\MediKristal\\MediKristal",
+  "started_at": "2026-09-22T23:48:22+00:00",
+  "ended_at": "2026-09-22T23:48:23+00:00",
+  "verdict": "PASS",
+  "findings": [
+    {
+      "id": "security.sensitive_filenames.review",
+      "verdict": "PASS",
+      "category": "security_hygiene",
+      "message": "No high-risk sensitive filenames were found in the bounded scan."
+    },
+    {
+      "id": "security.secret_patterns.review",
+      "verdict": "PASS",
+      "category": "security_hygiene",
+      "message": "No configured secret pattern matched in the bounded scan."
+    }
+  ],
+  "artifacts": [],
+  "metrics": {
+    "files_scanned": 123,
+    "potential_secret_hits": 0,
+    "sensitive_filenames": 0,
+    "worker_duration_seconds": 0.39
+  }
+}

@@ -1,0 +1,19 @@
+LevelUpDiag release - ERROR
+Run: 20260922T234819Z-ca135963
+Target: C:\mycode\MediKristal\MediKristal
+
+N00  PASS         Diagnostic Integrity
+N01  WARN         Target Context
+N02  PASS         Repository Inventory
+N03  PASS         Repository Hygiene
+N04  WARN         Tooling Discovery
+N05  FAIL         Canonical Software Validators
+N06  PASS         Security Hygiene
+MK10  PASS         MediKristal Identity and Layout
+MK20  PASS         Contract and Traceability Integrity
+MK30  FAIL         Runtime API Smoke
+MK40  PASS         Migration Cycle
+MK50  WARN         Packaging and Provenance
+MK60  ERROR        Generated Artifact Reproducibility
+MK70  ERROR        Delivery Claims Consistency
+MK80  WARN         Deployment Configuration
