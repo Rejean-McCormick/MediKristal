@@ -9,3 +9,4 @@ venv/
 coverage.xml
 htmlcov/
 .DS_Store
+/SmartSnap.pyw
