@@ -77,3 +77,7 @@ Mettre à jour ensemble le chapitre concerné, les contrats, les exemples et les
 
 - [Historique des versions](../CHANGELOG.md)
 - [Matrice structurée de traçabilité](../contracts/traceability.json)
+
+## Vérification des dépôts satellites
+
+- [Contrats, versions et limites de qualification (27 octobre 2026)](Integration-Verification-2026-10-27.md)

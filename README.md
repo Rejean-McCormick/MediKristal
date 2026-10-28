@@ -55,3 +55,8 @@ python tools/validate_reference.py
 These validate selected documents, links, examples and a supported schema subset; they are not a replacement for full schema checks, application test suites or clinical validation. See [validation report](VALIDATION.md). `make validate` or `make manifest` regenerates the delivered-file manifest after configured checks.
 
 Read the [changelog](CHANGELOG.md), [functional coverage](docs/26-coverage.md) and [acceptance scenarios](docs/33-acceptance.md) for the specification 1.1 scope, including 107 schema definitions and 80 operations.
+
+## Vérification des intégrations satellites (27 octobre 2026)
+
+Voir [le contrôle de compatibilité et les limites de qualification](docs/Integration-Verification-2026-10-27.md). Les versions et statuts externes doivent être vérifiés avant tout déploiement.
+
