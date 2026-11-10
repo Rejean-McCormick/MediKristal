@@ -4,19 +4,24 @@
   "api_version": "0.2.0",
   "files": [
     {
+      "path": ".github/workflows/ci.yml",
+      "bytes": 2313,
+      "sha256": "f0e3111fea957dd1297a95c7f94694c84b1c461932bec71723a5a103d2a574f6"
+    },
+    {
       "path": ".gitignore",
-      "bytes": 103,
-      "sha256": "666107a6a2c5ce2d48687009b8a932ecfa394f01762d31ca4949e81e7b99641e"
+      "bytes": 492,
+      "sha256": "dd16652d74af22ed7144b1a17c6a463e80cbf0af020b016587db452a41070ffa"
     },
     {
       "path": "AGENTS.md",
-      "bytes": 4288,
-      "sha256": "827b29e25dfd053b28e2d31230db164b0375bdfab5cff17222df532778f18260"
+      "bytes": 4577,
+      "sha256": "b09ca4f0c306f16695d8d6d6b9e902c10a77e7d8967c6a2430f653a2405c8c65"
     },
     {
       "path": "APP_VALIDATION.md",
-      "bytes": 3892,
-      "sha256": "fe56b378e9b2ca718317d8e4b29b5ea251627891258e3ba930390a7f5c8cec28"
+      "bytes": 4129,
+      "sha256": "2324ba778e3b7897df51ecb3da40ec33603240f3c5aa59142a17a6b8f2958dc2"
     },
     {
       "path": "CHANGELOG.md",
@@ -25,8 +30,8 @@
     },
     {
       "path": "IMPLEMENTATION.md",
-      "bytes": 5181,
-      "sha256": "4182387d0565cc6d30a0ecad156597c62a93217f087c1fd85148b2abcc60f240"
+      "bytes": 5284,
+      "sha256": "f68080b1747c1ad300541fdbec0bd5be95fcd2274773ed173338d27e863ebb98"
     },
     {
       "path": "Makefile",
@@ -35,13 +40,13 @@
     },
     {
       "path": "README.md",
-      "bytes": 5305,
-      "sha256": "8f3991c61e30ca278d81c67ecca1a1c8b99168d84ef702e2026250e40a51ab9d"
+      "bytes": 3769,
+      "sha256": "92855c50a47dc0dfc3a1cf1437acfa7ac5853cba50f329fbca6e87491c0a3974"
     },
     {
       "path": "VALIDATION.md",
-      "bytes": 9710,
-      "sha256": "f8ad0c13c7df7ea60adeeac95902ed79bf975d95d00277be6a7c7f3503ec962d"
+      "bytes": 9459,
+      "sha256": "896d047867476499764afd1c24dcb96e39afb75aeb6774fe1e25cbcfa48cc18a"
     },
     {
       "path": "backend/Dockerfile",
@@ -394,9 +399,19 @@
       "sha256": "2a22dc751675142e4acd4a22ce5a187efeb961960080639c6792feaa40acfe60"
     },
     {
+      "path": "docs/FINAL_SYSTEM_ENGINEERING_BOUNDARY.md",
+      "bytes": 5384,
+      "sha256": "4395f8122a3587da9cc8c9db851c519e07d1a20dc5404c254a5308a8c5736c85"
+    },
+    {
+      "path": "docs/Integration-Verification-2026-10-27.md",
+      "bytes": 1697,
+      "sha256": "780dfb983809fbca7865c91d9c73cdc69ae8c20afe52aa8be7496fb678689b5e"
+    },
+    {
       "path": "docs/README.md",
-      "bytes": 3537,
-      "sha256": "9c883cc14c854702eb595b5ac3e54ac43468bc21ad8ab5a698c27634fcaac250"
+      "bytes": 3928,
+      "sha256": "2062c4af22980d1eda4db3b02028e60a5c5c8e4fae585d434b0b83fc869ace66"
     },
     {
       "path": "examples/README.md",
@@ -585,13 +600,18 @@
     },
     {
       "path": "tools/build_manifest.py",
-      "bytes": 1606,
-      "sha256": "06f83b8d9acc0a41849f2c20c4eb3520a9369058d9143b80ef37f6edb4150386"
+      "bytes": 1698,
+      "sha256": "30b2c6d7e9139a800cd1e36b96f203e4ae759f49c6504716f73479a8cb448f12"
     },
     {
       "path": "tools/build_sbom.py",
       "bytes": 4782,
       "sha256": "544200a9bf8755bc91dbfa968a78c0985f90f18383df1357851dbe38fe293f31"
+    },
+    {
+      "path": "tools/check_delivery_integrity.py",
+      "bytes": 3857,
+      "sha256": "d65a0cd54e989ceaf2e629974beb6250756bffbe0921f5c6379ca924691290a1"
     },
     {
       "path": "tools/contract_extensions.py",
@@ -605,13 +625,13 @@
     },
     {
       "path": "tools/validate_reference.py",
-      "bytes": 11640,
-      "sha256": "6703927e65937cafc4ca3d3a074b7ceb9e0a19502868622c43349acc844f0187"
+      "bytes": 12321,
+      "sha256": "7f9850f154adf9563e010ab553657191a0010845f5ec5d28cd33c9ef9d161928"
     },
     {
       "path": "validation-report.json",
-      "bytes": 21829,
-      "sha256": "83f6023b799c3996e7021a884906d96d004cb261cf3ab0a18ca0b84c75da0f34"
+      "bytes": 21401,
+      "sha256": "01ab99d700c0d99eda1059c8d1b33f00737574f1ba83a65b5ac9c568a75b18f0"
     }
   ]
 }

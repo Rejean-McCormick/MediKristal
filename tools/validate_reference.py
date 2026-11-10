@@ -13,6 +13,20 @@ import uuid
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
+# Diagnostic output, local caches, build artifacts and VCS data do not form
+# part of the canonical contract/reference source. They must not inflate
+# documentary counts when a diagnostic campaign runs in the checkout.
+EXCLUDED_GENERATED_PARTS = {
+    '.git', '.levelupdiag', 'levelupdiag_zip_runs', '.pytest_cache',
+    '__pycache__', '.venv', 'venv', 'build', 'dist', '.mypy_cache',
+}
+
+
+def in_reference_scope(path: Path) -> bool:
+    relative = path.relative_to(ROOT)
+    return not any(part in EXCLUDED_GENERATED_PARTS or part.endswith('.egg-info')
+                   for part in relative.parts)
+
 schema=json.loads((ROOT/'contracts/domain.schema.json').read_text())
 api=json.loads((ROOT/'contracts/openapi.json').read_text())
 checks=[]
@@ -70,7 +84,7 @@ def validate(value, spec, path='$'):
 
 # Inventaire syntaxique et références.
 for p in ROOT.rglob('*.json'):
-    if p.name not in ['validation-report.json','manifest.json']:
+    if in_reference_scope(p) and p.name not in ['validation-report.json','manifest.json']:
         try:json.loads(p.read_text());check('json:'+str(p.relative_to(ROOT)),True)
         except Exception as e:check('json:'+str(p.relative_to(ROOT)),False,str(e))
 def walk(v):
@@ -130,6 +144,8 @@ check('synthetic namespace',all(c.get('system')=='urn:medikristal:synthetic' for
 
 bad_links=[]
 for file in ROOT.rglob('*.md'):
+    if not in_reference_scope(file):
+        continue
     for target in re.findall(r'\]\(([^)]+)\)',file.read_text()):
         if '://' in target or target.startswith(('#','mailto:')):continue
         dest=target.split('#')[0]

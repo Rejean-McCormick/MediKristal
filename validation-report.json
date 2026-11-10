@@ -2,12 +2,12 @@
   "scope": "Validation documentaire et sous-ensemble de schéma généré ; pas validation complète OpenAPI/JSON Schema externe, pas test applicatif ou clinique.",
   "checks": [
     {
-      "name": "json:sbom.cdx.json",
+      "name": "json:source-snapshots.json",
       "status": "PASS",
       "detail": ""
     },
     {
-      "name": "json:source-snapshots.json",
+      "name": "json:sbom.cdx.json",
       "status": "PASS",
       "detail": ""
     },
@@ -17,37 +17,12 @@
       "detail": ""
     },
     {
-      "name": "json:contracts/domain.schema.json",
-      "status": "PASS",
-      "detail": ""
-    },
-    {
       "name": "json:contracts/traceability.json",
       "status": "PASS",
       "detail": ""
     },
     {
-      "name": "json:examples/cost.json",
-      "status": "PASS",
-      "detail": ""
-    },
-    {
-      "name": "json:examples/procedure.json",
-      "status": "PASS",
-      "detail": ""
-    },
-    {
-      "name": "json:examples/workflow.json",
-      "status": "PASS",
-      "detail": ""
-    },
-    {
-      "name": "json:examples/followup.json",
-      "status": "PASS",
-      "detail": ""
-    },
-    {
-      "name": "json:examples/evaluation.json",
+      "name": "json:contracts/domain.schema.json",
       "status": "PASS",
       "detail": ""
     },
@@ -57,27 +32,12 @@
       "detail": ""
     },
     {
+      "name": "json:examples/followup.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
       "name": "json:examples/booking.json",
-      "status": "PASS",
-      "detail": ""
-    },
-    {
-      "name": "json:examples/case.json",
-      "status": "PASS",
-      "detail": ""
-    },
-    {
-      "name": "json:examples/result-batch.json",
-      "status": "PASS",
-      "detail": ""
-    },
-    {
-      "name": "json:examples/observation.json",
-      "status": "PASS",
-      "detail": ""
-    },
-    {
-      "name": "json:examples/index.json",
       "status": "PASS",
       "detail": ""
     },
@@ -87,22 +47,47 @@
       "detail": ""
     },
     {
+      "name": "json:examples/procedure.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/case.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/index.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/observation.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/evaluation.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/cost.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/result-batch.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
       "name": "json:examples/provider-policy.json",
       "status": "PASS",
       "detail": ""
     },
     {
-      "name": "json:backend/build/lib/medikristal/_assets/contracts/openapi.json",
-      "status": "PASS",
-      "detail": ""
-    },
-    {
-      "name": "json:backend/build/lib/medikristal/_assets/contracts/domain.schema.json",
-      "status": "PASS",
-      "detail": ""
-    },
-    {
-      "name": "json:backend/build/lib/medikristal/_assets/contracts/traceability.json",
+      "name": "json:examples/workflow.json",
       "status": "PASS",
       "detail": ""
     },
@@ -112,12 +97,12 @@
       "detail": ""
     },
     {
-      "name": "json:backend/medikristal/_assets/contracts/domain.schema.json",
+      "name": "json:backend/medikristal/_assets/contracts/traceability.json",
       "status": "PASS",
       "detail": ""
     },
     {
-      "name": "json:backend/medikristal/_assets/contracts/traceability.json",
+      "name": "json:backend/medikristal/_assets/contracts/domain.schema.json",
       "status": "PASS",
       "detail": ""
     },
@@ -1058,7 +1043,7 @@
     }
   ],
   "counts": {
-    "pass": 211,
+    "pass": 208,
     "fail": 0,
     "schemas": 107,
     "operations": 80,

@@ -82,10 +82,10 @@ make test
 make validate
 ```
 
-Lors de la finalisation de cette livraison :
+Mesures actualisées sur le snapshot du 9 novembre 2026 (preuves logicielles synthétiques uniquement) :
 
 - tests applicatifs : **73/73 réussis** ;
-- contrôles documentaires/contractuels du dépôt : **211/211 réussis** ;
+- contrôles documentaires/contractuels du dépôt : **208/208 réussis** (ré-exécution locale du 9 novembre 2026) ;
 - parité de routage vérifiée : **80/80 opérations contractuelles présentes, 0 route contractuelle manquante**.
 
 Les tests utilisent SQLite uniquement comme harnais isolé et rapide. Le stockage de déploiement de référence reste PostgreSQL.

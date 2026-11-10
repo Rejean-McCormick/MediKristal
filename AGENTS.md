@@ -40,3 +40,7 @@ Fonction réellement persistée, tests utiles passés, erreurs honnêtes, docume
 ## Maintenance documentaire v1.1
 
 Lire `docs/26-coverage.md` et la ligne de `contracts/traceability.json` concernée avant de coder. Les chapitres 27–33 précisent les imports, optimisation, workflows, contrats opérationnels, interfaces et gates. Modifier le générateur et ses extensions avant de régénérer les JSON ; ne pas éditer seulement les sorties générées. Une modification d’API met à jour version, exemples, matrice et test d’acceptation. Ne jamais marquer AT-001–AT-032 comme passés sans exécution sur l’application.
+
+## Final-system qualification boundary
+
+Before changing release/diagnostic claims, review `docs/FINAL_SYSTEM_ENGINEERING_BOUNDARY.md` and run `python tools/check_delivery_integrity.py` after regenerating `manifest.json`. Do not count a file hash or synthetic test as a clinical approval.

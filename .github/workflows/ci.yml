@@ -51,6 +51,9 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Verify source manifest and dependency SBOM without network
+        run: python tools/check_delivery_integrity.py
+
       - name: Install Python dependencies
         run: |
           python -m pip install --disable-pip-version-check -r backend/requirements.lock

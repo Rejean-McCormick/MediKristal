@@ -1,6 +1,7 @@
 # Validation applicative de la livraison
 
-Date : 2026-09-22
+Updated engineering remeasurement: 2026-11-09 (source snapshot; no clinical qualification).
+The September 2026 figures have been remeasured on the supplied source, and claims below reflect that execution.
 
 Cette page complète `VALIDATION.md`, lequel contrôle la cohérence de la spécification. Elle décrit uniquement les preuves logicielles exécutées sur l'implémentation de référence et **ne constitue aucune validation clinique**.
 
@@ -9,9 +10,9 @@ Cette page complète `VALIDATION.md`, lequel contrôle la cohérence de la spéc
 | Contrôle | Résultat |
 | --- | --- |
 | `PYTHONPATH=backend pytest -q` | PASS — 73 tests |
-| `PYTHONPATH=backend pytest --cov=medikristal --cov-report=term -q` | PASS — 73 tests, couverture globale 91 % (API 86 %) |
+| `PYTHONPATH=backend pytest --cov=medikristal --cov-report=term -q` | PASS — 73 tests, couverture globale 87 % (API 86 %); **minimum release coverage target 90 % NOT MET** |
 | `python tools/build_contracts.py` | PASS — 107 schémas, 80 opérations, 12 exemples |
-| `python tools/validate_reference.py` | PASS — 211 contrôles, 0 échec |
+| `python tools/validate_reference.py` | PASS — 208 contrôles, 0 échec |
 | comparaison routes runtime ↔ contrat | PASS — 80/80 présentes, 0 manquante, 0 supplémentaire sous `/api/v1` |
 | `/openapi.json` ↔ `contracts/openapi.json` | PASS — égalité exacte testée |
 | erreurs domaine `application/problem+json` + corrélation | PASS |

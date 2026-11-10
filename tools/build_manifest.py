@@ -12,8 +12,8 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-EXCLUDED_DIRS = {'.git', '.pytest_cache', '__pycache__', '.venv', 'venv', 'dist', 'build'}
-EXCLUDED_FILES = {'manifest.json', '.coverage'}
+EXCLUDED_DIRS = {'.git', '.levelupdiag', '.pytest_cache', '__pycache__', '.venv', 'venv', 'dist', 'build', 'levelupdiag_zip_runs'}
+EXCLUDED_FILES = {'manifest.json', '.coverage', 'SMARTDUMP_INDEX.txt', 'Launch_MULTiSmartDump.lnk'}
 EXCLUDED_SUFFIXES = {'.pyc', '.pyo', '.zip', '.whl'}
 
 

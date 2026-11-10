@@ -11,6 +11,7 @@
 - [Vision and requirements](docs/01-vision.md), [architecture](docs/02-architecture.md), [data model](docs/03-data.md)
 - [Delivery plan](docs/19-delivery.md), [API contracts](docs/13-api.md), [error invariants](docs/24-errors.md), [testing criteria](docs/18-tests.md)
 - [Implementation status](IMPLEMENTATION.md), [software validation](APP_VALIDATION.md), [documentation validation](VALIDATION.md)
+- [Final-system medical/diagnostic boundary](docs/FINAL_SYSTEM_ENGINEERING_BOUNDARY.md) and [read-only delivery integrity verification](tools/check_delivery_integrity.py)
 
 ## Repository layout
 
