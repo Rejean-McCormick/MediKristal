@@ -49,6 +49,11 @@
       "sha256": "896d047867476499764afd1c24dcb96e39afb75aeb6774fe1e25cbcfa48cc18a"
     },
     {
+      "path": "ZmartZnap.pyw",
+      "bytes": 22889,
+      "sha256": "70775b94ff616ed9efdb3d6b989639fa3cd22a250f1389fec485791d161df1ea"
+    },
+    {
       "path": "backend/Dockerfile",
       "bytes": 604,
       "sha256": "a1bd485309e6bc12f43c77bdc7be24a8686bcdfc2fdca1adcd8f15a29c28b204"
@@ -412,6 +417,16 @@
       "path": "docs/README.md",
       "bytes": 3928,
       "sha256": "2062c4af22980d1eda4db3b02028e60a5c5c8e4fae585d434b0b83fc869ace66"
+    },
+    {
+      "path": "docs/ai/AI_CONTEXT.md",
+      "bytes": 3338,
+      "sha256": "dff784c59134d03b9ca99c81dfa256499b52d59b83432665d05cec1ebfb54fcc"
+    },
+    {
+      "path": "docs/ai/INDEX.md",
+      "bytes": 2889,
+      "sha256": "5c025dd04e0b1508f42fde802df972513e6d8324f5cbfad807d280fd276c53d1"
     },
     {
       "path": "examples/README.md",
