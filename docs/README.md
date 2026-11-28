@@ -2,7 +2,26 @@
 
 [Accueil du dépôt](../README.md) · [Instructions de codage](../AGENTS.md)
 
-Cette documentation définit la cible à implémenter. Les chapitres sont modulaires ; les contrats et exemples sont conservés dans leurs dossiers respectifs.
+La [documentation du système final](SYSTEME_FINAL.md) présente l’architecture cible, les parcours, les choix d’optimisation et les preuves attendues. L’[état observé du 27 novembre 2026](ETAT_2026-11-27.md) précise ce que la capture permet de vérifier. Les chapitres ci-dessous détaillent les exigences, et le dossier `contracts/` contient les contrats de la version livrée.
+
+## Utiliser cette version
+
+[Installation, parcours et périmètre livré](LIVRAISON_2.0.md)
+
+## Démarrer le codage
+
+1. [Démarrage IA](DEMARRAGE_IA.md) — ordre de lecture, points d’entrée du code et commandes du dépôt.
+2. [Backlog du système final](BACKLOG_SYSTEME_FINAL.md) — dépendances, livrables et preuves par ticket. Commencer par MK-SF-01.
+3. [Patterns retenus](PATTERNS_ARCHITECTURE.md) — frontières du monolithe, reprise et interface.
+4. [Profil de qualification](PROFIL_QUALIFICATION.md) — scénario autonome, concurrence, charge et restauration.
+
+Ce dossier s’intègre à la racine du checkout MediKristal. Les chemins vers le code, les contrats et `AGENTS.md` se résolvent dans ce checkout.
+
+## Référentiels locaux
+
+- [Télécharger les référentiels](TELECHARGER_SOURCES_MEDICALES.md) — emplacement, lot public et accès éditeurs.
+- [Importer et rechercher](IMPORTER_REFERENTIELS_PUBLICS.md) — index SQLite hors ligne et commande de recherche.
+- [Résultat sur Windows](ETAT_2026-11-27.md#vérification-des-référentiels-sur-le-poste-windows) — fichiers, volumes et preuve de recherche.
 
 ## Parcours de lecture
 

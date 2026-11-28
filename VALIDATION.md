@@ -6,24 +6,24 @@ Résultat : 208 PASS ; 0 FAIL.
 
 | Vérification | Résultat | Détail |
 |---|---|---|
-| json:source-snapshots.json | PASS |  |
 | json:sbom.cdx.json | PASS |  |
+| json:source-snapshots.json | PASS |  |
 | json:contracts/openapi.json | PASS |  |
 | json:contracts/traceability.json | PASS |  |
 | json:contracts/domain.schema.json | PASS |  |
 | json:examples/capability.json | PASS |  |
-| json:examples/followup.json | PASS |  |
 | json:examples/booking.json | PASS |  |
-| json:examples/contribution.json | PASS |  |
-| json:examples/procedure.json | PASS |  |
-| json:examples/case.json | PASS |  |
-| json:examples/index.json | PASS |  |
-| json:examples/observation.json | PASS |  |
-| json:examples/evaluation.json | PASS |  |
 | json:examples/cost.json | PASS |  |
-| json:examples/result-batch.json | PASS |  |
+| json:examples/evaluation.json | PASS |  |
+| json:examples/contribution.json | PASS |  |
+| json:examples/case.json | PASS |  |
+| json:examples/observation.json | PASS |  |
+| json:examples/followup.json | PASS |  |
+| json:examples/procedure.json | PASS |  |
 | json:examples/provider-policy.json | PASS |  |
 | json:examples/workflow.json | PASS |  |
+| json:examples/result-batch.json | PASS |  |
+| json:examples/index.json | PASS |  |
 | json:backend/medikristal/_assets/contracts/openapi.json | PASS |  |
 | json:backend/medikristal/_assets/contracts/traceability.json | PASS |  |
 | json:backend/medikristal/_assets/contracts/domain.schema.json | PASS |  |

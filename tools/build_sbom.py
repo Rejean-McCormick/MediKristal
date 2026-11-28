@@ -19,7 +19,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 LOCK = ROOT / "backend" / "requirements.lock"
 OUTPUT = ROOT / "sbom.cdx.json"
-PROJECT_VERSION = "0.2.0"
+PROJECT_VERSION = "2.0.0"
 REQ_RE = re.compile(r"^([A-Za-z0-9_.-]+(?:\[[A-Za-z0-9_,.-]+\])?)==([^\s;]+)$")
 
 

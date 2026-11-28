@@ -23,6 +23,12 @@ Le périmètre total est architecturalement prévu ; chaque lot livre une tranch
 
 L13 n'est pas une condition pour écrire L0-L12 ; il est nécessaire avant de revendiquer l'usage clinique correspondant. Les connecteurs institutionnels réels exigent leurs contrats et accès, leur simulateur reste explicitement nommé test double.
 
+## Point de reprise du 27 novembre 2026
+
+La capture contient une implémentation synthétique des parcours centraux de L1 à L10, avec des profondeurs différentes selon le module. Reprendre L0 sur un checkout complet et L12 sur PostgreSQL réel, puis rejouer une tranche autonome de bout en bout. Enchaîner avec le premier export local de savoir synthétique du lot L11 lorsque le profil consommateur est épinglé. La [séquence de sortie](SYSTEME_FINAL.md#ordre-de-réalisation-et-preuves-attendues) fixe les preuves de chaque livraison. L’[audit de la capture](ETAT_2026-11-27.md) explique l’écart entre les contrôles disponibles et les preuves à reproduire.
+
+Le [backlog du système final](BACKLOG_SYSTEME_FINAL.md) traduit ces lots en interventions sur le code actuel. Il ordonne les preuves de reprise, la fiche de cas et la première intégration.
+
 ## Tranche de référence
 
 Créer un cas fictif ; collecter un symptôme synthétique ; calculer une hypothèse à partir du modèle synthétique ; demander une action ; comparer deux ressources fictives ; autoriser dans le seul environnement engineering ; recevoir un résultat fictif ; réévaluer ; proposer une option thérapeutique fictive ; corriger résultat ; montrer invalidation et nouvelle évaluation ; exporter seulement connaissance synthétique vers le profil Kristal lorsque conforme. Vérifier l'ensemble sans WAN.

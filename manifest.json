@@ -1,17 +1,22 @@
 {
   "format": "medikristal.delivery-manifest/2",
-  "document_version": "1.1",
-  "api_version": "0.2.0",
+  "document_version": "2.0",
+  "api_version": "2.0.0",
   "files": [
     {
+      "path": ".dockerignore",
+      "bytes": 68,
+      "sha256": "e1ca0dc623858c0acb6496564b5f09208739ccca8d4529fccee3e88c0cd8171a"
+    },
+    {
       "path": ".github/workflows/ci.yml",
-      "bytes": 2313,
-      "sha256": "f0e3111fea957dd1297a95c7f94694c84b1c461932bec71723a5a103d2a574f6"
+      "bytes": 2716,
+      "sha256": "b1e41e2c8c0d3a8caefeb1c498154c2b131232cefc54380a4e899c24800ff71a"
     },
     {
       "path": ".gitignore",
-      "bytes": 492,
-      "sha256": "dd16652d74af22ed7144b1a17c6a463e80cbf0af020b016587db452a41070ffa"
+      "bytes": 501,
+      "sha256": "74f862c2692f1d38a8c8114dc6cee7ec4068ed5718ab4ffb411f95469abc72b6"
     },
     {
       "path": "AGENTS.md",
@@ -25,13 +30,18 @@
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 2528,
-      "sha256": "01fb33e46271139e02ab751bdd5aed04a5e39dbae94b5c954be8866c983d1dbb"
+      "bytes": 2954,
+      "sha256": "2e176f0d5a27a238326719407912ebd6bdf40d87cdaff268b931a37c49dbeb0d"
     },
     {
       "path": "IMPLEMENTATION.md",
       "bytes": 5284,
       "sha256": "f68080b1747c1ad300541fdbec0bd5be95fcd2274773ed173338d27e863ebb98"
+    },
+    {
+      "path": "Importer-bases-medicales.bat",
+      "bytes": 353,
+      "sha256": "28a5763bfbcbf4e4d50232989a4058429863795cdc85d719704f31223a9d82b8"
     },
     {
       "path": "Makefile",
@@ -40,18 +50,23 @@
     },
     {
       "path": "README.md",
-      "bytes": 3769,
-      "sha256": "92855c50a47dc0dfc3a1cf1437acfa7ac5853cba50f329fbca6e87491c0a3974"
+      "bytes": 4125,
+      "sha256": "442961a735b52dc2d313147c4d5c8db2ca22b4e566ca1ca12fa87500451b36d9"
+    },
+    {
+      "path": "Start-MediKristal.ps1",
+      "bytes": 2677,
+      "sha256": "e9d38a9225ef598bbcafc0e4ed86e9cd376196e6e495ae1912d91e4c1ef4358c"
+    },
+    {
+      "path": "Telecharger-bases-medicales.bat",
+      "bytes": 211,
+      "sha256": "a6ea97e36b570f6c11cf17c50dc5defd4646886561ea5638852ad87eda78af70"
     },
     {
       "path": "VALIDATION.md",
       "bytes": 9459,
-      "sha256": "896d047867476499764afd1c24dcb96e39afb75aeb6774fe1e25cbcfa48cc18a"
-    },
-    {
-      "path": "ZmartZnap.pyw",
-      "bytes": 22889,
-      "sha256": "70775b94ff616ed9efdb3d6b989639fa3cd22a250f1389fec485791d161df1ea"
+      "sha256": "3f6368649553b15e2d7382d8073a696bc63881f433f983e014e8c4f2325e215f"
     },
     {
       "path": "backend/Dockerfile",
@@ -77,6 +92,11 @@
       "path": "backend/alembic/versions/0002_integrity.py",
       "bytes": 3006,
       "sha256": "bc4b5ec52530cb709394fb94e0e0125a3679c794c22c57afb23bb088473129eb"
+    },
+    {
+      "path": "backend/alembic/versions/0003_episode_analysis.py",
+      "bytes": 819,
+      "sha256": "bf44dcd42bcf5f2d8458974c8e32e9410afc4e70cab0e365f6ff508dbfc8c8d3"
     },
     {
       "path": "backend/alembic.ini",
@@ -109,9 +129,24 @@
       "sha256": "47b2b959271071aacbc5e4dc5d17b0f6130e3b658060e439a9de1568b14908a7"
     },
     {
+      "path": "backend/medikristal/_assets/frontend/episode.html",
+      "bytes": 998,
+      "sha256": "dde7659be4bcad7f48d513c74490e1ef19e26e5d457104a67a8c5770fd4a6e92"
+    },
+    {
+      "path": "backend/medikristal/_assets/frontend/episodes.css",
+      "bytes": 2735,
+      "sha256": "60683fa5a040acb75ba6393fdd737f67fd28491b61fca79d4052dd345f2f1794"
+    },
+    {
+      "path": "backend/medikristal/_assets/frontend/episodes.js",
+      "bytes": 17235,
+      "sha256": "bec33644911f238d7dc2dd258e554ac7dd52074a441a045fb68230c8fe756f00"
+    },
+    {
       "path": "backend/medikristal/_assets/frontend/index.html",
-      "bytes": 8949,
-      "sha256": "bd49ad5d54441dd0572a51dadfa06d0c961d2eaec250e1cbc00d6b33a545d6b9"
+      "bytes": 8987,
+      "sha256": "d7a3a6beb4bf729d34ba4e1e6611b4b4698ed07cd83fe70f37e39ab3b65d542c"
     },
     {
       "path": "backend/medikristal/_assets/frontend/styles.css",
@@ -130,13 +165,13 @@
     },
     {
       "path": "backend/medikristal/app.py",
-      "bytes": 3618,
-      "sha256": "7b18c3ba99382d246f0eb6927d783c0ceda9042eefa87a37c53c321d4933e28d"
+      "bytes": 4445,
+      "sha256": "9c3862c89b7b51fe8c591654a3db8835990862dce8f3bb0a96e308b37c2379d8"
     },
     {
       "path": "backend/medikristal/config.py",
-      "bytes": 2291,
-      "sha256": "92e70d9c5bf558e72468db8ac0bdc3fbcf215c93ea38c238d91d2c13c05816bb"
+      "bytes": 2738,
+      "sha256": "6c9ddeb7143b725f87fbcc5cb978b860570fb91a4c640016e1fdd1837fd9b1b1"
     },
     {
       "path": "backend/medikristal/contracts.py",
@@ -145,8 +180,23 @@
     },
     {
       "path": "backend/medikristal/db.py",
-      "bytes": 9226,
-      "sha256": "6bdbd39626b8996b6929c7e40f33af900223d84681f2e3d00d7dfb3b9f4f20e5"
+      "bytes": 9825,
+      "sha256": "862e6b6219aa2d8ee605fdd6c0bd455aba6292ec13e6cad8593d242ee0eda859"
+    },
+    {
+      "path": "backend/medikristal/episode_catalog.py",
+      "bytes": 1405,
+      "sha256": "5671fd312b0e8cf56b58978fe28a30a1402e3cb84307d6caf73692468f4a57cd"
+    },
+    {
+      "path": "backend/medikristal/episode_rules.py",
+      "bytes": 7268,
+      "sha256": "95328ecebb726c49029184a41d1f4906ee65ce1bfc0427ee130974bca3cea5e4"
+    },
+    {
+      "path": "backend/medikristal/episodes.py",
+      "bytes": 25007,
+      "sha256": "0a89226c2a5f798eaff2b7938db9f01f858bd8ef1c0acb7b4381373b0d62777b"
     },
     {
       "path": "backend/medikristal/errors.py",
@@ -175,8 +225,8 @@
     },
     {
       "path": "backend/medikristal/store.py",
-      "bytes": 14766,
-      "sha256": "e2a15c10ecac206a603bc06ce4e70a26c0124fd04a363895461dbe8e132e82b4"
+      "bytes": 14913,
+      "sha256": "796e6fc3bd177476e798a8005451a04ac5ab4e80124ab95cb2855d4552792f2b"
     },
     {
       "path": "backend/medikristal/synthetic.py",
@@ -201,12 +251,12 @@
     {
       "path": "backend/pyproject.toml",
       "bytes": 591,
-      "sha256": "e5181171de8e7114e48c5248f1cbbe8b9f93aac4d04dac27653a4dbb4de511a6"
+      "sha256": "99fcb249683389c28d21fbd798a0a5428ca9e1798f4f172f0e4699c45ff36cf3"
     },
     {
       "path": "backend/requirements.lock",
       "bytes": 142,
-      "sha256": "56d068e00244920e327ef271eb378cc51e92269d18f85e84f4fc9578405ff30e"
+      "sha256": "7ea1e963a4241142506d9fd23b36f60129d20fa2a811d641d23c04746f74bc18"
     },
     {
       "path": "contracts/README.md",
@@ -235,8 +285,8 @@
     },
     {
       "path": "deploy/docker-compose.yml",
-      "bytes": 1836,
-      "sha256": "783a3595a20483a43a5dbf1d9edac16031239520fc2e7da7ff72f2d5af6240fd"
+      "bytes": 2067,
+      "sha256": "0a8f8429a6c4986039ec8bc7f93184d6b8816012693ee45409cc463207e038b1"
     },
     {
       "path": "docs/01-vision.md",
@@ -245,8 +295,8 @@
     },
     {
       "path": "docs/02-architecture.md",
-      "bytes": 5376,
-      "sha256": "013125d653502501fef3bb6e4f56986e5d9ce89c7d93a9cdb258e144604c0d06"
+      "bytes": 4562,
+      "sha256": "a88e0a7bee55c40a83c98f43a602fd1e2c88c5723d6da35e1d1dbf862a3b595b"
     },
     {
       "path": "docs/03-data.md",
@@ -305,8 +355,8 @@
     },
     {
       "path": "docs/14-integrations.md",
-      "bytes": 6107,
-      "sha256": "52d890cb42a54ed488a6d07b931b3ef8bee2493f0c20213b67bcb23cf60ef2ef"
+      "bytes": 6401,
+      "sha256": "77775bcac2bd45909445c9982d2f23a2976e1870400b22f6b0ff2f3ad36496e5"
     },
     {
       "path": "docs/15-interfaces.md",
@@ -330,13 +380,13 @@
     },
     {
       "path": "docs/19-delivery.md",
-      "bytes": 4848,
-      "sha256": "badece2efda063cde9354a92808b196041d180ee800a822fef0f6f9b58ae8b90"
+      "bytes": 5713,
+      "sha256": "8a3b0c26578c9c0ed39cb1f8700af0272b63dfa5a63d1aad2cad8661fa0d34ba"
     },
     {
       "path": "docs/20-decisions.md",
-      "bytes": 5356,
-      "sha256": "300de7a2713ee508c10196f1019042beedc82c60d6994b9383f574b2c21edf97"
+      "bytes": 6137,
+      "sha256": "e2b51c934a825bf5d554a53db52f89270163b3bdf62be972d8ce9ea55adf6f2e"
     },
     {
       "path": "docs/21-diagnostics.md",
@@ -370,8 +420,8 @@
     },
     {
       "path": "docs/27-connectors.md",
-      "bytes": 8361,
-      "sha256": "b2095cd0698efad184578397236b1bf74f3c903e5686706bffbd84c4a5b47cea"
+      "bytes": 9145,
+      "sha256": "97fc8f73907ea5f70d59141e3aa35096849e17493e0167c7e19628bfad270de1"
     },
     {
       "path": "docs/28-optimization.md",
@@ -390,18 +440,33 @@
     },
     {
       "path": "docs/31-ui-acceptance.md",
-      "bytes": 4017,
-      "sha256": "fe3807e4f08a489f2e061cb4b70410ddd31a916b0167c7d3c66e2b375b96dfff"
+      "bytes": 7743,
+      "sha256": "a900173c8ec4d94e3a2494b373d39e8ed001b6eb4768cf3d4688e7be9a947ff7"
     },
     {
       "path": "docs/32-build-order.md",
-      "bytes": 4556,
-      "sha256": "bee8b457bb79f94aa62d8202d83879de6eb0599aa515d4752f8f47f5fac09a3c"
+      "bytes": 4898,
+      "sha256": "ba4d4d893b78c86b961f0bcb1e817cd785a011dcb3af644579ae384d7799a873"
     },
     {
       "path": "docs/33-acceptance.md",
-      "bytes": 6914,
-      "sha256": "2a22dc751675142e4acd4a22ce5a187efeb961960080639c6792feaa40acfe60"
+      "bytes": 7997,
+      "sha256": "d2b6253d6dee2eec579b3bb77289a338c4e85e12285a5723482baa2cb8565f36"
+    },
+    {
+      "path": "docs/BACKLOG_SYSTEME_FINAL.md",
+      "bytes": 9625,
+      "sha256": "9bbea4aec4d6d59d998f5d1fa657a5d1b46c5a293fe3786771ce6d4f796f6550"
+    },
+    {
+      "path": "docs/DEMARRAGE_IA.md",
+      "bytes": 4385,
+      "sha256": "ce7c13fd2ebd8a3bd3b6d067f837f04699593a88fff1d7504c6c717aef2e455d"
+    },
+    {
+      "path": "docs/ETAT_2026-11-27.md",
+      "bytes": 3689,
+      "sha256": "306f4d177b350a0147b393609b38dbc03e245affbe76256e6ea599d4e3ed6410"
     },
     {
       "path": "docs/FINAL_SYSTEM_ENGINEERING_BOUNDARY.md",
@@ -409,14 +474,44 @@
       "sha256": "4395f8122a3587da9cc8c9db851c519e07d1a20dc5404c254a5308a8c5736c85"
     },
     {
+      "path": "docs/IMPORTER_REFERENTIELS_PUBLICS.md",
+      "bytes": 2124,
+      "sha256": "1cb52a130f47f57928f1064af0d5e90606239b71588203bea3bd94c664eb46b7"
+    },
+    {
       "path": "docs/Integration-Verification-2026-10-27.md",
       "bytes": 1697,
       "sha256": "780dfb983809fbca7865c91d9c73cdc69ae8c20afe52aa8be7496fb678689b5e"
     },
     {
+      "path": "docs/LIVRAISON_2.0.md",
+      "bytes": 5880,
+      "sha256": "a65c281baf16a9f11b44b98f74a1b333799444b11305271907e9f45f9410b3bb"
+    },
+    {
+      "path": "docs/PATTERNS_ARCHITECTURE.md",
+      "bytes": 4413,
+      "sha256": "894ab79aae7110ec41d70cfe83e42693cbc6d65086061cebf1038b0246424b5c"
+    },
+    {
+      "path": "docs/PROFIL_QUALIFICATION.md",
+      "bytes": 5627,
+      "sha256": "3197fccfa3525922a5c403479958eb7ff3e4975c983b707ccefaf1f2cb0f45e7"
+    },
+    {
       "path": "docs/README.md",
-      "bytes": 3928,
-      "sha256": "2062c4af22980d1eda4db3b02028e60a5c5c8e4fae585d434b0b83fc869ace66"
+      "bytes": 5289,
+      "sha256": "77c737c9df62e9148d7f5156b0f0a963f4d415166ccd31519edc9d5c1aea9ee6"
+    },
+    {
+      "path": "docs/SYSTEME_FINAL.md",
+      "bytes": 16896,
+      "sha256": "9c5bbccb339ed33090e21c8e5fc0fe3dcb53c24e5b27c77cbc0968a687704976"
+    },
+    {
+      "path": "docs/TELECHARGER_SOURCES_MEDICALES.md",
+      "bytes": 4250,
+      "sha256": "1f8917f68c28f34bc83830f8e02263161e932f9434dc84e99b95c4242fbd0cfe"
     },
     {
       "path": "docs/ai/AI_CONTEXT.md",
@@ -425,8 +520,8 @@
     },
     {
       "path": "docs/ai/INDEX.md",
-      "bytes": 2889,
-      "sha256": "5c025dd04e0b1508f42fde802df972513e6d8324f5cbfad807d280fd276c53d1"
+      "bytes": 3327,
+      "sha256": "f1d67ab19f66ec866c867150496de7009b80dc889ca51c1748f91b1837506be9"
     },
     {
       "path": "examples/README.md",
@@ -504,9 +599,24 @@
       "sha256": "47b2b959271071aacbc5e4dc5d17b0f6130e3b658060e439a9de1568b14908a7"
     },
     {
+      "path": "frontend/episode.html",
+      "bytes": 998,
+      "sha256": "dde7659be4bcad7f48d513c74490e1ef19e26e5d457104a67a8c5770fd4a6e92"
+    },
+    {
+      "path": "frontend/episodes.css",
+      "bytes": 2735,
+      "sha256": "60683fa5a040acb75ba6393fdd737f67fd28491b61fca79d4052dd345f2f1794"
+    },
+    {
+      "path": "frontend/episodes.js",
+      "bytes": 17235,
+      "sha256": "bec33644911f238d7dc2dd258e554ac7dd52074a441a045fb68230c8fe756f00"
+    },
+    {
       "path": "frontend/index.html",
-      "bytes": 8949,
-      "sha256": "bd49ad5d54441dd0572a51dadfa06d0c961d2eaec250e1cbc00d6b33a545d6b9"
+      "bytes": 8987,
+      "sha256": "d7a3a6beb4bf729d34ba4e1e6611b4b4698ed07cd83fe70f37e39ab3b65d542c"
     },
     {
       "path": "frontend/styles.css",
@@ -516,12 +626,22 @@
     {
       "path": "sbom.cdx.json",
       "bytes": 3762,
-      "sha256": "9e765de13189f87775dc2bec5506e6b15d69fd72905227660127b0ae40811075"
+      "sha256": "eaa61580ab3e581dfdf4aa4ef8af955986d461b180ca4993586871c506e05501"
+    },
+    {
+      "path": "scripts/download_medical_sources.py",
+      "bytes": 16684,
+      "sha256": "3b7bf4c18822d5bc4ce56f92215fdc154c6cbeedca052dfe2a6625e960b9c4af"
     },
     {
       "path": "scripts/import_local_catalog.py",
       "bytes": 3134,
       "sha256": "8cf6f65355d871be71bf676ad8a6238aa6c517c54efa542b2d3fb8b0228f75ce"
+    },
+    {
+      "path": "scripts/import_medical_sources.py",
+      "bytes": 14860,
+      "sha256": "ea96dcd92d294b958888f3aacdbab902708480d66295bdc7f15c98ed44035dc6"
     },
     {
       "path": "scripts/stage_blob.py",
@@ -574,6 +694,16 @@
       "sha256": "536920dda696b92d1217a2472a0fd887cf52b3fc77ead4d31af8dbd97b392d3a"
     },
     {
+      "path": "tests/test_download_medical_sources.py",
+      "bytes": 4423,
+      "sha256": "7d23e7dbf0deb8a600beaf5fd30f04b13117480d3fc33e6c3e699804090b7d3b"
+    },
+    {
+      "path": "tests/test_episode_workflow.py",
+      "bytes": 9590,
+      "sha256": "1ee0dcebd10e0999b4e5d620a2b8fb2bdb53ff90b01e975edccc459208741829"
+    },
+    {
       "path": "tests/test_integrity_expanded.py",
       "bytes": 19625,
       "sha256": "fbef7383fb00765d03ed7773424d79e6089b139930e4253e301db23f2b067acf"
@@ -615,13 +745,13 @@
     },
     {
       "path": "tools/build_manifest.py",
-      "bytes": 1698,
-      "sha256": "30b2c6d7e9139a800cd1e36b96f203e4ae759f49c6504716f73479a8cb448f12"
+      "bytes": 1708,
+      "sha256": "fe1b096f9fd6c134d572f47f795ff2e62653ac3da27944032d643ff643b9fbdb"
     },
     {
       "path": "tools/build_sbom.py",
       "bytes": 4782,
-      "sha256": "544200a9bf8755bc91dbfa968a78c0985f90f18383df1357851dbe38fe293f31"
+      "sha256": "dccbb7adefc790689f1240709475e3890751e820049db630bbd0d7f410d5f556"
     },
     {
       "path": "tools/check_delivery_integrity.py",
@@ -635,8 +765,8 @@
     },
     {
       "path": "tools/sync_runtime_assets.py",
-      "bytes": 813,
-      "sha256": "6596861341bbc96230ad8ccef91cfa35fb276241567ad54799019683b15377fb"
+      "bytes": 860,
+      "sha256": "31f4c90edb12d60fc5f28b840567d16c6b73d6c20489375828fb07142f0c6384"
     },
     {
       "path": "tools/validate_reference.py",
@@ -646,7 +776,7 @@
     {
       "path": "validation-report.json",
       "bytes": 21401,
-      "sha256": "01ab99d700c0d99eda1059c8d1b33f00737574f1ba83a65b5ac9c568a75b18f0"
+      "sha256": "ead44080d43f53b3bb6ab4ebe08efb7733333aa2c59af7cd9b84f58b2758d5ae"
     }
   ]
 }

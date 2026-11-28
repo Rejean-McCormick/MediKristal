@@ -12,7 +12,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-EXCLUDED_DIRS = {'.git', '.levelupdiag', '.pytest_cache', '__pycache__', '.venv', 'venv', 'dist', 'build', 'levelupdiag_zip_runs'}
+EXCLUDED_DIRS = {'.local', '.git', '.levelupdiag', '.pytest_cache', '__pycache__', '.venv', 'venv', 'dist', 'build', 'levelupdiag_zip_runs'}
 EXCLUDED_FILES = {'manifest.json', '.coverage', 'SMARTDUMP_INDEX.txt', 'Launch_MULTiSmartDump.lnk'}
 EXCLUDED_SUFFIXES = {'.pyc', '.pyo', '.zip', '.whl'}
 
@@ -39,8 +39,8 @@ def main() -> None:
         })
     payload = {
         'format': 'medikristal.delivery-manifest/2',
-        'document_version': '1.1',
-        'api_version': '0.2.0',
+        'document_version': '2.0',
+        'api_version': '2.0.0',
         'files': files,
     }
     (ROOT / 'manifest.json').write_text(json.dumps(payload, ensure_ascii=False, indent=2) + '\n')

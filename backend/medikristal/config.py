@@ -25,6 +25,8 @@ class Settings:
     auth_secret: str = field(default_factory=lambda: os.getenv("MEDIKRISTAL_AUTH_SECRET", ""))
     environment: str = field(default_factory=lambda: os.getenv("MEDIKRISTAL_ENV", "development"))
     allow_test_token: bool = field(default_factory=lambda: os.getenv("MEDIKRISTAL_ALLOW_TEST_TOKEN", "0") == "1")
+    public_reference_index: Path | None = field(default_factory=lambda: Path(path) if (path := os.getenv("MEDIKRISTAL_PUBLIC_INDEX")) else None)
+    local_episode_demo: bool = field(default_factory=lambda: os.getenv("MEDIKRISTAL_LOCAL_EPISODE_DEMO", "0") == "1")
     auto_create_schema: bool = field(default_factory=lambda: os.getenv("MEDIKRISTAL_AUTO_CREATE_SCHEMA", "0") == "1")
     contract_dir: Path = field(default_factory=lambda: Path(os.getenv("MEDIKRISTAL_CONTRACT_DIR", _runtime_path("contracts", "contracts"))))
     frontend_dir: Path = field(default_factory=lambda: Path(os.getenv("MEDIKRISTAL_FRONTEND_DIR", _runtime_path("frontend", "frontend"))))
@@ -49,6 +51,8 @@ class Settings:
 
 def load_settings() -> Settings:
     settings = Settings()
+    if settings.local_episode_demo and settings.environment not in {"development", "test"}:
+        raise RuntimeError("The local episode workshop is limited to development and test")
     if settings.environment not in {"development", "test"} and len(settings.auth_secret) < 32:
         raise RuntimeError("MEDIKRISTAL_AUTH_SECRET must contain at least 32 characters outside development/test")
     return settings

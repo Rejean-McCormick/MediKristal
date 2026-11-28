@@ -23,6 +23,15 @@
 | 017 | Aucun corpus clinique inventé | Valeurs synthétiques réservées aux tests |
 | 018 | Aucune licence utilisateur imposée ici | La préférence gratuit ne sélectionne pas une licence juridique |
 
+## Mise en œuvre des décisions pour le système final
+
+- ADR 002 et 004. Conserver le monolithe et la base de référence. Vérifier la propriété des mutations et extraire les règles au fil des tickets.
+- ADR 008. Persister la commande avant l’appel distant. Une opération en réconciliation conserve son état et son claim tant que l’effet demeure inconnu.
+- ADR 011 et 015. Introduire un mapping explicite et versionné pour le premier export Kristal. Relire le résultat côté consommateur.
+- ADR 024. Construire la fiche de cas professionnelle autour du parcours réel. Valider l’état affiché et la reprise dans le même scénario que l’API.
+
+Voir les [patterns retenus](PATTERNS_ARCHITECTURE.md) et les [critères de qualification](PROFIL_QUALIFICATION.md).
+
 ## Décisions techniques laissées à L0
 
 Versions exactes FastAPI/Pydantic/SQLAlchemy, CQF/JDK, pgmpy, OR-Tools, choix bibliothèque JCS, chiffrement et identité locale. L'IA choisit des versions compatibles et documente leurs tests ; elle n'a pas besoin de demander à l'utilisateur chaque détail réversible. Une variation majeure de stack justifie une ADR, pas un mélange accidentel.

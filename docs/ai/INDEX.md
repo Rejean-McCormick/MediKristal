@@ -17,6 +17,14 @@
 4. [`contracts/README.md`](../../contracts/README.md) — SHA-256 `87807e517b6b0822…` dans la capture.
 5. [`backend/pyproject.toml`](../../backend/pyproject.toml) — SHA-256 `e5181171de8e7114…` dans la capture.
 
+## Entrée pour le codage
+
+Suivre le [démarrage IA](../DEMARRAGE_IA.md) et le [backlog du système final](../BACKLOG_SYSTEME_FINAL.md). Le premier ticket est MK-SF-01.
+
+## Reprise du 27 novembre 2026
+
+Consulter [l’architecture du système final](../SYSTEME_FINAL.md), [l’état vérifié de la capture](../ETAT_2026-11-27.md) et le chapitre propriétaire du lot ciblé. Les empreintes ci-dessus décrivent la capture du 20 novembre.
+
 ## Parcours recommandé pour une intervention assistée par IA
 
 1. Identifier la question, le sous-système concerné et les responsabilités du propriétaire.

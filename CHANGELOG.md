@@ -1,5 +1,13 @@
 # Historique
 
+## 2.0.0 — Parcours d’épisode
+
+- Fiche locale et moteur synthétique déterministe, avec priorisation et plans à branches.
+- Laboratoire simulé, retour versionné, correction, réévaluation et décision signée dans le dossier d’épisode.
+- Projection analytique avec consentement, référentiels locaux en lecture seule et lanceur Windows.
+- API des épisodes sous `/api/v2`. La surface v1 conserve ses contrats.
+
+
 ## Documentation 1.1 — Contrats 0.2.0
 
 - Ajout de huit chapitres : couverture, connecteurs, optimisation, automatisation, contrats opérationnels, interfaces, réalisation et acceptation.

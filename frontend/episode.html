@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="fr-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MediKristal · Épisodes</title>
+  <link rel="stylesheet" href="/episodes.css">
+  <script src="/episodes.js" defer></script>
+</head>
+<body>
+  <header class="top"><a href="/episodes">MediKristal</a><span>Simulation · Épisodes fictifs</span></header>
+  <main>
+    <div class="page-heading">
+      <h1>Épisodes</h1>
+      <nav aria-label="Espaces">
+        <button id="home" type="button">Mes épisodes</button>
+        <button id="references" type="button">Référentiels</button>
+        <button id="operations" type="button" hidden>Ressources</button>
+        <button id="statistics" type="button" hidden>Statistiques</button>
+        <a href="/console">Console</a>
+      </nav>
+    </div>
+    <p id="message" class="feedback" role="status" hidden></p>
+    <section id="screen" aria-labelledby="screen-heading"></section>
+  </main>
+</body>
+</html>

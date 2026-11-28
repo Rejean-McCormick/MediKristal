@@ -17,7 +17,7 @@ def sync_file(source: Path, destination: Path) -> None:
 def main() -> None:
     for name in ("domain.schema.json", "openapi.json", "traceability.json"):
         sync_file(ROOT / "contracts" / name, DEST / "contracts" / name)
-    for name in ("index.html", "app.js", "styles.css"):
+    for name in ("index.html", "app.js", "styles.css", "episode.html", "episodes.js", "episodes.css"):
         sync_file(ROOT / "frontend" / name, DEST / "frontend" / name)
     print("runtime assets synchronized")
 

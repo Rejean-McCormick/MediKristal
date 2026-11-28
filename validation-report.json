@@ -2,12 +2,12 @@
   "scope": "Validation documentaire et sous-ensemble de schéma généré ; pas validation complète OpenAPI/JSON Schema externe, pas test applicatif ou clinique.",
   "checks": [
     {
-      "name": "json:source-snapshots.json",
+      "name": "json:sbom.cdx.json",
       "status": "PASS",
       "detail": ""
     },
     {
-      "name": "json:sbom.cdx.json",
+      "name": "json:source-snapshots.json",
       "status": "PASS",
       "detail": ""
     },
@@ -32,42 +32,7 @@
       "detail": ""
     },
     {
-      "name": "json:examples/followup.json",
-      "status": "PASS",
-      "detail": ""
-    },
-    {
       "name": "json:examples/booking.json",
-      "status": "PASS",
-      "detail": ""
-    },
-    {
-      "name": "json:examples/contribution.json",
-      "status": "PASS",
-      "detail": ""
-    },
-    {
-      "name": "json:examples/procedure.json",
-      "status": "PASS",
-      "detail": ""
-    },
-    {
-      "name": "json:examples/case.json",
-      "status": "PASS",
-      "detail": ""
-    },
-    {
-      "name": "json:examples/index.json",
-      "status": "PASS",
-      "detail": ""
-    },
-    {
-      "name": "json:examples/observation.json",
-      "status": "PASS",
-      "detail": ""
-    },
-    {
-      "name": "json:examples/evaluation.json",
       "status": "PASS",
       "detail": ""
     },
@@ -77,7 +42,32 @@
       "detail": ""
     },
     {
-      "name": "json:examples/result-batch.json",
+      "name": "json:examples/evaluation.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/contribution.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/case.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/observation.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/followup.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/procedure.json",
       "status": "PASS",
       "detail": ""
     },
@@ -88,6 +78,16 @@
     },
     {
       "name": "json:examples/workflow.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/result-batch.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "json:examples/index.json",
       "status": "PASS",
       "detail": ""
     },

@@ -25,6 +25,7 @@ from .util import digest, now_iso, uuid4
 
 
 OWNER = {
+    "Episode": "clinical_case", "EpisodeLab": "integrations", "EpisodeCapacity": "resources",
     "ClinicalCase": "clinical_case", "Observation": "clinical_case", "ResultReceipt": "clinical_case",
     "Evaluation": "inference", "ActionProposal": "pathways", "WorkflowRun": "pathways",
     "Plan": "planning", "Site": "resources", "ManagedResource": "resources",
@@ -41,7 +42,7 @@ OWNER = {
 
 # Entity kinds whose parent_id is always a ClinicalCase id.
 DIRECT_CASE_SCOPED = {
-    "Observation", "ResultReceipt", "Evaluation", "ActionProposal", "WorkflowRun", "Plan",
+    "EpisodeLab", "Observation", "ResultReceipt", "Evaluation", "ActionProposal", "WorkflowRun", "Plan",
     "ServiceOrder", "TreatmentOption", "CarePlan", "FollowUpTask", "Operation",
 }
 
@@ -132,13 +133,13 @@ def create_entity(
     session.add(row)
     session.flush()
     _snapshot(session, row)
-    if kind == "ClinicalCase":
+    if kind in {"ClinicalCase", "Episode"}:
         grant_case_access(session, ctx, eid, ctx.principal_id, "creator")
     return deepcopy(data)
 
 
 def _scope_row(session: Session, ctx: AuthContext, row: Entity) -> None:
-    if row.kind == "ClinicalCase":
+    if row.kind in {"ClinicalCase", "Episode"}:
         require_case_access(session, ctx, row.id)
     elif row.kind in DIRECT_CASE_SCOPED and row.parent_id:
         require_case_access(session, ctx, row.parent_id)
@@ -197,7 +198,7 @@ def list_entities(session: Session, ctx: AuthContext, kind: str, *, parent_id: s
         if kind in DIRECT_CASE_SCOPED:
             require_case_access(session, ctx, parent_id)
         stmt = stmt.where(Entity.parent_id == parent_id)
-    elif kind == "ClinicalCase":
+    elif kind in {"ClinicalCase", "Episode"}:
         ids = accessible_case_ids(session, ctx)
         if ids is not None:
             if not ids:

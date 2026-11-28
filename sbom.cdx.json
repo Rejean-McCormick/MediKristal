@@ -29,7 +29,7 @@
     },
     {
       "bom-ref": "pkg:pypi/sqlalchemy@2.0.50",
-      "name": "SQLAlchemy",
+      "name": "sqlalchemy",
       "properties": [
         {
           "name": "medikristal:source",
@@ -122,21 +122,21 @@
         "pkg:pypi/jsonschema@4.26.0",
         "pkg:pypi/psycopg@3.3.6"
       ],
-      "ref": "pkg:pypi/medikristal@0.2.0"
+      "ref": "pkg:pypi/medikristal@2.0.0"
     }
   ],
   "metadata": {
     "component": {
-      "bom-ref": "pkg:pypi/medikristal@0.2.0",
+      "bom-ref": "pkg:pypi/medikristal@2.0.0",
       "name": "medikristal",
-      "purl": "pkg:pypi/medikristal@0.2.0",
+      "purl": "pkg:pypi/medikristal@2.0.0",
       "type": "application",
-      "version": "0.2.0"
+      "version": "2.0.0"
     },
     "properties": [
       {
         "name": "medikristal:requirements-lock-sha256",
-        "value": "56d068e00244920e327ef271eb378cc51e92269d18f85e84f4fc9578405ff30e"
+        "value": "7ea1e963a4241142506d9fd23b36f60129d20fa2a811d641d23c04746f74bc18"
       },
       {
         "name": "medikristal:scope-note",
@@ -144,7 +144,7 @@
       }
     ]
   },
-  "serialNumber": "urn:uuid:f40faa6e-e18b-53c9-8afb-ead9a7201b00",
+  "serialNumber": "urn:uuid:199b26c4-5266-5e5b-b708-0a5d40f0848d",
   "specVersion": "1.5",
   "version": 1
 }

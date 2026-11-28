@@ -37,6 +37,17 @@ Ces scénarios sont des spécifications à implémenter sur l’application. Ils
 | AT-031 | MK-031 | Simuler timeout puis recharger l’écran ; montrer reconciling et la commande durable, jamais succès inventé ni renvoi aveugle. | L9 |
 | AT-032 | MK-032 | Retirer une référence d’opération ou de test dans la matrice : le contrôle documentaire échoue ; aucune gate logicielle n’est inférée du contrôle documentaire. | L12 |
 
+## Scénarios transversaux du système final
+
+| Scénario | Tests reliés | Issue observable |
+| --- | --- | --- |
+| Deux workers reprennent un commit interrompu | AT-010, AT-027 | Un traitement local par événement et consommateur. Une seule unité attribuée lorsque deux acteurs sollicitent le dernier créneau. |
+| Partenaire fictif enregistre l’effet puis perd la réponse | AT-010, AT-027, AT-031 | Après reprise, l’état ambigu est relu puis résolu sur reçu. Le claim persiste tant que l’issue est inconnue, y compris après la date du hold. |
+| Quitter puis rouvrir une fiche, corriger une observation | AT-003, AT-007, AT-015, AT-031 | Cas et opération retrouvés sous le bon rôle. Évaluation périmée visible, aucune mutation répétée et aucun accès hors périmètre. |
+| Exporter, relire et retirer le savoir | AT-004, AT-014, AT-024, AT-025 | Provenance et digests reproductibles, aucune donnée de cas, échec explicite des nouvelles utilisations concernées après retrait. |
+
+Voir les [objectifs et paramètres de campagne](PROFIL_QUALIFICATION.md).
+
 ## Dossier de preuve
 
 Chaque scénario exécuté produit : commit, versions contrats/artefacts, environnement, commande, entrées synthétiques, résultat attendu/réel, verdict et limites. Les tests de concurrence enregistrent l’issue des deux acteurs. Les tests d’accès incluent une assertion d’absence de fuite. Les tests réseau vérifient les appels observés, pas seulement une variable de configuration.

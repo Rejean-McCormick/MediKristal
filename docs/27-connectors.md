@@ -1,5 +1,11 @@
 # 27 — Connecteurs et intégration des sources
 
+## Socle disponible sur le poste Windows
+
+Les outils [d’acquisition](TELECHARGER_SOURCES_MEDICALES.md) et [d’indexation](IMPORTER_REFERENTIELS_PUBLICS.md) travaillent dans le dossier frère `MediKristal-Donnees`. L’index de lecture vérifie les reçus et SHA-256. Il conserve les champs des tables retenues et les provenances. Les classeurs officiels de la CIM-11 servent à lire correctement les notes multilignes. Le résultat a été [vérifié sur les 11 fichiers publics](ETAT_2026-11-27.md#vérification-des-référentiels-sur-le-poste-windows).
+
+Le pipeline ci-dessous décrit l’import applicatif gouverné. Il comprend des décisions d’admission et des droits propres à chaque source. L’index local fournit une entrée à la consultation et aux futurs mappings.
+
 ## Contrat commun d’import
 
 L’unité d’import est `(source_id, source_version, blob_digest, parser_version, mapping_version)`. Le worker reçoit un fichier déjà stocké en quarantaine ou une référence de téléchargement autorisée, jamais une URL libre utilisée directement par le moteur clinique. Les identifiants sont conservés en chaînes, sans conversion numérique.

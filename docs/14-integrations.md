@@ -25,19 +25,24 @@ Une hypothèse calculée n'est pas une Condition confirmée. Une proposition de 
 
 CQL/ELM : conserver source, compilation, dépendances terminologiques et version du moteur. Aucun support « tout CQL » sans tests. Les capacités sélectionnées font l'objet de fixtures positives/négatives. Les serveurs Snowstorm/HAPI et CQF sont des composants candidats, pas des dépendances déjà qualifiées de MediKristal.
 
-## Kristal : constat du snapshot
+## État de l’intégration Kristal
 
-Le snapshot fourni annonce framework `5.0.0-rc.2`, core `5.0`. Le champ commit de release est null ; ne pas inventer un commit définitif. `kristal-reference` implémente notamment identité/vérification Exchange et Runtime Pack. Ce n'est pas la preuve d'une compilation médicale complète.
+La spécification 1.1 conserve un historique issu du Framework 5.0.0-rc.2. Ce profil historique ne sert pas de base à un nouvel export. L’API 0.2.0 déclare `kristal_export` et `fhir_partner` non configurés. La route `POST /api/v1/knowledge/exports` vérifie la release puis enregistre une opération échouée avec `capability_unavailable`. Le registre et l’export évolueront ensemble lors de l’implémentation. Voir [l’état du 27 novembre](ETAT_2026-11-27.md).
 
-Le schéma fourni `structured-epistemic-state.schema.json` exige `schema_version`, `artifact_type`, `state_id`, `artifact_status`, `created_at`, `created_by`, `scope`, `assertions`, `provenance`. `scope.domain` doit utiliser `health` pour ce profil. Le document MediKristal ancien utilise un `clinical_epistemic_state` et `medicine` conceptuels : ils ne sont pas directement conformes. Les exemples narratifs Kristal utilisent parfois `created_by.type/id` alors que le schéma attend notamment `agent_type/agent_id`. L'adaptateur suit le schéma exécutable épinglé et signale toute divergence.
+| Composant du contexte | Version de référence observée | Rôle à la frontière |
+| --- | --- | --- |
+| Kristal Framework | 11.0.0-draft.4 | Définit les identités sémantiques v11 KQ/KP/KA/KS, leur registre, le crosswalk et les dictionnaires distincts. Le choix du format portable reste une décision de contrat. |
+| Kristal Authoring Kit | 4.0.0-draft.4 | Outil d’authoring local. L’adoption de v11 dans un workspace suit sa procédure explicite. |
+| Kristal Integration Pack | 0.3.0-alpha.1 | Lecture et validation v11 avec pin exact. Les projections localisées sont dérivées. |
+| Arketype | 1.6.0 | La recette `medi-connaissances` décrit une composition hybride candidate pour le savoir, les protocoles et les modèles. Elle sert au design. |
 
-## Profil médical proposé
+## Premier profil d’export proposé
 
-Identifiant proposé `medikristal:medical-knowledge-profile:1` ; ce nom est interne, non un profil déjà approuvé par Kristal. Le profil décrit concepts médicaux natifs, assertions/qualifiers, EvidenceEstimate, références de modèles/protocoles et contraintes de lecture dans les champs/`extensions` autorisés. Les probabilités patient ne deviennent pas une certitude générale d'assertion.
+Traiter `medikristal:medical-knowledge-profile:1` comme un identifiant de travail. Choisir avec le consommateur les objets exportés, le schéma exact, le namespace, le registre d’identités, les fichiers lexicaux et leurs empreintes. Figer la version du mapping. Conserver le code source et sa version. Utiliser un crosswalk pour les correspondances admises. Une ambiguïté reste explicite et bloque le mapping si elle touche une assertion exigée.
 
-Étapes : sélectionner contenu partageable ; vérifier droits/absence de données individuelles ; mapper vers Structured Epistemic State ; valider avec schéma exact ; canonicaliser selon profil externe ; vérifier identity/provenance ; émettre artefact ; enregistrer reçu. Un export JSON conforme n'est pas automatiquement un Exchange, Runtime Pack ou contenu reconnu. Les tests de chaque étape sont séparés.
+Construire une fixture à partir d’une release synthétique et d’une liste de types d’objets autorisés. Écarter cas, identifiants individuels, hypothèses calculées pour un cas et reçus opérationnels, y compris leurs références imbriquées. Vérifier droits, provenance, stabilité du mapping et erreurs avec les outils du profil cible. Rejouer la lecture sur le consommateur choisi, puis archiver la preuve liée à l’empreinte de l’artefact. Tenir distincts export validé, import de workspace, activation d’un Runtime Pack et projection UCKK.
 
-Le manifeste MediKristal de connaissance n'est pas renommé Runtime Pack Kristal. Un adaptateur doit construire/vérifier le format natif ou indiquer cette capacité non implémentée. Le runtime local peut consommer sa propre release ; dans un déploiement kOA, `kristal_runtime` reste propriétaire de l'activation de ses Runtime Packs, et MediKristal ne crée pas une seconde autorité sur cet état.
+Le graphe sémantique v11 et un format portable tel que `kristal_state` 6.0 suivent des contrats distincts. Le lot n’annonce que la surface effectivement épinglée et testée. Voir [les preuves de sortie du système final](SYSTEME_FINAL.md#ordre-de-réalisation-et-preuves-attendues).
 
 ## Frontières kOA
 
@@ -52,7 +57,7 @@ Le manifeste MediKristal de connaissance n'est pas renommé Runtime Pack Kristal
 | Architect | Rendu facultatif | Préserve chiffres, limites et statuts |
 | kOA-Linux | Hébergement/admission | Ne devient pas propriétaire clinique |
 
-Les snapshots kOA et Konnaxion ne sont pas synchrones sur tous les statuts d'intégration ; la carte kOA du 21 septembre mentionne une qualification Konnaxion↔Orgo alors que des documents Konnaxion plus anciens restent prudents. Aucune de ces preuves ne qualifie MediKristal. Les snapshots Orgo, Koali, Da’at et kOA-Linux complets ne sont pas fournis ici : leurs contrats concrets doivent être obtenus pour implémenter les adaptateurs.
+Le dossier du 27 novembre fournit du contexte sur les systèmes voisins. Pour brancher un adaptateur, identifier auprès de son propriétaire le contrat exact, le transport, les droits, les versions et les fixtures. Les preuves entre deux autres produits s’appliquent à leur périmètre.
 
 ## Authentification
 

@@ -34,17 +34,11 @@ flowchart TD
 
 Un module n'importe pas le modèle ORM privé d'un autre pour le modifier. Les lectures optimisées intermodules passent par une projection documentée. Les contraintes transactionnelles communes peuvent être implémentées dans la même base, sans effacer la propriété.
 
-## Choix de référence pour démarrer
+## Pile de référence et évolution
 
-Décisions d'architecture recommandées pour ce nouveau projet, pas dépendances déjà testées : Python 3.12 comme baseline d'exécution, FastAPI/Pydantic pour API et validation, PostgreSQL 16 comme baseline relationnelle, SQLAlchemy/Alembic pour persistance/migrations ; React/TypeScript pour les interfaces. Fixer les versions exactes après le lot L0. Une ADR peut remplacer ces choix avant le premier code, mais pas laisser deux piles concurrentes.
+La capture livre Python 3.12 comme version cible, FastAPI et Pydantic pour l’API, SQLAlchemy et Alembic pour la persistance et les migrations, PostgreSQL 16 comme base de déploiement de référence, et une interface HTML/CSS/JavaScript sans chaîne de build. SQLite sert aux essais isolés. Le premier travail sur la livraison porte sur le verrou, le SBOM et la campagne PostgreSQL réelle. Voir [l’état de la capture](ETAT_2026-11-27.md).
 
-Les bibliothèques sont lockées avec hashes et SBOM. La version numérique d'une baseline n'est pas une affirmation qu'elle est la plus récente. Les mises à jour de sécurité sont sélectionnées et testées. CQF est exécuté derrière un port JVM ; son JDK est déterminé par la version sélectionnée et enregistré, pas imposé arbitrairement par le noyau.
-
-PostgreSQL assure la vérité transactionnelle. Les fichiers immuables sont stockés sur disque local ou stockage objet compatible. Aucun Redis, serveur de graphe, moteur vectoriel, Kubernetes, cloud commercial ou GPU n'est obligatoire. Une file de jobs PostgreSQL avec lease, heartbeat et récupération après crash suffit initialement. SQLite n'est pas un second backend implicitement pris en charge : le profil poste autonome embarque le même service et PostgreSQL ; une version mobile exige un projet de synchronisation distinct.
-
-## Disposition du dépôt futur
-
-`backend/medikristal/domain/` types et invariants ; `application/` cas d'usage ; `infrastructure/` DB, fichiers et adaptateurs ; `api/` transport. `workers/`, `frontend/`, `adapters/cqf/`, `contracts/`, `examples/synthetic/`, `tests/`, `deploy/`, `docs/`, `licenses/` complètent le dépôt. Le dossier actuel est documentaire et ne simule pas cette application.
+Le cœur reste un monolithe modulaire avec un worker dans le même code. Le modèle sémantique reste logique et PostgreSQL sert de stockage transactionnel. Toute nouvelle infrastructure, bibliothèque spécialisée ou séparation de service répond à un besoin mesuré et documenté au chapitre 20. CQF et l’optimisation spécialisée demeurent des adaptateurs candidats à qualifier. Le [système final](SYSTEME_FINAL.md) définit l’architecture de déploiement et les mesures de validation.
 
 ## Transactions
 
@@ -52,7 +46,7 @@ Un cas d'usage valide le principal, le tenant, la révision attendue et les inva
 
 ## Ports
 
-Chaque adaptateur expose `capabilities`, `health`, versions supportées, classification des données admises, timeout et erreurs typées. Le noyau ne dépend pas d'une SDK commerciale. L'adaptateur ne décide jamais de l'autorisation d'une prescription ou de la reconnaissance d'une assertion. Les ports détaillés sont au chapitre 13.
+Chaque adaptateur expose `capabilities`, `health`, versions supportées, classification des données admises, timeout et erreurs typées. Le noyau ne dépend pas d'un SDK commercial. L'adaptateur ne décide jamais de l'autorisation d'une prescription ou de la reconnaissance d'une assertion. Les ports détaillés sont au chapitre 13.
 
 ## Registre de capacités
 

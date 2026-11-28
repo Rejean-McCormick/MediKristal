@@ -4,6 +4,10 @@
 
 **Current engineering baseline:** specification 1.1, reference software package/API 0.2.0. The software exposes 80 contract operations and a documented synthetic reference implementation; **clinical validity, regulatory clearance, medical knowledge completeness and authorization for clinical use are not claimed**.
 
+## MediKristal 2.0
+
+L’[atelier Épisodes](docs/LIVRAISON_2.0.md) se lance sous Windows avec `pwsh -NoProfile -ExecutionPolicy Bypass -File .\Start-MediKristal.ps1`. Il ouvre le parcours synthétique sur `http://127.0.0.1:8001/episodes`. Le scénario inclut la saisie, la comparaison des examens, le retour laboratoire simulé et la décision à signer.
+
 ## Start here
 
 - [Developer-agent instructions](AGENTS.md)

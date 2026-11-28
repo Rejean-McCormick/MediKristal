@@ -40,6 +40,10 @@ Chaque paramètre clinique absent reste absent et produit un code de raison. Un 
 
 Une fonction livrée inclut migrations, commande typée, contrôles, reprise après panne, explication et preuve de tests. Le statut de capacité comporte `specified`, `implemented`, `qualified_software`, puis les preuves d’usage prévues au chapitre 01. Les erreurs/permissions font partie de la gate, pas d’une phase optionnelle de durcissement.
 
-## Reste à décider au démarrage du code
+## Tickets de reprise du dépôt
 
-Versions exactes et lockfiles ; implémentation d’identité/chiffrement ; fixture externe autorisée pour chaque parser ; premier corpus clinique réel ; politique d’autorisation locale. Le choix du corpus ne bloque pas les tickets purement logiciels. Toutes les versions de format et dépendances réellement retenues remplacent les propositions documentaires dans une ADR datée.
+Commencer par [MK-SF-01](BACKLOG_SYSTEME_FINAL.md#mk-sf-01--reproduire-le-socle). Les tickets TKT restent le découpage de conception par module. Le backlog du système final fixe l'ordre opérationnel et ses points d'entrée actuels.
+
+## Décisions à confirmer par tranche
+
+Récupérer et vérifier le verrou déclaré dans le checkout propriétaire. Pour chaque nouvelle frontière, choisir la version du contrat, les fixtures autorisées et les politiques locales. Les choix d’identité et de chiffrement dépendent du profil déployé. Le choix du corpus ne bloque pas les tickets purement logiciels. Toutes les versions de format et dépendances réellement retenues remplacent les propositions documentaires dans une ADR datée.

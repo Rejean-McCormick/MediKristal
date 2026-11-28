@@ -210,3 +210,16 @@ def get_session() -> Iterator[Session]:
         raise
     finally:
         session.close()
+
+
+class EpisodeAnalysis(Base):
+    """Minimal analytics projection with no episode title, observation or free text."""
+
+    __tablename__ = "mk_episode_analysis"
+
+    episode_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    tenant_id: Mapped[str] = mapped_column(String(36), index=True, nullable=False)
+    outcome_kind: Mapped[str] = mapped_column(String(32), nullable=False)
+    model_ref: Mapped[str] = mapped_column(String(71), nullable=False)
+    forecast_percent: Mapped[int | None] = mapped_column(Integer)
+    verified_positive: Mapped[bool | None] = mapped_column(Boolean)

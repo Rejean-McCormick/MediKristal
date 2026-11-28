@@ -6,7 +6,7 @@ from pathlib import Path
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import FileResponse, ORJSONResponse
+from fastapi.responses import FileResponse, ORJSONResponse, RedirectResponse
 from sqlalchemy import text
 from fastapi.staticfiles import StaticFiles
 
@@ -14,6 +14,7 @@ from .api import router
 from .config import load_settings
 from .contracts import openapi_schema
 from .db import Base, engine
+from .episodes import routes as episode_routes
 from .errors import DomainError, error_response
 
 settings = load_settings()
@@ -28,7 +29,7 @@ async def lifespan(_: FastAPI):
 
 app = FastAPI(
     title="MediKristal",
-    version="0.2.0",
+    version="2.0.0",
     docs_url="/developer/docs",
     redoc_url=None,
     lifespan=lifespan,
@@ -87,6 +88,7 @@ def readyz():
 
 
 app.include_router(router)
+app.include_router(episode_routes)
 
 if settings.frontend_dir.exists():
     assets = settings.frontend_dir / "assets"
@@ -95,7 +97,25 @@ if settings.frontend_dir.exists():
 
     @app.get("/", include_in_schema=False)
     def frontend_index():
+        if settings.local_episode_demo:
+            return RedirectResponse("/episodes")
+        return frontend_console()
+
+    @app.get("/console", include_in_schema=False)
+    def frontend_console():
         return FileResponse(settings.frontend_dir / "index.html")
+
+    @app.get("/episodes", include_in_schema=False)
+    def frontend_episodes():
+        return FileResponse(settings.frontend_dir / "episode.html")
+
+    @app.get("/episodes.js", include_in_schema=False)
+    def frontend_episode_script():
+        return FileResponse(settings.frontend_dir / "episodes.js", media_type="application/javascript")
+
+    @app.get("/episodes.css", include_in_schema=False)
+    def frontend_episode_styles():
+        return FileResponse(settings.frontend_dir / "episodes.css", media_type="text/css")
 
     @app.get("/app.js", include_in_schema=False)
     def frontend_js():
